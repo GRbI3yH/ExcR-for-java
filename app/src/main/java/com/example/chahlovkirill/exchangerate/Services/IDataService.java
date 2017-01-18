@@ -16,9 +16,9 @@ import retrofit2.http.GET;
 public interface IDataService {
 
     @GET("/Cities")
-    public Call<List<CitiyModel>> Citiy();
+    public Call<List<CitiyModel>> getCitiy();
 
     @GET("/RatesForCity")
-    public Call<List<BankModel>> Bank(@FieldMap Map<String,String> cityId);
+    public Call<List<BankModel>> getBank(@FieldMap Map<String,String> cityId);
 
 }
