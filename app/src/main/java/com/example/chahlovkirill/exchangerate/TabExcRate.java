@@ -1,5 +1,6 @@
 package com.example.chahlovkirill.exchangerate;
 
+import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +16,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.List;
 
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ArrayAdapter;
+
+import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
+import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
+import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Services.cash2cashAPI;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TabExcRate extends AppCompatActivity {
 
@@ -52,27 +65,7 @@ public class TabExcRate extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tab_exc_rate, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -102,9 +95,38 @@ public class TabExcRate extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tab_exc_rate, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            final View rootView = inflater.inflate(R.layout.fragment_tab_exc_rate, container, false);
+            //final TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            //TextView CM = (TextView)rootView.findViewById(R.id.section_label);
+
+            Setting setting = new Setting();
+            ListView LVCityM = (ListView)rootView.findViewById(R.id.lvCityM);
+            CitiesAdapter adapter = new  CitiesAdapter( getContext() , setting.getCities(getContext()));
+            if (adapter.equals(null)) LVCityM.setAdapter(adapter);
+
+            cash2cashAPI.getCallCitiyModel(new Callback<List<CityModel>>(){
+                @Override
+                public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+                    if (response.isSuccessful() && response.body() != null){
+                        List<CityModel> citiymodel = response.body() ;
+                        Setting setting = new Setting();
+                        setting.setCities(citiymodel,getContext());
+
+                        ListView LVCityM = (ListView)rootView.findViewById(R.id.lvCityM);
+
+                        CitiesAdapter adapter = new  CitiesAdapter( getContext() , citiymodel);
+
+                        LVCityM.setAdapter(adapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                    //TextView CM = (TextView)rootView.findViewById(R.id.section_label);
+                    //CM.setText("Something went wrong: " + t.getMessage());
+                }
+            });
             return rootView;
         }
     }
@@ -129,7 +151,7 @@ public class TabExcRate extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -139,8 +161,6 @@ public class TabExcRate extends AppCompatActivity {
                     return "SECTION 1";
                 case 1:
                     return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
             }
             return null;
         }

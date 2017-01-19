@@ -5,7 +5,9 @@ package com.example.chahlovkirill.exchangerate.Model;
  */
 import com.google.gson.annotations.*;
 
-public class BankModel {
+import java.io.Serializable;
+
+public class BankModel implements Serializable {
     @SerializedName("BankId")
     @Expose
     private String BankId;
@@ -43,38 +45,38 @@ public class BankModel {
         this.Name = Name;
     }
 
-    private double getEURBuy(){
+    public double getEURBuy(){
         return this.EURBuy;
     }
-    private void setEURBuy(double EURBuy){
+    public void setEURBuy(double EURBuy){
         this.EURBuy = EURBuy;
     }
 
-    private double getEURSell(){
+    public double getEURSell(){
         return this.EURSell;
     }
-    private void setEURSell(double EURSell){
+    public void setEURSell(double EURSell){
         this.EURSell = EURSell;
     }
 
-    private double getUSDBuy(){
+    public double getUSDBuy(){
         return this.USDBuy;
     }
-    private void setUSDBuy(double USDBuy){
+    public void setUSDBuy(double USDBuy){
         this.USDBuy = USDBuy;
     }
 
-    private double getUSDSell(){
+    public double getUSDSell(){
         return this.USDSell;
     }
-    private void setUSDSell( double USDSell){
+    public void setUSDSell( double USDSell){
         this.USDSell = USDSell;
     }
 
-    private String getMessage(){
+    public String getMessage(){
         return this.Message;
     }
-    private void setMessage(String Message){
+    public void setMessage(String Message){
         this.Message = Message;
     }
 
