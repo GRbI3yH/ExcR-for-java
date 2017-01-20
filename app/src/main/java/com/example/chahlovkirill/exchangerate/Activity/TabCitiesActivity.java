@@ -65,7 +65,12 @@ public class TabCitiesActivity extends Fragment {
                     List<CityModel> citiymodel = response.body() ;
 
                     Setting.setCities(citiymodel,getContext());
-
+                    String selectCity = Setting.getselectCity(getContext());
+                    for (CityModel city :citiymodel){
+                        if (selectCity == String.valueOf(city.getId())){
+                            city.setSelected(true);
+                        }
+                    }
                     ListView LVCityM = (ListView)rootView.findViewById(R.id.lvCityM);
 
                     CitiesAdapter adapter = new  CitiesAdapter( getContext() , citiymodel);

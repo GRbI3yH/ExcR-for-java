@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
@@ -58,6 +59,37 @@ public class TabBanksActivity extends Fragment {
         //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         //TextView CM = (TextView)rootView.findViewById(R.id.section_label);
 
+        Button RUBToUSD = (Button)rootView.findViewById(R.id.RUBToUSD);
+        RUBToUSD.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            //    TabBanksActivity.this.
+            }
+        });
+
+        Button USDToRUB = (Button)rootView.findViewById(R.id.USDToRUB);
+        USDToRUB.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        Button RUBtoEUR = (Button)rootView.findViewById(R.id.RUBtoEUR);
+        RUBtoEUR.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        Button EURtoRUB = (Button)rootView.findViewById(R.id.EURtoRUB);
+        EURtoRUB.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         ListView LVCityM = (ListView)rootView.findViewById(R.id.lvBankM);
 
@@ -99,6 +131,9 @@ public class TabBanksActivity extends Fragment {
         });
         return rootView;
     }
+//    public  void RUBToUSD(View view){
+//
+//    }
 //    public void onClick(View view){
 //        TextView helloTextView = (TextView)findViewById(R.id.button1);
 //        helloTextView.setText("Hello Kitty!");

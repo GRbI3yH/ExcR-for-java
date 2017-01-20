@@ -17,6 +17,9 @@ public class CityModel implements Serializable {
     @SerializedName("Name")
     @Expose
     private String Name ;
+
+    private boolean Selected;
+
 //    private String TranslitId ;
 
     public int getId() {
@@ -32,6 +35,14 @@ public class CityModel implements Serializable {
     public void setName(String Name) {
         this.Name = Name;
     }
+
+    public boolean getSelected(){
+        return this.Selected;
+    }
+    public void setSelected(boolean Selected){
+        this.Selected = Selected;
+    }
+
 
 //    public String getTranslitId() {
 //        return this.TranslitId;
