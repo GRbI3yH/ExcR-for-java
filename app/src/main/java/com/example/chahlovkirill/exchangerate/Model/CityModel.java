@@ -2,11 +2,14 @@ package com.example.chahlovkirill.exchangerate.Model;
 
 import retrofit2.http.GET;
 import com.google.gson.annotations.*;
+
+import java.io.Serializable;
+
 /**
  * Created by chahlov.kirill on 18/01/17.
  */
 
-public class CitiyModel {
+public class CityModel implements Serializable {
 
     @SerializedName("Id")
     @Expose
