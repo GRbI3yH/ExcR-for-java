@@ -5,10 +5,15 @@ package com.example.chahlovkirill.exchangerate.Services;
  */
 import android.util.Log;
 
+import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
+import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.google.gson.GsonBuilder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +33,16 @@ public class cash2cashAPI {
         Icash2cashAPI cash2cash= retrofit.create(Icash2cashAPI.class);
 
         Call<List<CityModel>> call = cash2cash.getCitiy();
+        call.enqueue(callbak);
+    }
+    public static void getCallBanksModel (String idCities, Callback<List<BankModel>> callbak){
+        Retrofit retrofit = getClient();
+        Icash2cashAPI cash2cash= retrofit.create(Icash2cashAPI.class);
+
+        Map<String,String> map = new HashMap<>();
+        map.put("cityId",idCities);
+
+        Call<List<BankModel>> call = cash2cash.getBank(map);
         call.enqueue(callbak);
     }
 

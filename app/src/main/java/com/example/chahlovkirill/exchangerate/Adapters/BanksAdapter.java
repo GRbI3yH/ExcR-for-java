@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
-    public BanksAdapter(Context context, List<BankCurrencyModel> City){
-        super(context,0,City);
+    public BanksAdapter(Context context, List<BankCurrencyModel> Bank){
+        super(context,0,Bank);
     }
 
 

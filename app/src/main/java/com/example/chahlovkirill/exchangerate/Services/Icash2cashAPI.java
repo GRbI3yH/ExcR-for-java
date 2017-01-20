@@ -9,6 +9,7 @@ import retrofit2.http.FieldMap ;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by chahlov.kirill on 18/01/17.
@@ -20,6 +21,6 @@ public interface Icash2cashAPI {
     public Call<List<CityModel>> getCitiy();
 
     @GET("RatesForCity")
-    public Call<List<BankModel>> getBank(@FieldMap Map<String,String> cityId);
+    public Call<List<BankModel>> getBank(@QueryMap Map<String,String> cityId);
 
 }

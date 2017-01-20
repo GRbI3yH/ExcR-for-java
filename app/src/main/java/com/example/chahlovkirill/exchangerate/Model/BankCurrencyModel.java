@@ -1,5 +1,6 @@
 package com.example.chahlovkirill.exchangerate.Model;
 
+import com.example.chahlovkirill.exchangerate.Services.SortBanks;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class BankCurrencyModel extends BankModel {
 
-    BankCurrencyModel(BankModel bankmodel){
+    public BankCurrencyModel(BankModel bankmodel, EExchangeAction mode){
 
         this.setBankId(bankmodel.getBankId());
         this.setName(bankmodel.getName());
@@ -18,6 +19,21 @@ public class BankCurrencyModel extends BankModel {
         this.setUSDBuy(bankmodel.getUSDBuy());
         this.setUSDSell(bankmodel.getUSDSell());
         this.setMessage(bankmodel.getMessage());
+        switch (mode)
+        {
+            case EURBuy:
+                setCurrency(this.getEURBuy());
+                break;
+            case EURSell:
+                setCurrency(this.getEURSell());
+                break;
+            case USDBuy:
+                setCurrency(this.getUSDBuy());
+                break;
+            case USDSell:
+                setCurrency(this.getUSDSell());
+                break;
+        }
     }
 
     @SerializedName("Currency")

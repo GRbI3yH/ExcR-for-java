@@ -7,7 +7,7 @@ import com.google.gson.annotations.*;
 
 import java.io.Serializable;
 
-public class BankModel implements Serializable {
+public class BankModel implements Serializable , Comparable<BankModel> {
     @SerializedName("BankId")
     @Expose
     private String BankId;
@@ -78,6 +78,22 @@ public class BankModel implements Serializable {
     }
     public void setMessage(String Message){
         this.Message = Message;
+    }
+
+    @Override
+    public int compareTo(BankModel o) {
+        int result;
+        result = Double.compare(this.EURBuy ,    o.getEURBuy());
+        if(result != 0) return result;
+
+        result = Double.compare(this.EURSell,    o.getEURSell());
+        if(result != 0) return result;
+
+        result = Double.compare(this.USDBuy,     o.getUSDBuy());
+        if(result != 0) return result;
+
+        result = Double.compare(this.USDSell,    o.getUSDSell());
+        return result;
     }
 
 //    private String getTranslitId(){
