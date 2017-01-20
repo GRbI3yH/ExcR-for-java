@@ -45,4 +45,41 @@ public class BankCurrencyModel extends BankModel {
     public void setCurrency(double Currency) {
         this.Currency = Currency;
     }
+
+    public int compareTo(BankCurrencyModel o) {
+        int result;
+        result = Double.compare(this.getEURBuy(),    o.getEURBuy());
+        if(result != 0) return result;
+
+        result = Double.compare(this.getEURSell(),    o.getEURSell());
+        if(result != 0) return result;
+
+        result = Double.compare(this.getUSDBuy(),     o.getUSDBuy());
+        if(result != 0) return result;
+
+        result = Double.compare(this.getUSDSell(),    o.getUSDSell());
+        return result;
+    }
+
+    public void setCurrencyOfBCM(EExchangeAction mode){
+        switch (mode)
+        {
+            case EURBuy:
+                setCurrency(this.getEURBuy());
+                break;
+
+            case EURSell:
+                setCurrency(this.getEURSell());
+                break;
+
+            case USDBuy:
+                setCurrency(this.getUSDBuy());
+                break;
+
+            case USDSell:
+                setCurrency(this.getUSDSell());
+                break;
+        }
+
+    }
 }

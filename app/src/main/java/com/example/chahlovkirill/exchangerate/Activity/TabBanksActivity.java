@@ -19,6 +19,7 @@ import com.example.chahlovkirill.exchangerate.R;
 import com.example.chahlovkirill.exchangerate.Services.SortBanks;
 import com.example.chahlovkirill.exchangerate.Services.cash2cashAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -51,6 +52,7 @@ public class TabBanksActivity extends Fragment {
         return fragment;
     }
 
+    private List<BankCurrencyModel> bankcurrencymodel = new ArrayList<BankCurrencyModel>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +65,9 @@ public class TabBanksActivity extends Fragment {
         RUBToUSD.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-            //    TabBanksActivity.this.
+                for (BankCurrencyModel BCM :bankcurrencymodel){
+                    BCM.setCurrencyOfBCM(EExchangeAction.USDBuy);
+                }
             }
         });
 
@@ -71,7 +75,9 @@ public class TabBanksActivity extends Fragment {
         USDToRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                for (BankCurrencyModel BCM :bankcurrencymodel){
+                    BCM.setCurrencyOfBCM(EExchangeAction.USDSell);
+                }
             }
         });
 
@@ -79,7 +85,9 @@ public class TabBanksActivity extends Fragment {
         RUBtoEUR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                for (BankCurrencyModel BCM :bankcurrencymodel){
+                    BCM.setCurrencyOfBCM(EExchangeAction.EURBuy);
+                }
             }
         });
 
@@ -87,13 +95,15 @@ public class TabBanksActivity extends Fragment {
         EURtoRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                for (BankCurrencyModel BCM :bankcurrencymodel){
+                    BCM.setCurrencyOfBCM(EExchangeAction.EURSell);
+                }
             }
         });
 
         ListView LVCityM = (ListView)rootView.findViewById(R.id.lvBankM);
 
-        List<BankCurrencyModel> bankcurrencymodel = SortBanks.Sort( //достаем из настроек и сортируем
+        bankcurrencymodel = SortBanks.Sort( //достаем из настроек и сортируем
                 Setting.getBanks(getContext()),
                 Setting.getCurrency(getContext()),
                 getContext()
@@ -109,7 +119,7 @@ public class TabBanksActivity extends Fragment {
                     List<BankModel> bankmodel = response.body() ;
 
                     Setting.setBanks(bankmodel,getContext());
-                    List<BankCurrencyModel> bankcurrencymodel = SortBanks.Sort(
+                    bankcurrencymodel = SortBanks.Sort(
                             bankmodel,
                             Setting.getCurrency(getContext()),
                             getContext()
