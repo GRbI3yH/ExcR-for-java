@@ -53,13 +53,11 @@ public class TabBanksActivity extends Fragment {
     }
 
     private List<BankCurrencyModel> bankcurrencymodel = new ArrayList<BankCurrencyModel>();
+    private BanksAdapter adapter ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.banks_tab_exc_rate, container, false);
-        //final TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-        //TextView CM = (TextView)rootView.findViewById(R.id.section_label);
 
         Button RUBToUSD = (Button)rootView.findViewById(R.id.RUBToUSD);
         RUBToUSD.setOnClickListener(new View.OnClickListener(){
@@ -68,6 +66,7 @@ public class TabBanksActivity extends Fragment {
                 for (BankCurrencyModel BCM :bankcurrencymodel){
                     BCM.setCurrencyOfBCM(EExchangeAction.USDBuy);
                 }
+                adapter.notifyDataSetChanged();//refresh a ListView
             }
         });
 
@@ -78,6 +77,7 @@ public class TabBanksActivity extends Fragment {
                 for (BankCurrencyModel BCM :bankcurrencymodel){
                     BCM.setCurrencyOfBCM(EExchangeAction.USDSell);
                 }
+                adapter.notifyDataSetChanged();//refresh a ListView
             }
         });
 
@@ -88,6 +88,7 @@ public class TabBanksActivity extends Fragment {
                 for (BankCurrencyModel BCM :bankcurrencymodel){
                     BCM.setCurrencyOfBCM(EExchangeAction.EURBuy);
                 }
+                adapter.notifyDataSetChanged();//refresh a ListView
             }
         });
 
@@ -98,6 +99,7 @@ public class TabBanksActivity extends Fragment {
                 for (BankCurrencyModel BCM :bankcurrencymodel){
                     BCM.setCurrencyOfBCM(EExchangeAction.EURSell);
                 }
+                adapter.notifyDataSetChanged();//refresh a ListView
             }
         });
 
@@ -109,7 +111,7 @@ public class TabBanksActivity extends Fragment {
                 getContext()
         );
 
-        BanksAdapter adapter = new  BanksAdapter( getContext() , bankcurrencymodel);
+        adapter = new  BanksAdapter( getContext() , bankcurrencymodel);
         if (adapter.equals(null)) LVCityM.setAdapter(adapter);
 
         cash2cashAPI.getCallBanksModel(Setting.getselectCity(getContext()),new Callback<List<BankModel>>(){
@@ -127,7 +129,7 @@ public class TabBanksActivity extends Fragment {
 
                     ListView LVCityM = (ListView)rootView.findViewById(R.id.lvBankM);
 
-                    BanksAdapter adapter = new  BanksAdapter( getContext() , bankcurrencymodel);
+                    adapter = new  BanksAdapter( getContext() , bankcurrencymodel);
 
                     LVCityM.setAdapter(adapter);
                 }

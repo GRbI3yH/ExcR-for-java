@@ -49,6 +49,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
                 }
                 City.setSelected(true);
                 Setting.setselectCity(String.valueOf(City.getId()),getContext());
+                CitiesAdapter.this.notifyDataSetChanged();
             }
         });
         // Lookup view for data population

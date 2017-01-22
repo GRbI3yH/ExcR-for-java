@@ -25,13 +25,12 @@
     </LinearLayout>
     <!--RIGHT-->
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         app:gravity="right"
-        app:bring_to_clamp="150dp"
+        app:bring_to_clamp="100dp"
         app:clamp="self"
-        app:sticky="100dp">
+        app:sticky="none">
 
         <Button
             android:text="Button"
