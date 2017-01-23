@@ -15,6 +15,7 @@ import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Created by chahlov.kirill on 19/01/17.
@@ -30,15 +31,16 @@ public class Setting {
         saveSetting(selectCity_key,selectcity,ctx);
     }
     public static String getselectCity(Context ctx){
-        if(loadSetting(selectCity_key,ctx) != null){
-            return loadSetting(selectCity_key,ctx);
+        String selectCity = loadSetting(selectCity_key,ctx);
+        if(selectCity != null){
+            return selectCity;
         }
         return "4212";
     }
 
 
     private static String currency_key = "currency_key";
-    public static void setCurrency(EExchangeAction mode, Context ctx) {
+    public static void setSelectCurrency(EExchangeAction mode, Context ctx) {
         switch (mode){
             case EURBuy:
                 saveSetting(currency_key,"0", ctx);
@@ -54,9 +56,9 @@ public class Setting {
                 break;
         }
     }
-    public static EExchangeAction getCurrency(Context ctx){
-        if (loadSetting(currency_key,ctx) != null){
-            String mode =  loadSetting(currency_key,ctx);
+    public static EExchangeAction getSelectCurrency(Context ctx){
+        String mode =  loadSetting(currency_key,ctx);
+        if (mode != null){
             switch (mode){
                 case "0":
                     return EExchangeAction.EURBuy ;
@@ -83,11 +85,22 @@ public class Setting {
         String json = gson.toJson(cities);
         saveSetting(cities_key, json, ctx);
     }
+
     public static List<CityModel> getCities(Context ctx){
-        if (loadSetting(cities_key,ctx) != null){
-            String json =  loadSetting(cities_key ,ctx);
-            Type listOfTestObject = new ArrayList<CityModel>(){}.getClass();
-            return gson.fromJson(json, listOfTestObject);
+
+         String json =  loadSetting(cities_key ,ctx);
+
+         if (json != null){
+            Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
+            ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
+            String selectCity = Setting.getselectCity(ctx);
+            if( (selectCity != null) && (cities != null)){
+                for (CityModel CM : cities) {
+                    if (CM.getId() == Integer.parseInt(selectCity) )
+                        CM.setSelected(true);
+                }
+            }
+            return cities;
         }
         return new ArrayList<CityModel>();
     }
@@ -99,9 +112,10 @@ public class Setting {
         saveSetting(banks_key, json,ctx);
     }
     public static List<BankModel> getBanks(Context ctx){
-        if (loadSetting(banks_key,ctx) != null){
-            String json =  loadSetting(banks_key ,ctx);
-            Type listOfTestObject = new ArrayList<BankModel>(){}.getClass();
+        String Banks = loadSetting(banks_key,ctx);
+        if (Banks != null){
+            String json =  Banks;
+            Type listOfTestObject = new TypeToken<ArrayList<BankModel>>(){}.getType();
             return gson.fromJson(json, listOfTestObject);
         }
         return new ArrayList<BankModel>();

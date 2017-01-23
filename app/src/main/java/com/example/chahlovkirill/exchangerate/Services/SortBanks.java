@@ -19,33 +19,33 @@ import java.util.List;
 
 public class SortBanks{
 
-    public static List<BankCurrencyModel> Sort(List<BankModel> BM, EExchangeAction mode, Context context){
-        List<BankCurrencyModel> banksVM = new ArrayList<BankCurrencyModel>()  ;
-        if (BM != null){
-            Collections.sort(BM);
+    public static List<BankCurrencyModel> Sort(List<BankModel> Banks, EExchangeAction mode, Context context){
+        List<BankCurrencyModel> BanksCurrency = new ArrayList<BankCurrencyModel>()  ;
+        if (Banks != null){
+            Collections.sort(Banks);
             switch (mode)
             {
                 case EURBuy:
-                    Setting.setCurrency(EExchangeAction.EURBuy,context)	;					//настройки
+                    Setting.setSelectCurrency(EExchangeAction.EURBuy,context)	;					//настройки
                     break;
 
                 case EURSell:
-                    Setting.setCurrency(EExchangeAction.EURSell,context)	;
+                    Setting.setSelectCurrency(EExchangeAction.EURSell,context)	;
                     break;
 
                 case USDBuy:
-                    Setting.setCurrency(EExchangeAction.USDBuy,context)	;
+                    Setting.setSelectCurrency(EExchangeAction.USDBuy,context)	;
                     break;
 
                 case USDSell:
-                    Setting.setCurrency(EExchangeAction.USDSell,context)	;
+                    Setting.setSelectCurrency(EExchangeAction.USDSell,context)	;
                     break;
             }
-            for (BankModel bank : BM)
+            for (BankModel bank : Banks)
             {
-                banksVM.add(new BankCurrencyModel(bank, mode));
+                BanksCurrency.add(new BankCurrencyModel(bank, mode));
             }
         }
-        return banksVM;
+        return BanksCurrency;
     }
 }

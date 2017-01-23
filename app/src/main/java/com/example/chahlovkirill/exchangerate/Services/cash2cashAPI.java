@@ -27,12 +27,12 @@ public class cash2cashAPI {
     private static final String BASE_URL = "http://wsv3.cash2cash.ru/ExRatesJson.svc/";
     //private Gson gson = new GsonBuilder().create();
 
-    public static void getCallCitiyModel (Callback<List<CityModel>> callbak){
+    public static void getCallCitiesModel (Callback<List<CityModel>> callbak){
         Retrofit retrofit = getClient();
 
         Icash2cashAPI cash2cash= retrofit.create(Icash2cashAPI.class);
 
-        Call<List<CityModel>> call = cash2cash.getCitiy();
+        Call<List<CityModel>> call = cash2cash.getCities();
         call.enqueue(callbak);
     }
     public static void getCallBanksModel (String idCities, Callback<List<BankModel>> callbak){
@@ -42,7 +42,7 @@ public class cash2cashAPI {
         Map<String,String> map = new HashMap<>();
         map.put("cityId",idCities);
 
-        Call<List<BankModel>> call = cash2cash.getBank(map);
+        Call<List<BankModel>> call = cash2cash.getBanks(map);
         call.enqueue(callbak);
     }
 

@@ -4,6 +4,8 @@ import com.example.chahlovkirill.exchangerate.Services.SortBanks;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
+
 /**
  * Created by chahlov.kirill on 19/01/17.
  */
@@ -47,21 +49,10 @@ public class BankCurrencyModel extends BankModel {
     }
 
     public int compareTo(BankCurrencyModel o) {
-        int result;
-        result = Double.compare(this.getEURBuy(),    o.getEURBuy());
-        if(result != 0) return result;
-
-        result = Double.compare(this.getEURSell(),    o.getEURSell());
-        if(result != 0) return result;
-
-        result = Double.compare(this.getUSDBuy(),     o.getUSDBuy());
-        if(result != 0) return result;
-
-        result = Double.compare(this.getUSDSell(),    o.getUSDSell());
-        return result;
+        return  this.getCurrency() > o.getCurrency() ? 1 : this.getCurrency() < o.getCurrency() ? -1 : 0;
     }
 
-    public void setCurrencyOfBCM(EExchangeAction mode){
+    public void setCurrencyOf(EExchangeAction mode){
         switch (mode)
         {
             case EURBuy:

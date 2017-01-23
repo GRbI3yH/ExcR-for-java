@@ -18,9 +18,9 @@ import retrofit2.http.QueryMap;
 public interface Icash2cashAPI {
 
     @GET("Cities")
-    public Call<List<CityModel>> getCitiy();
+    public Call<List<CityModel>> getCities();
 
     @GET("RatesForCity")
-    public Call<List<BankModel>> getBank(@QueryMap Map<String,String> cityId);
+    public Call<List<BankModel>> getBanks(@QueryMap Map<String,String> cityId);
 
 }

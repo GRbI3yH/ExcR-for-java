@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.ArrayAdapter;
 
 import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
+import com.example.chahlovkirill.exchangerate.Adapters.TabSectionsPagerAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.R;
@@ -55,20 +56,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_exc_rate);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-//        mSectionsPagerAdapter = new TabSectionsPagerAdapter(getSupportFragmentManager());
-//
-//        // Set up the ViewPager with the sections adapter.
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
-        //Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Cities"));
         tabLayout.addTab(tabLayout.newTab().setText("Banks"));
-//        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final TabSectionsPagerAdapter adapter = new TabSectionsPagerAdapter
@@ -92,54 +82,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class TabSectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private int NumOfTabs;
-
-        public TabSectionsPagerAdapter(FragmentManager fm, int NumOfTabs) {
-            super(fm);
-            this.NumOfTabs = NumOfTabs;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position){
-                case 0:
-                TabCitiesActivity TCitiesA = new TabCitiesActivity();
-                return TCitiesA;
-                case 1:
-                TabBanksActivity TBanksA = new TabBanksActivity();
-                return TBanksA;
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return NumOfTabs;
-        }
-
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            switch (position) {
-//                case 0:
-//                    return "SECTION 1";
-//                case 1:
-//                    return "SECTION 2";
-//            }
-//            return null;
-//        }
     }
 }

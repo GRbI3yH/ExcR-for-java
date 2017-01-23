@@ -17,7 +17,7 @@ import com.example.chahlovkirill.exchangerate.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Callback;
+//import retrofit2.Callback;
 
 /**
  * Created by chahlov.kirill on 19/01/17.
@@ -38,34 +38,34 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cities_list_item, parent, false);
         }
+
+        TextView CityName = (TextView) convertView.findViewById(R.id.city_name);
+        ImageView ImageView = (ImageView) convertView.findViewById(R.id.imageView);
+
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //CitiesAdapter.this.Cities;
-                for (CityModel cityModel: CitiesAdapter.this.Cities){
-                    if (cityModel.getSelected()){
-                        cityModel.setSelected(false);
+                for (CityModel city: CitiesAdapter.this.Cities){
+                    if (city.getSelected()){
+                        city.setSelected(false);
                     }
                 }
                 City.setSelected(true);
                 Setting.setselectCity(String.valueOf(City.getId()),getContext());
                 CitiesAdapter.this.notifyDataSetChanged();
+
             }
         });
         // Lookup view for data population
-        TextView tvName = (TextView) convertView.findViewById(R.id.city_name);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
-
         if (City.getSelected()){
-            imageView.setVisibility(View.VISIBLE);
+            ImageView.setVisibility(View.VISIBLE);
         }
         else{
-            imageView.setVisibility(View.GONE);
+            ImageView.setVisibility(View.GONE);
         }
-        //TextView tvHome = (TextView) convertView.findViewById(R.id.tvHome);
         // Populate the data into the template view using the data object
-        tvName.setText(City.getName());
-        //tvHome.setText(user.hometown);
+        CityName.setText(City.getName());
         // Return the completed view to render on screen
         return convertView;
     }

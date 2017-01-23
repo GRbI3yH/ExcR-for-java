@@ -34,13 +34,11 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bank_list_item, parent, false);
         }
         // Lookup view for data population
-        TextView bankName = (TextView) convertView.findViewById(R.id.bank_name);
-        TextView bankValueCurrency = (TextView) convertView.findViewById(R.id.bank_valueCurrency);
-        //TextView tvHome = (TextView) convertView.findViewById(R.id.tvHome);
+        TextView BankName = (TextView) convertView.findViewById(R.id.bank_name);
+        TextView BankValueCurrency = (TextView) convertView.findViewById(R.id.bank_valueCurrency);
         // Populate the data into the template view using the data object
-        bankName.setText(Bank.getName());
-        bankValueCurrency.setText(String.valueOf(Bank.getCurrency()));
-        //tvHome.setText(user.hometown);
+        BankName.setText(Bank.getName());
+        BankValueCurrency.setText(String.valueOf(Bank.getCurrency()));
         // Return the completed view to render on screen
         return convertView;
     }
