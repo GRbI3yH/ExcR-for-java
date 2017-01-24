@@ -51,58 +51,60 @@ public class TabBanksFragment extends Fragment {
         return fragment;
     }
 
-    private ListView ListViewBanks;
+    private ListView listViewBanks;
 
-    private View rootView ;
-    private Button RUBToUSD;
-    private Button USDToRUB;
-    private Button RUBtoEUR;
-    private Button EURtoRUB;
-    private TabBanksPresenter BanksPresenter;
+    private View rootView;
+    private Button buttonRUBToUSD;
+    private Button buttonUSDToRUB;
+    private Button buttonRUBtoEUR;
+    private Button buttonEURtoRUB;
+    private TabBanksPresenter banksPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.banks_tab_exc_rate, container, false);
-        RUBToUSD = (Button)rootView.findViewById(R.id.RUBToUSD);
-        USDToRUB = (Button)rootView.findViewById(R.id.USDToRUB);
-        RUBtoEUR = (Button)rootView.findViewById(R.id.RUBtoEUR);
-        EURtoRUB = (Button)rootView.findViewById(R.id.EURtoRUB);
-        ListViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
+        buttonRUBToUSD = (Button)rootView.findViewById(R.id.RUBToUSD);
+        buttonUSDToRUB = (Button)rootView.findViewById(R.id.USDToRUB);
+        buttonRUBtoEUR = (Button)rootView.findViewById(R.id.RUBtoEUR);
+        buttonEURtoRUB = (Button)rootView.findViewById(R.id.EURtoRUB);
+        listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
 
-        BanksPresenter = new TabBanksPresenter(getContext());
-        BanksPresenter.LoadModelOfSetting();
-        BanksPresenter.DownloadModelOfServices();
+        banksPresenter = new TabBanksPresenter(getContext());
+        banksPresenter.LoadModelOfSetting();
+        banksPresenter.DownloadModelOfServices();
+        listViewBanks.setAdapter(banksPresenter.getAdapter());
 
-        RUBToUSD.setOnClickListener(new View.OnClickListener(){
+        buttonRUBToUSD.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                BanksPresenter.ButtonSortCurrency(EExchangeAction.USDBuy);
+                banksPresenter.ButtonSortCurrency(EExchangeAction.USDBuy);
+                //listViewBanks.setAdapter(banksPresenter.getAdapter());
             }
         });
 
-        USDToRUB.setOnClickListener(new View.OnClickListener(){
+        buttonUSDToRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                BanksPresenter.ButtonSortCurrency(EExchangeAction.USDSell);
+                banksPresenter.ButtonSortCurrency(EExchangeAction.USDSell);
             }
         });
 
-        RUBtoEUR.setOnClickListener(new View.OnClickListener(){
+        buttonRUBtoEUR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                BanksPresenter.ButtonSortCurrency(EExchangeAction.EURBuy);
+                banksPresenter.ButtonSortCurrency(EExchangeAction.EURBuy);
             }
         });
 
-        EURtoRUB.setOnClickListener(new View.OnClickListener(){
+        buttonEURtoRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                BanksPresenter.ButtonSortCurrency((EExchangeAction.EURSell));
+                banksPresenter.ButtonSortCurrency((EExchangeAction.EURSell));
             }
         });
 
-        ListViewBanks.setAdapter(BanksPresenter.getAdapter());
+
 
         return rootView;
     }

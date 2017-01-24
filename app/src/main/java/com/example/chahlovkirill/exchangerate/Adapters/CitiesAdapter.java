@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
+import com.example.chahlovkirill.exchangerate.Services.ListenersRegistrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
     }
     private List<CityModel> Cities = new ArrayList<>();
 
+    //ListenersRegistrator registrator = new ListenersRegistrator();
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -39,13 +43,12 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cities_list_item, parent, false);
         }
 
-        TextView CityName = (TextView) convertView.findViewById(R.id.city_name);
-        ImageView ImageView = (ImageView) convertView.findViewById(R.id.imageView);
+        TextView cityName = (TextView) convertView.findViewById(R.id.city_name);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //CitiesAdapter.this.Cities;
                 for (CityModel city: CitiesAdapter.this.Cities){
                     if (city.getSelected()){
                         city.setSelected(false);
@@ -55,17 +58,19 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
                 Setting.setselectCity(String.valueOf(City.getId()),getContext());
                 CitiesAdapter.this.notifyDataSetChanged();
 
+                //registrator.addListener(new TabBanksPresenter(getContext()));
             }
+
         });
         // Lookup view for data population
         if (City.getSelected()){
-            ImageView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.VISIBLE);
         }
         else{
-            ImageView.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
         }
         // Populate the data into the template view using the data object
-        CityName.setText(City.getName());
+        cityName.setText(City.getName());
         // Return the completed view to render on screen
         return convertView;
     }

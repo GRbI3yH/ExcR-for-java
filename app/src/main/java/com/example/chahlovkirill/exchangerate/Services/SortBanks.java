@@ -22,7 +22,7 @@ public class SortBanks{
     public static List<BankCurrencyModel> Sort(List<BankModel> Banks, EExchangeAction mode, Context context){
         List<BankCurrencyModel> BanksCurrency = new ArrayList<BankCurrencyModel>()  ;
         if (Banks != null){
-            Collections.sort(Banks);
+            //Collections.sort(Banks);
             switch (mode)
             {
                 case EURBuy:
@@ -45,6 +45,7 @@ public class SortBanks{
             {
                 BanksCurrency.add(new BankCurrencyModel(bank, mode));
             }
+            Collections.sort(BanksCurrency,BankCurrencyModel.bankCurrencyModelComparator );
         }
         return BanksCurrency;
     }

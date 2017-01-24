@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class TabCitiesPresenter {
 
-    private List<CityModel> Cities;
+    private List<CityModel> cities;
     private Context context;
     private CitiesAdapter adapter;
 
@@ -30,37 +30,32 @@ public class TabCitiesPresenter {
     }
 
     public CitiesAdapter getAdapter(){
-        return adapter = new CitiesAdapter( context , Cities);
+        return adapter = new CitiesAdapter( context , cities);
     }
+
     public void LoadModelOfSetting(){
-        Cities = Setting.getCities(context);
+        cities = Setting.getCities(context);
+        FoundOfSelectCity();
 
     }
 
     public void DownloadModelOfServices(){
-        cash2cashAPI.getCallCitiesModel(new Callback<List<CityModel>>(){
-            @Override
-            public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
-                if (response.isSuccessful() && response.body() != null){
-                    Cities = response.body() ;
 
-                    Setting.setCities(Cities,context);
+        //DATASERVISE <-------<
 
-                    String selectCity = Setting.getselectCity(context);
+        Setting.setCities(cities,context);
+        FoundOfSelectCity();
 
-                    for (CityModel city :Cities){
-                        if (String.valueOf(city.getId()).equals(selectCity)){
-                            city.setSelected(true);
-                        }
-                    }
-                    adapter = new  CitiesAdapter( context , Cities);
-                }
+    }
+    private void FoundOfSelectCity(){
+
+        String selectCity = Setting.getselectCity(context);
+
+        for (CityModel city :cities){
+            if (String.valueOf(city.getId()).equals(selectCity)){
+                city.setSelected(true);
+                break;
             }
-
-            @Override
-            public void onFailure(Call<List<CityModel>> call, Throwable t) {
-            }
-        });
-
+        }
     }
 }
