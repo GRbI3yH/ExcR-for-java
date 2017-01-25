@@ -14,7 +14,8 @@ import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.ListenersRegistrator;
+import com.example.chahlovkirill.exchangerate.Services.DataService;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
                 Setting.setselectCity(String.valueOf(City.getId()),getContext());
                 CitiesAdapter.this.notifyDataSetChanged();
 
+                DataService.getInstance().BanksDownload(String.valueOf(City.getId()));
                 //registrator.addListener(new TabBanksPresenter(getContext()));
             }
 

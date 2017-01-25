@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--RIGHT-->
+
     <LinearLayout
         android:tag="Bottom3"
         android:weightSum="10"
@@ -12,12 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         >
-<!--
-app:gravity="right"
-        app:bring_to_clamp="100dp"
-        app:clamp="self"
-        app:sticky="none"
--->
         <Button
             android:text="Button"
             android:layout_width="wrap_content"
@@ -25,24 +20,38 @@ app:gravity="right"
             android:id="@+id/button"
             android:layout_weight="1" />
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Default_bank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bank_name"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00">
 
-        <TextView
-            android:text="Default_Currency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bank_valueCurrency"
-            android:layout_weight="0.15" />
+            <TextView
+                android:text="Default_bank_Name"
+                android:id="@+id/bank_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="30" />
+
+            <TextView
+                android:text="Default_Currency"
+                android:id="@+id/bank_valueCurrency"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

@@ -1,25 +1,21 @@
 package com.example.chahlovkirill.exchangerate.Presenters;
 
 import android.content.Context;
-import android.widget.ListView;
 
 import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
+import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
-import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.cash2cashAPI;
+import com.example.chahlovkirill.exchangerate.Services.DataService;
+import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by chahlov.kirill on 23/01/17.
  */
 
-public class TabCitiesPresenter {
+public class TabCitiesPresenter implements IControlListener {
 
     private List<CityModel> cities;
     private Context context;
@@ -43,7 +39,9 @@ public class TabCitiesPresenter {
 
         //DATASERVISE <-------<
 
-        Setting.setCities(cities,context);
+        DataService.getInstance().addListener(this);
+        DataService.getInstance().CitiesDownload();
+
         FoundOfSelectCity();
 
     }
@@ -57,5 +55,16 @@ public class TabCitiesPresenter {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onCitiesDownloaded(List<CityModel> cities) {
+        Setting.setCities(cities,context);
+        this.cities = cities;
+    }
+
+    @Override
+    public void onBanksDownloaded(List<BankModel> banks) {
+
     }
 }

@@ -3,4 +3,53 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="HeaderColor">#002D35</color>
+    <color name="SlideMenuColor">#20485D</color>
+    <color name="CBPanelColor">#20485D</color>
+    <color name="FontDarkColor">#20485D</color>
+    <color name="FontLightGreenColor">#00BE9E</color>
+    <color name="ConverterPanelColor">#F8F6F2</color>
+    <color name="FontDarkGreenColor">#009078</color>
+    <color name="SegmentColor">#003D48</color>
+    <color name="White">#ffffff</color>
+    <color name="Gray">#D3D3D3</color>
+
+    <color name="DarkGray">#BEBEBE</color>
+
+    <color name="DialogGray">#333333</color>
+
+    <color name="black_op">#b3000000</color>
+
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <color name="radio_button_unselected_color">@android:color/transparent</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="cbwidget_text_color">#777777</color>
+    <color name="cbwidget_symbols_color">#689109</color>
+    <color name="cbwidget_symbols_previos_green_color">#689109</color>
+    <color name="cbwidget_symbols_previos_red_color">#D41C1C</color>
+    <color name="apptheme_color">#33b5e5</color>
+    <color name="spinner_triangle">#ffffff</color>
+    <color name="errcolor">#FF7722</color>
+    <color name="action_bar_primary">#212e22</color>
+    <color name="action_bar_primary_dark">#273528</color>
+    <color name="font_color">#ffffffff</color>
+    <color name="best_bank_selector_bgcolor">#309be1ec</color>
+    <color name="tab_bgcolor">#273528</color>
+    <color name="tab_text_color">#ffffffff</color>
+    <color name="tab_indicator_color">#99CC00</color>
+    <color name="city_list_spinner_divider">#999999</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#00ff00</color>
+    <color name="white">#ffffff</color>
+    <color name="background_tab_pressed">#1AFFFFFF</color>
+    <color name="converter_edit_text">#33B5E5</color>
+    <color name="dialog_currency_list_divider">#999999</color>
+    <color name="dialog_background_color">#444444</color>
+    <color name="cb_widget_choose_courses_list_view_checked">#3AAB49</color>
+
+    <color name="lime_green">#00ff0c</color>
 </resources>

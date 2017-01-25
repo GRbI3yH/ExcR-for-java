@@ -8,6 +8,48 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="GreenTheme" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <!--android:background="@drawable/background1024_500"-->
+        <!--<item name="android:colorPrimaryDark">@color/HeaderColor</item>-->
+        <!--<item name="android:statusBarColor">@color/HeaderColor</item>-->
+        <item name="android:windowBackground">@color/HeaderColor</item>
+        <!--<item name="android:colorPrimary">@color/HeaderColor</item>-->
+    </style>
+
+    <style name="GreenToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/HeaderColor</item>
+        <!--<item name="android:colorPrimary">@color/HeaderColor</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/HeaderColor</item>-->
+        <item name="android:textColor">@color/FontLightGreenColor</item>
+        <item name="android:textColorHint">@color/FontLightGreenColor</item>
+    </style>
+
+
+    <style name="RadioButton">
+        <item name="android:textColor">@drawable/button_text_color</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">100dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="ChooseCoursesActionBar"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ChooseCoursesActionBarParent</item>
+        <item name="actionBarStyle">@style/ChooseCoursesActionBarParent</item>
+    </style>
+    <style name="ChooseCoursesActionBarParent"
+        parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/HeaderColor</item>
+        <item name="background">@color/HeaderColor</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

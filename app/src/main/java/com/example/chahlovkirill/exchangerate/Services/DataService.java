@@ -14,24 +14,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by chahlov.kirill on 24/01/17.
+ * Created by chahlov.kirill on 25/01/17.
  */
+public class DataService {
+    private static DataService ourInstance = new DataService();
 
-public class DataServices {
+    public static DataService getInstance() {
+        return ourInstance;
+    }
 
-    private DataServices instance;
-    private DataServices (){}
+    private DataService() {
+    }
 
-//    private static List<CityModel> cities;
-//    private static List<BankModel> banks;
+    private static List<IControlListener> listeners = new ArrayList<IControlListener>();
 
-
-    public static List<CityModel> CitiesDownload() {
+    public void CitiesDownload() {
         cash2cashAPI.getCallCitiesModel(new Callback<List<CityModel>>(){
             @Override
             public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
                 if (response.isSuccessful() && response.body() != null){
-                    cities =  response.body() ;
+                    for (IControlListener cl:listeners){
+                        cl.onCitiesDownloaded(response.body());
+                        // добавить on bank который принимает в себя город
+                    }
                 }
             }
 
@@ -39,24 +44,27 @@ public class DataServices {
             public void onFailure(Call<List<CityModel>> call, Throwable t) {
             }
         });
-        return cities;
     }
 
-
-    public static List<BankModel> BanksDownload(Context context) {
-        cash2cashAPI.getCallBanksModel(Setting.getselectCity(context),new Callback<List<BankModel>>(){
+    public void BanksDownload(String selectCity){
+        cash2cashAPI.getCallBanksModel(selectCity, new Callback<List<BankModel>>(){
             @Override
             public void onResponse(Call<List<BankModel>> call, Response<List<BankModel>> response) {
                 if (response.isSuccessful() && response.body() != null){
-                    banks = response.body() ;
+                    for (IControlListener cl:listeners){
+                        cl.onBanksDownloaded(response.body());
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<BankModel>> call, Throwable t) {
-
+                System.out.print("fail");
             }
         });
-        return banks;
+    }
+
+    public void  addListener(IControlListener listener){
+        listeners.add(listener);
     }
 }

@@ -14,7 +14,6 @@ import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.ListenersRegistrator;
 import com.example.chahlovkirill.exchangerate.Services.cash2cashAPI;
 
 import java.util.List;
