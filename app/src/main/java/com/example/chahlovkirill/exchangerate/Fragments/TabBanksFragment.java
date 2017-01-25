@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
@@ -64,12 +65,26 @@ public class TabBanksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.banks_tab_exc_rate, container, false);
-        buttonRUBToUSD = (Button)rootView.findViewById(R.id.RUBToUSD);
-        buttonUSDToRUB = (Button)rootView.findViewById(R.id.USDToRUB);
-        buttonRUBtoEUR = (Button)rootView.findViewById(R.id.RUBtoEUR);
-        buttonEURtoRUB = (Button)rootView.findViewById(R.id.EURtoRUB);
+        buttonRUBToUSD = (RadioButton)rootView.findViewById(R.id.RUBToUSD);
+        buttonUSDToRUB = (RadioButton)rootView.findViewById(R.id.USDToRUB);
+        buttonRUBtoEUR = (RadioButton)rootView.findViewById(R.id.RUBtoEUR);
+        buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
 
+        switch (Setting.getSelectCurrency(getContext())){
+            case USDBuy:
+                buttonRUBToUSD.setSelected(true);
+            break;
+            case USDSell:
+                buttonUSDToRUB.setSelected(true);
+            break;
+            case EURBuy:
+                buttonRUBtoEUR.setSelected(true);
+            break;
+            case EURSell:
+                buttonEURtoRUB.setSelected(true);
+            break;
+        }
         banksPresenter = new TabBanksPresenter(getContext());
         banksPresenter.LoadModelOfSetting();
         banksPresenter.DownloadModelOfServices();
