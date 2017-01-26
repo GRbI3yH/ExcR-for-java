@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/background1024_500"
+        app:srcCompat="@drawable/bg_main"
         android:id="@+id/imageView2" />
 
     <LinearLayout

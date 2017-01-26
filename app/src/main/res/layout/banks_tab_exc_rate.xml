@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
-        tools:background="@color/black" />
+        android:background="@color/black" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -19,51 +19,79 @@
 
         <RadioButton
             style="@style/RadioButton"
-            android:text="P&gt;$"
+            android:text="₽&gt;$"
             android:id="@+id/RUBToUSD"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|center|start"
             android:layout_weight="1"
             android:button="@null"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/White"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            tools:background="@color/White" />
 
         <RadioButton
             style="@style/RadioButton"
-            android:text="$&gt;P"
+            android:text="$&gt;₽"
             android:id="@+id/USDToRUB"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|center|start"
             android:layout_weight="1"
             android:button="@null"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/White"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            tools:background="@color/White" />
 
         <RadioButton
             style="@style/RadioButton"
-            android:text="P&gt;€"
+            android:text="₽&gt;€"
             android:id="@+id/RUBtoEUR"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|center|start"
             android:layout_weight="1"
             android:button="@null"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/White"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            tools:background="@color/White" />
 
         <RadioButton
             style="@style/RadioButton"
-            android:text="€&gt;P"
+            android:text="€&gt;₽"
             android:id="@+id/EURtoRUB"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|center|start"
             android:layout_weight="1"
             android:button="@null"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/White"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            tools:background="@color/White" />
     </RadioGroup>
 
     <!--<LinearLayout-->
@@ -107,7 +135,7 @@
         android:layout_width="match_parent"
         android:id="@+id/textView"
         android:gravity="center"
-        tools:background="@color/black" />
+        android:background="@color/black" />
 
     <ListView
         android:id="@+id/lvBankM"
