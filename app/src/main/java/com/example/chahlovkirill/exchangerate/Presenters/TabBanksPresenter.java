@@ -1,7 +1,9 @@
 package com.example.chahlovkirill.exchangerate.Presenters;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
 import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
@@ -32,7 +34,7 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     //private DataServices dataServices;
 
     public BanksAdapter getAdapter(){
-        return adapter = new BanksAdapter( context , banksCurrency);
+        return adapter = new BanksAdapter( context , banksCurrency, this);
     }
 
     public void  LoadModelOfSetting(){
@@ -63,6 +65,10 @@ public class TabBanksPresenter implements IControlListener {//implements Control
         adapter.clear();
         adapter.addAll(banksCurrency);
         adapter.notifyDataSetChanged();
+    }
+    public void GoToMapGoogleActivity(){
+        Intent intent = new Intent(context, MapGoogleActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

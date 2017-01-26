@@ -3,58 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <!--RIGHT-->
 
     <LinearLayout
         android:tag="Bottom3"
-        android:weightSum="10"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         >
         <Button
             android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></LinearLayout>
-
+            android:id="@+id/GoToGoogleMap"
+            android:gravity="center" />
+    <!--все отделения выбранного банка по нажатию на кнопку-->
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.00">
+        <TextView
+            android:text="Default_bank_Name"
+            android:id="@+id/bank_name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="30"
+            android:textStyle="normal|bold"
+            android:padding="10dp"
+            android:paddingLeft="20dp" />
 
-            <TextView
-                android:text="Default_bank_Name"
-                android:id="@+id/bank_name"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="30"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:text="Default_Currency"
-                android:id="@+id/bank_valueCurrency"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textStyle="normal|bold" />
-        </LinearLayout>
+        <TextView
+            android:text="Default_Currency"
+            android:id="@+id/bank_valueCurrency"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="normal|bold"
+            android:padding="10dp" />
     </LinearLayout>
+
 </com.daimajia.swipe.SwipeLayout>

@@ -55,10 +55,10 @@ public class TabBanksFragment extends Fragment {
     private ListView listViewBanks;
 
     private View rootView;
-    private Button buttonRUBToUSD;
-    private Button buttonUSDToRUB;
-    private Button buttonRUBtoEUR;
-    private Button buttonEURtoRUB;
+    private RadioButton buttonRUBToUSD;
+    private RadioButton buttonUSDToRUB;
+    private RadioButton buttonRUBtoEUR;
+    private RadioButton buttonEURtoRUB;
     private TabBanksPresenter banksPresenter;
 
     @Override
@@ -73,18 +73,19 @@ public class TabBanksFragment extends Fragment {
 
         switch (Setting.getSelectCurrency(getContext())){
             case USDBuy:
-                buttonRUBToUSD.setSelected(true);
+                buttonRUBToUSD.setChecked(true);
             break;
             case USDSell:
-                buttonUSDToRUB.setSelected(true);
+                buttonUSDToRUB.setChecked(true);
             break;
             case EURBuy:
-                buttonRUBtoEUR.setSelected(true);
+                buttonRUBtoEUR.setChecked(true);
             break;
             case EURSell:
-                buttonEURtoRUB.setSelected(true);
+                buttonEURtoRUB.setChecked(true);
             break;
         }
+
         banksPresenter = new TabBanksPresenter(getContext());
         banksPresenter.LoadModelOfSetting();
         banksPresenter.DownloadModelOfServices();

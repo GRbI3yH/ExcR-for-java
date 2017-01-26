@@ -13,6 +13,7 @@ import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
+import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 
@@ -27,18 +28,21 @@ import java.util.List;
  */
 
 public class  CitiesAdapter extends ArrayAdapter<CityModel> {
-    public CitiesAdapter(Context context, List<CityModel> Cities){
+    public CitiesAdapter(Context context, List<CityModel> Cities,TabCitiesPresenter tabCitiesPresenter){
         super(context,0,Cities);
-        this.Cities = Cities;
+        this.tabCitiesPresenter = tabCitiesPresenter;
+        //this.Cities = Cities;
     }
-    private List<CityModel> Cities = new ArrayList<>();
+
+    private TabCitiesPresenter tabCitiesPresenter ;
+    //private List<CityModel> Cities = new ArrayList<>();
 
     //ListenersRegistrator registrator = new ListenersRegistrator();
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        final CityModel City = getItem(position);
+        final CityModel city = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cities_list_item, parent, false);
@@ -50,29 +54,19 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                for (CityModel city: CitiesAdapter.this.Cities){
-                    if (city.getSelected()){
-                        city.setSelected(false);
-                    }
-                }
-                City.setSelected(true);
-                Setting.setselectCity(String.valueOf(City.getId()),getContext());
-                CitiesAdapter.this.notifyDataSetChanged();
-
-                DataService.getInstance().BanksDownload(String.valueOf(City.getId()));
-                //registrator.addListener(new TabBanksPresenter(getContext()));
+                tabCitiesPresenter.CityItemClick(city);
             }
 
         });
         // Lookup view for data population
-        if (City.getSelected()){
+        if (city.getSelected()){
             imageView.setVisibility(View.VISIBLE);
         }
         else{
             imageView.setVisibility(View.GONE);
         }
         // Populate the data into the template view using the data object
-        cityName.setText(City.getName());
+        cityName.setText(city.getName());
         // Return the completed view to render on screen
         return convertView;
     }

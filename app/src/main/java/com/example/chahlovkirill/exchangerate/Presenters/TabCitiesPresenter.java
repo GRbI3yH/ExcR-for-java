@@ -26,7 +26,7 @@ public class TabCitiesPresenter implements IControlListener {
     }
 
     public CitiesAdapter getAdapter(){
-        return adapter = new CitiesAdapter( context , cities);
+        return adapter = new CitiesAdapter( context , cities, this);
     }
 
     public void LoadModelOfSetting(){
@@ -55,6 +55,24 @@ public class TabCitiesPresenter implements IControlListener {
                 break;
             }
         }
+    }
+
+    public void CityItemClick(CityModel city){
+        for (CityModel cityEdit: cities){
+            if (cityEdit.getSelected()){
+                cityEdit.setSelected(false);
+            }
+        }
+        city.setSelected(true);
+        Setting.setselectCity(String.valueOf(city.getId()),context);
+
+        if (adapter != null) {
+            adapter.clear();
+            adapter.addAll(cities);
+            adapter.notifyDataSetChanged();
+        }
+
+        DataService.getInstance().BanksDownload(String.valueOf(city.getId()));
     }
 
     @Override

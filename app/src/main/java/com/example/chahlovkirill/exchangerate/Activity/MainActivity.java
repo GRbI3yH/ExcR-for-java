@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_exc_rate);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Cities"));
-        tabLayout.addTab(tabLayout.newTab().setText("Banks"));
+        tabLayout.addTab(tabLayout.newTab().setText("Города"));
+        tabLayout.addTab(tabLayout.newTab().setText("Банки"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final TabSectionsPagerAdapter adapter = new TabSectionsPagerAdapter
