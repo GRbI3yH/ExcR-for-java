@@ -38,6 +38,18 @@ public class Setting {
         return "4212";
     }
 
+    private static String selectBank_key = "selectBank_key";
+    public static void setselectBank(String selectBank, Context ctx) {
+        saveSetting(selectBank_key,selectBank,ctx);
+    }
+    public static String getselectBank(Context ctx){
+        String selectBank = loadSetting(selectBank_key,ctx);
+        if(selectBank != null){
+            return selectBank;
+        }
+        return "Москва";
+    }
+
 
     private static String currency_key = "currency_key";
     public static void setSelectCurrency(EExchangeAction mode, Context ctx) {
@@ -109,7 +121,7 @@ public class Setting {
     public static void setBanks(List<BankModel> banks, Context ctx){
 
         String json = gson.toJson(banks);
-        saveSetting(banks_key, json,ctx);
+        saveSetting(banks_key, json, ctx);
     }
     public static List<BankModel> getBanks(Context ctx){
         String Banks = loadSetting(banks_key,ctx);

@@ -6,6 +6,7 @@ import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 
@@ -83,6 +84,11 @@ public class TabCitiesPresenter implements IControlListener {
 
     @Override
     public void onBanksDownloaded(List<BankModel> banks) {
+
+    }
+
+    @Override
+    public void onGis2DataSearchDownload(List<Gis2Model> Gis2) {
 
     }
 }

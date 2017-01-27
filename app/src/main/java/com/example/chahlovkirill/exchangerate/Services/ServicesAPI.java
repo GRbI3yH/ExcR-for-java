@@ -3,11 +3,10 @@ package com.example.chahlovkirill.exchangerate.Services;
 /**
  * Created by chahlov.kirill on 18/01/17.
  */
-import android.util.Log;
 
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
@@ -16,19 +15,18 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-public class cash2cashAPI {
+public class ServicesAPI {
     //public static DataService dataservice = new DataService();
-    private static final String BASE_URL = "http://wsv3.cash2cash.ru/ExRatesJson.svc/";
+    private static final String cash2cash_URL = "http://wsv3.cash2cash.ru/ExRatesJson.svc/";
+    private static final String gis2_URL = "http://http://catalog.api.2gis.ru/";
     //private Gson gson = new GsonBuilder().create();
 
     public static void getCallCitiesModel (Callback<List<CityModel>> callbak){
-        Retrofit retrofit = getClient();
+        Retrofit retrofit = getClient(cash2cash_URL);
 
         Icash2cashAPI cash2cash= retrofit.create(Icash2cashAPI.class);
 
@@ -36,7 +34,7 @@ public class cash2cashAPI {
         call.enqueue(callbak);
     }
     public static void getCallBanksModel (String idCities, Callback<List<BankModel>> callbak){
-        Retrofit retrofit = getClient();
+        Retrofit retrofit = getClient(cash2cash_URL);
         Icash2cashAPI cash2cash= retrofit.create(Icash2cashAPI.class);
 
         Map<String,String> map = new HashMap<>();
@@ -45,13 +43,27 @@ public class cash2cashAPI {
         Call<List<BankModel>> call = cash2cash.getBanks(map);
         call.enqueue(callbak);
     }
+    public static void getCallGis2ModelSearch(String whatBanks, String where, Callback<List<Gis2Model>> callbak){
+        Retrofit retrofit = getClient(gis2_URL);
+        IGis2API gis2api = retrofit.create(IGis2API.class);
+
+        Map<String,String> map = new HashMap<>();
+        //String what = "отделения_"+whatBanks;
+        map.put("what","отделения_"+whatBanks);
+        map.put("where",where);
+        map.put("version","1.3");
+        map.put("key","ruiqff5223");
+
+        Call<List<Gis2Model>> call = gis2api.getGis2Data(map);
+        call.enqueue(callbak);
+    }
 
 
-    private static Retrofit getClient(){
+    private static Retrofit getClient(String base_url){
 
         Gson gson = new GsonBuilder().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(base_url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return  retrofit;

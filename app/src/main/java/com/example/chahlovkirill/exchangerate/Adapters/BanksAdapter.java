@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
+import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Fragments.TabBanksFragment;
 import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
@@ -34,12 +35,12 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
         this.tabBanksPresenter = tabBanksPresenter;
     }
     TabBanksPresenter tabBanksPresenter;
-
+    BankCurrencyModel bank;
     //GoToGoogleMap
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        BankCurrencyModel bank = getItem(position);
+        bank = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bank_list_item, parent, false);
@@ -53,6 +54,7 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
             @Override
             public void onClick(View v) {
                 tabBanksPresenter.GoToMapGoogleActivity();
+                Setting.setselectBank(bank.getName(),getContext());
                 //startActivitity(intent);
             }
         });

@@ -28,7 +28,7 @@ import com.example.chahlovkirill.exchangerate.Adapters.TabSectionsPagerAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.cash2cashAPI;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -10,6 +10,7 @@ import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
+import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 import com.example.chahlovkirill.exchangerate.Services.SortBanks;
@@ -84,6 +85,11 @@ public class TabBanksPresenter implements IControlListener {//implements Control
             adapter.addAll(banksCurrency);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onGis2DataSearchDownload(List<Gis2Model> Gis2) {
+
     }
 
     @Override

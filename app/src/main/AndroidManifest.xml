@@ -12,20 +12,22 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-
-    <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyAY1Vcqw8daLFtUJQK7FONJDrNaodOvVvY" />
-
+    <!--21:9F:2D:57:44:73:64:E0:70:6C:DC:7D:81:09:B3:1E:1A:3E:10:21-->
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/GreenTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAY1Vcqw8daLFtUJQK7FONJDrNaodOvVvY" />
+
         <activity
             android:name=".Activity.MainActivity"
             android:label="@string/app_name"
@@ -38,7 +40,8 @@
         </activity>
         <activity
             android:name=".Activity.MapGoogleActivity"
-            android:label="GoogleMap" >
+            android:label="GoogleMap"
+            android:theme="@style/GreenTheme">>
         </activity>
     </application>
 
