@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 public class ServicesAPI {
     //public static DataService dataservice = new DataService();
     private static final String cash2cash_URL = "http://wsv3.cash2cash.ru/ExRatesJson.svc/";
-    private static final String gis2_URL = "http://http://catalog.api.2gis.ru/";
+    private static final String gis2_URL = "http://catalog.api.2gis.ru/";
     //private Gson gson = new GsonBuilder().create();
 
     public static void getCallCitiesModel (Callback<List<CityModel>> callbak){
@@ -49,7 +49,7 @@ public class ServicesAPI {
 
         Map<String,String> map = new HashMap<>();
         //String what = "отделения_"+whatBanks;
-        map.put("what","отделения_"+whatBanks);
+        map.put("what","Банкоматы");//"отделения_"+whatBanks
         map.put("where",where);
         map.put("version","1.3");
         map.put("key","ruiqff5223");

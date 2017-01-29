@@ -25,9 +25,9 @@ public class Result {
     @SerializedName("firm_group")
     @Expose
     private FirmGroup firm_group;
-    @SerializedName("hash")
-    @Expose
-    private String hash;
+//    @SerializedName("hash")
+//    @Expose
+//    private String hash;
     @SerializedName("city_name")
     @Expose
     private String city_name;
@@ -89,12 +89,12 @@ public class Result {
 
 
 
-    public String getHash() {
-        return this.hash;
-    }
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
+//    public String getHash() {
+//        return this.hash;
+//    }
+//    public void setHash(String hash) {
+//        this.hash = hash;
+//    }
 
 
 

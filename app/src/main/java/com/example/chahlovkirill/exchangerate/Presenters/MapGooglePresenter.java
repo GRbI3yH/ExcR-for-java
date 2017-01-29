@@ -39,10 +39,10 @@ public class MapGooglePresenter implements IControlListener {
         List<LatLng> position = new ArrayList<LatLng>();
 
         for (Gis2Model gis2 : gis2List) {
-            for (Result gis2Result : gis2.getResult() ) {
-                position.add(new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())));
-                //map.put( Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon()));
-            }
+//            for (Result gis2Result : gis2.getresult() ) {
+//                position.add(new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())));
+//                //map.put( Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon()));
+//            }
         }
 
         return position;
