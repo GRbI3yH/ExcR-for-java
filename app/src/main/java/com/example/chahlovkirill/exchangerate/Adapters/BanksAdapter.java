@@ -2,6 +2,7 @@ package com.example.chahlovkirill.exchangerate.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,23 +47,27 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bank_list_item, parent, false);
         }
         Button goToGoogleMap = (Button)convertView.findViewById(R.id.GoToGoogleMap);
+        goToGoogleMap.setTag(bank);
         // Lookup view for data population
         TextView bankName = (TextView) convertView.findViewById(R.id.bank_name);
         TextView bankValueCurrency = (TextView) convertView.findViewById(R.id.bank_valueCurrency);
-
-        goToGoogleMap.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                tabBanksPresenter.GoToMapGoogleActivity();
-                Setting.setselectBank(bank.getName(),getContext());
-                //startActivitity(intent);
-            }
-        });
         // Populate the data into the template view using the data object
         bankName.setText(bank.getName());
         //String t = String.format("$.3f",bank.getCurrency());//String.valueOf(bank.getCurrency());
 
         bankValueCurrency.setText(String.format("%.2f",bank.getCurrency()));
+
+        goToGoogleMap.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                BankCurrencyModel bcm = (BankCurrencyModel)v.getTag();
+                Log.e("setBank = ", bcm.getName());
+                Setting.setselectBank(bcm.getName(),getContext());
+                tabBanksPresenter.GoToMapGoogleActivity();
+                //startActivitity(intent);
+            }
+        });
         // Return the completed view to render on screen
         return convertView;
     }

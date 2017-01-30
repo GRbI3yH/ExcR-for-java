@@ -48,7 +48,7 @@ public class TabCitiesPresenter implements IControlListener {
     }
     private void FoundOfSelectCity(){
 
-        String selectCity = Setting.getselectCity(context);
+        String selectCity = String.valueOf(Setting.getselectCityID(context));
 
         for (CityModel city :cities){
             if (String.valueOf(city.getId()).equals(selectCity)){
@@ -65,7 +65,7 @@ public class TabCitiesPresenter implements IControlListener {
             }
         }
         city.setSelected(true);
-        Setting.setselectCity(String.valueOf(city.getId()),context);
+        Setting.setselectCityID(city.getId(),context);
 
         if (adapter != null) {
             adapter.clear();
@@ -88,7 +88,7 @@ public class TabCitiesPresenter implements IControlListener {
     }
 
     @Override
-    public void onGis2DataSearchDownload(List<Gis2Model> Gis2) {
+    public void onGis2DataSearchDownload(Gis2Model Gis2) {
 
     }
 }

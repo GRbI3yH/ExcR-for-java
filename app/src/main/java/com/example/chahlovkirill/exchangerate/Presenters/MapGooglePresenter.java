@@ -9,6 +9,7 @@ import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
+import com.example.chahlovkirill.exchangerate.Model.PointItemModel;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,43 +28,59 @@ import java.util.Map;
 
 public class MapGooglePresenter implements IControlListener {
 
-    private List<Gis2Model> gis2List;
+    private Gis2Model gis2Model;
     private Context context;
 
     public MapGooglePresenter(Context context){
         this.context = context;
     }
 
-    public List<LatLng> getPositionBanks(){
+    public List<PointItemModel> getPositionBanks(){
 
         List<LatLng> position = new ArrayList<LatLng>();
+        List<PointItemModel> pointPositionModels = new ArrayList<PointItemModel>();
 
-        for (Gis2Model gis2 : gis2List) {
-//            for (Result gis2Result : gis2.getresult() ) {
-//                position.add(new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())));
-//                //map.put( Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon()));
-//            }
+        if (gis2Model.getresult()!=null){
+            for (Result gis2Result : gis2Model.getresult() ) {
+
+                pointPositionModels.add(new PointItemModel(
+                        new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())),
+                        gis2Result.getName()
+                ));
+
+                //position.add(new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())));
+                //map.put( Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon()));
+            }
         }
 
-        return position;
+        return pointPositionModels;
     }
 
     public boolean DownloadModelOfServices(){
 
         //DATASERVISE <-------<
-        String selectCities = Setting.getselectCity(context);
+        String selectCities = Setting.getselectCityName(context);
         String selectBank = Setting.getselectBank(context);
-
+        //int page = 1;
+        Log.e("getBank = ",selectBank);
         DataService.getInstance().addListener(this);
-        DataService.getInstance().Gis2DataSearchDownload(selectBank, "Москва");
+        DataService.getInstance().Gis2DataSearchDownload(selectBank, selectCities, 1);
+        //page = 2;
 
         return true;
     }
 
+    boolean aBoolean = true;
+    int page = 1;
     @Override
-    public void onGis2DataSearchDownload(List<Gis2Model> Gis2) {
-        this.gis2List = Gis2;
+    public void onGis2DataSearchDownload(Gis2Model Gis2) {
+        this.gis2Model = Gis2;
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
+        if (gis2Model.getresult().size() == 50){ // & aBoolean
+            page++;
+            DataService.getInstance().Gis2DataSearchDownload(Setting.getselectBank(context), Setting.getselectCityName(context), page);
+            //aBoolean = false;
+        }
 
         mapGoogleActivity.renderMarkers (getPositionBanks());
     }

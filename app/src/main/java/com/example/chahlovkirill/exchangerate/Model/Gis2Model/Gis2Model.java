@@ -33,16 +33,16 @@ public class Gis2Model {
 //    @Expose
 //    private List<Advertising> advertising;
     //-------------------------------------------------------------------------
-//    @SerializedName("result")
-//    @Expose
-//    private List<Result> result;
-//
-//    public List<Result> getresult() {
-//        return this.result;
-//    }
-//    public void setresult(List<Result> result) {
-//        this.result = result;
-//    }
+    @SerializedName("result")
+    @Expose
+    private List<Result> result;
+
+    public List<Result> getresult() {
+        return this.result;
+    }
+    public void setresult(List<Result> result) {
+        this.result = result;
+    }
     //-------------------------------------------------------------------------
 //    public String getApi_version() {
 //        return this.api_version;

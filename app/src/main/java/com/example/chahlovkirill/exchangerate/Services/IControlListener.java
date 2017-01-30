@@ -13,5 +13,5 @@ import java.util.List;
 public interface IControlListener {
     void onCitiesDownloaded(List<CityModel> cities);
     void onBanksDownloaded(List<BankModel> banks);
-    void onGis2DataSearchDownload(List<Gis2Model> Gis2);
+    void onGis2DataSearchDownload(Gis2Model Gis2);
 }

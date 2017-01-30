@@ -15,5 +15,5 @@ import retrofit2.http.QueryMap;
 
 public interface IGis2API {
     @GET("search")
-    public Call<List<Gis2Model>> getGis2Data(@QueryMap Map<String,String> data);
+    public Call<Gis2Model> getGis2Data(@QueryMap Map<String,String> data);
 }

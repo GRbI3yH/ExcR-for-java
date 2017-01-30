@@ -54,6 +54,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Setting.setselectCityName(city.getName(),getContext());
                 tabCitiesPresenter.CityItemClick(city);
             }
 

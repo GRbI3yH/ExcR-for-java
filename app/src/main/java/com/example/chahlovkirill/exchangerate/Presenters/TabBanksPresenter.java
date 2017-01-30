@@ -49,7 +49,7 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     public void DownloadModelOfServices(){
 
         //DATASERVISE <-------<
-        String selectCities = Setting.getselectCity(context);
+        String selectCities = String.valueOf(Setting.getselectCityID(context));
         DataService.getInstance().addListener(this);
         DataService.getInstance().BanksDownload(selectCities);
     }
@@ -88,7 +88,7 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     }
 
     @Override
-    public void onGis2DataSearchDownload(List<Gis2Model> Gis2) {
+    public void onGis2DataSearchDownload(Gis2Model Gis2) {
 
     }
 

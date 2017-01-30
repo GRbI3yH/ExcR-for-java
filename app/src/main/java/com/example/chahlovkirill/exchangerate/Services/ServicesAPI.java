@@ -43,18 +43,20 @@ public class ServicesAPI {
         Call<List<BankModel>> call = cash2cash.getBanks(map);
         call.enqueue(callbak);
     }
-    public static void getCallGis2ModelSearch(String whatBanks, String where, Callback<List<Gis2Model>> callbak){
+    public static void getCallGis2ModelSearch(String whatBank, String where, int page, Callback<Gis2Model> callbak){
         Retrofit retrofit = getClient(gis2_URL);
         IGis2API gis2api = retrofit.create(IGis2API.class);
 
         Map<String,String> map = new HashMap<>();
         //String what = "отделения_"+whatBanks;
-        map.put("what","Банкоматы");//"отделения_"+whatBanks
+        map.put("what","отделения_"+whatBank);//"отделения_"+whatBanks
         map.put("where",where);
         map.put("version","1.3");
         map.put("key","ruiqff5223");
+        map.put("pagesize","50");
+        map.put("page",String.valueOf(page));
 
-        Call<List<Gis2Model>> call = gis2api.getGis2Data(map);
+        Call<Gis2Model> call = gis2api.getGis2Data(map);
         call.enqueue(callbak);
     }
 

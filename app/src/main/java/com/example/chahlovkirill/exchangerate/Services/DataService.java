@@ -62,10 +62,10 @@ public class DataService {
         });
     }
 
-    public void Gis2DataSearchDownload(String whatBanks, String where){
-        ServicesAPI.getCallGis2ModelSearch(whatBanks, where , new Callback<List<Gis2Model>>(){
+    public void Gis2DataSearchDownload(String whatBank, String where,int page){
+        ServicesAPI.getCallGis2ModelSearch(whatBank, where , page, new Callback<Gis2Model>(){
             @Override
-            public void onResponse(Call<List<Gis2Model>> call, Response<List<Gis2Model>> response) {
+            public void onResponse(Call<Gis2Model> call, Response<Gis2Model> response) {
                 if (response.isSuccessful() && response.body() != null){
                     for (IControlListener cl:listeners){
                         cl.onGis2DataSearchDownload(response.body());
@@ -74,7 +74,7 @@ public class DataService {
             }
 
             @Override
-            public void onFailure(Call<List<Gis2Model>> call, Throwable t) {
+            public void onFailure(Call<Gis2Model> call, Throwable t) {
                 System.out.print("fail");
             }
         });

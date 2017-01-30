@@ -14,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.chahlovkirill.exchangerate.Model.BankModel;
+import com.example.chahlovkirill.exchangerate.Model.PointItemModel;
 import com.example.chahlovkirill.exchangerate.Presenters.MapGooglePresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -48,13 +51,31 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
-    public void renderMarkers(List<LatLng> latLngs){
+    public void renderMarkers(List<PointItemModel> pointPositionModels){
 
-        for (LatLng BanksPosition : latLngs){
-            map.addMarker(new MarkerOptions().position(BanksPosition));//.title("Marker in Sydney")
-            //map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if(pointPositionModels != null & pointPositionModels.size() != 0){
+            for (PointItemModel points: pointPositionModels) {
+                map.addMarker(new MarkerOptions().position(points.getLatLng()).title(points.getNameBank()));
+            }
+            CameraPosition cameraPosition =new CameraPosition.Builder().target(
+                    pointPositionModels.get(0)
+                    .getLatLng())
+                    .zoom(9)
+                    .build();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+            map.animateCamera(cameraUpdate);
         }
-
+//        if(latLngs != null){
+//            if (latLngs.size() != 0){
+//                for (LatLng BanksPosition : latLngs){
+//                    map.addMarker(new MarkerOptions().position(BanksPosition).title(bank));
+//
+//                }
+//                CameraPosition cameraPosition =new CameraPosition.Builder().target(latLngs.get(0)).zoom(9).build();
+//                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+//                map.animateCamera(cameraUpdate);
+//            }
+//        }
     }
 }
 // extends AppCompatActivity

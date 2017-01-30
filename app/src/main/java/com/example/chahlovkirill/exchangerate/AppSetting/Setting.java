@@ -26,16 +26,29 @@ public class Setting {
     public static final String APP_PREFERENCES = "ExchangeRate";
     //private  SharedPreferences sPref = getSharedPreferences (APP_PREFERENCES, Context.MODE_PRIVATE); //;
 
-    private static String selectCity_key = "selectCity_key";
-    public static void setselectCity(String selectcity, Context ctx) {
-        saveSetting(selectCity_key,selectcity,ctx);
+    private static String selectCityID_key = "selectCityID_key";
+    public static void setselectCityID(int selectcity, Context ctx) {
+        saveSetting(selectCityID_key,String.valueOf(selectcity),ctx);
     }
-    public static String getselectCity(Context ctx){
-        String selectCity = loadSetting(selectCity_key,ctx);
+    public static int getselectCityID(Context ctx){
+        String selectCity = loadSetting(selectCityID_key,ctx);
+        if(selectCity != null){
+            return Integer.parseInt(selectCity);
+        }
+        return 4212;
+    }
+
+
+    private static String selectCityName_key = "selectCityName_key";
+    public static void setselectCityName(String selectcity, Context ctx) {
+        saveSetting(selectCityName_key,selectcity,ctx);
+    }
+    public static String getselectCityName(Context ctx){
+        String selectCity = loadSetting(selectCityName_key,ctx);
         if(selectCity != null){
             return selectCity;
         }
-        return "4212";
+        return "Москва";
     }
 
     private static String selectBank_key = "selectBank_key";
@@ -105,7 +118,9 @@ public class Setting {
          if (json != null){
             Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
             ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
-            String selectCity = Setting.getselectCity(ctx);
+
+            String selectCity = String.valueOf(Setting.getselectCityID(ctx));
+
             if( (selectCity != null) && (cities != null)){
                 for (CityModel CM : cities) {
                     if (CM.getId() == Integer.parseInt(selectCity) )
