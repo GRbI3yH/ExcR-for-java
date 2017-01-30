@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.PointItemModel;
 import com.example.chahlovkirill.exchangerate.Presenters.MapGooglePresenter;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.List;
 import java.util.Map;
@@ -51,32 +53,76 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
+    private ClusterManager<MyItem> mClusterManager;
+
     public void renderMarkers(List<PointItemModel> pointPositionModels){
 
-        if(pointPositionModels != null & pointPositionModels.size() != 0){
-            for (PointItemModel points: pointPositionModels) {
-                map.addMarker(new MarkerOptions().position(points.getLatLng()).title(points.getNameBank()));
+        mClusterManager = new ClusterManager<MyItem>(this,map);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
+//        map.OnCameraChangeListener(map);
+//        map.setOnCameraChangeListener(map);
+//        map.setOnCamera
+//        map.setOnMarkerClickListener(mClusterManager);
+        map.setOnCameraIdleListener(mClusterManager);
+        List<MyItem> myItem = mapGooglePresenter.getPosition();
+        if(myItem != null & myItem.size() != 0){
+            for (MyItem points: myItem) {
+                mClusterManager.addItem(points);
             }
-            CameraPosition cameraPosition =new CameraPosition.Builder().target(
-                    pointPositionModels.get(0)
-                    .getLatLng())
-                    .zoom(9)
-                    .build();
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-            map.animateCamera(cameraUpdate);
+//            CameraPosition cameraPosition =new CameraPosition.Builder().target(
+//                    pointPositionModels.get(0)
+//                            .getLatLng())
+//                    .zoom(9)
+//                    .build();
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+//            map.animateCamera(cameraUpdate);
         }
-//        if(latLngs != null){
-//            if (latLngs.size() != 0){
-//                for (LatLng BanksPosition : latLngs){
-//                    map.addMarker(new MarkerOptions().position(BanksPosition).title(bank));
-//
-//                }
-//                CameraPosition cameraPosition =new CameraPosition.Builder().target(latLngs.get(0)).zoom(9).build();
-//                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-//                map.animateCamera(cameraUpdate);
+//        if(pointPositionModels != null & pointPositionModels.size() != 0){
+//            for (PointItemModel points: pointPositionModels) {
+//                map.addMarker(new MarkerOptions().position(points.getLatLng()).title(points.getNameBank()));
 //            }
+//            CameraPosition cameraPosition =new CameraPosition.Builder().target(
+//                    pointPositionModels.get(0)
+//                    .getLatLng())
+//                    .zoom(9)
+//                    .build();
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+//            map.animateCamera(cameraUpdate);
 //        }
     }
+    // Declare a variable for the cluster manager.
+//    private void addItems() {
+//
+//        // Set some lat/lng coordinates to start with.
+//        double lat = 51.5145160;
+//        double lng = -0.1270060;
+//
+//        // Add ten cluster items in close proximity, for purposes of this example.
+//        for (int i = 0; i < 10; i++) {
+//            double offset = i / 60d;
+//            lat = lat + offset;
+//            lng = lng + offset;
+//            MyItem offsetItem = new MyItem(lat, lng);
+//            mClusterManager.addItem(offsetItem);
+//        }
+//    }
+//    private void setUpClusterer() {
+//        // Position the map.
+//        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+//
+//        // Initialize the manager with the context and the map.
+//        // (Activity extends context, so we can pass 'this' in the constructor.)
+//        mClusterManager = new ClusterManager<MyItem>(this, getMap());
+//
+//        // Point the map's listeners at the listeners implemented by the cluster
+//        // manager.
+//        getMap().setOnCameraIdleListener(mClusterManager);
+//        getMap().setOnMarkerClickListener(mClusterManager);
+//
+//        // Add cluster items (markers) to the cluster manager.
+//        addItems();
+//    }
 }
 // extends AppCompatActivity
 //        implements OnMapReadyCallback {

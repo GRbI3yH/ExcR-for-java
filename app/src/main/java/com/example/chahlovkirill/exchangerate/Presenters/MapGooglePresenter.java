@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
 import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
+import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
@@ -13,6 +14,7 @@ import com.example.chahlovkirill.exchangerate.Model.PointItemModel;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.internal.Point;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,6 +45,7 @@ public class MapGooglePresenter implements IControlListener {
         if (gis2Model.getresult()!=null){
             for (Result gis2Result : gis2Model.getresult() ) {
 
+
                 pointPositionModels.add(new PointItemModel(
                         new LatLng(Double.valueOf(gis2Result.getLat()),Double.valueOf(gis2Result.getLon())),
                         gis2Result.getName()
@@ -54,6 +57,16 @@ public class MapGooglePresenter implements IControlListener {
         }
 
         return pointPositionModels;
+    }
+
+    public List<MyItem> getPosition(){
+        List<MyItem> offsetItem = new ArrayList<MyItem>();
+        if (gis2Model.getresult()!=null){
+            for (Result gis2Result : gis2Model.getresult() ) {
+                offsetItem.add(new MyItem(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
+            }
+        }
+        return offsetItem;
     }
 
     public boolean DownloadModelOfServices(){
