@@ -24,6 +24,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -59,12 +60,10 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
         mClusterManager = new ClusterManager<MyItem>(this,map);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
-//        map.OnCameraChangeListener(map);
-//        map.setOnCameraChangeListener(map);
-//        map.setOnCamera
-//        map.setOnMarkerClickListener(mClusterManager);
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
         map.setOnCameraIdleListener(mClusterManager);
+        map.setOnMarkerClickListener(mClusterManager);
+
         List<MyItem> myItem = mapGooglePresenter.getPosition();
         if(myItem != null & myItem.size() != 0){
             for (MyItem points: myItem) {

@@ -14,9 +14,9 @@ public class Gis2Model {
     @SerializedName("api_version")
     @Expose
     private String api_version;
-//    @SerializedName("response_code")
-//    @Expose
-//    private String response_code;
+    @SerializedName("response_code")
+    @Expose
+    private String response_code;
 //    @SerializedName("what")
 //    @Expose
 //    private String what;
@@ -53,12 +53,12 @@ public class Gis2Model {
 
 
 
-//    public String getResponse_code() {
-//        return this.response_code;
-//    }
-//    public void setResponse_code(String response_code) {
-//        this.response_code = response_code;
-//    }
+    public String getResponse_code() {
+        return this.response_code;
+    }
+    public void setResponse_code(String response_code) {
+        this.response_code = response_code;
+    }
 
 
 
