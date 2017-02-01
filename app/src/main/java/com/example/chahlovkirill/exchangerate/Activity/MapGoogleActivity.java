@@ -60,15 +60,19 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
         mClusterManager = new ClusterManager<MyItem>(this,map);
 
-       //map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
         map.setOnCameraIdleListener(mClusterManager);
         map.setOnMarkerClickListener(mClusterManager);
 
         List<MyItem> myItem = mapGooglePresenter.getPosition();
         if(myItem != null & myItem.size() != 0){
+            LatLng latLng = new LatLng(1,1);
             for (MyItem points: myItem) {
                 mClusterManager.addItem(points);
+                if (points != null) {
+                    latLng = points.getPosition();
+                }
             }
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
 //            CameraPosition cameraPosition =new CameraPosition.Builder().target(
 //                    pointPositionModels.get(0)
 //                            .getLatLng())
