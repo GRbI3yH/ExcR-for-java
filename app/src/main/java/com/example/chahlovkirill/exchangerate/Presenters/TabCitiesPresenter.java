@@ -80,6 +80,11 @@ public class TabCitiesPresenter implements IControlListener {
     public void onCitiesDownloaded(List<CityModel> cities) {
         Setting.setCities(cities,context);
         this.cities = cities;
+        if (adapter != null) {
+            adapter.clear();
+            adapter.addAll(this.cities);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -67,6 +67,7 @@ public class TabBanksPresenter implements IControlListener {//implements Control
         adapter.addAll(banksCurrency);
         adapter.notifyDataSetChanged();
     }
+
     public void GoToMapGoogleActivity(){
         Intent intent = new Intent(context, MapGoogleActivity.class);
         context.startActivity(intent);

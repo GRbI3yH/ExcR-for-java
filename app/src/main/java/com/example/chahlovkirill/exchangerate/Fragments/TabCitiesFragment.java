@@ -58,11 +58,12 @@ public class TabCitiesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.cities_tab_exc_rate, container, false);
 
         listViewCities = (ListView)rootView.findViewById(R.id.lvCityM);
+
         citiesPresenter = new TabCitiesPresenter(getContext());
         citiesPresenter.LoadModelOfSetting();
         citiesPresenter.DownloadModelOfServices();
-
         listViewCities.setAdapter(citiesPresenter.getAdapter());
+
         listViewCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
