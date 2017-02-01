@@ -60,7 +60,7 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
         mClusterManager = new ClusterManager<MyItem>(this,map);
 
-       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
+       //map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.0,-0.1),10));
         map.setOnCameraIdleListener(mClusterManager);
         map.setOnMarkerClickListener(mClusterManager);
 
