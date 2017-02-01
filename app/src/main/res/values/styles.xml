@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,6 +14,9 @@
         <!--android:background="@drawable/background1024_500"-->
         <!--<item name="android:colorPrimaryDark">@color/HeaderColor</item>-->
         <!--<item name="android:statusBarColor">@color/HeaderColor</item>-->
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:windowBackground">@color/HeaderColor</item>
         <!--<item name="android:colorPrimary">@color/HeaderColor</item>-->
     </style>

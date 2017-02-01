@@ -11,78 +11,57 @@
         android:gravity="center"
         android:background="@color/black" />
 
+    <!--<RadioGroup-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center">-->
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal" >
 
         <RadioButton
             android:id="@+id/RUBToUSD"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@drawable/radiobutton_usd_to_rub"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@color/White"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:button="@drawable/radiobutton_usd_to_rub"
+            android:background="@color/White"
             tools:background="@color/White" />
 
         <RadioButton
             android:id="@+id/USDToRUB"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@drawable/radiobutton_rub_to_usd"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@color/White"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:button="@drawable/radiobutton_rub_to_usd"
+            android:background="@color/White"
             tools:background="@color/White" />
 
         <RadioButton
             android:id="@+id/RUBtoEUR"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@drawable/radiobutton_eur_to_rub"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@color/White"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:button="@drawable/radiobutton_eur_to_rub"
+            android:background="@color/White"
             tools:background="@color/White" />
 
         <RadioButton
             android:id="@+id/EURtoRUB"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@drawable/radiobutton_rub_to_eur"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@color/White"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:button="@drawable/radiobutton_rub_to_eur"
+            android:background="@color/White"
             tools:background="@color/White" />
     </RadioGroup>
     <TextView

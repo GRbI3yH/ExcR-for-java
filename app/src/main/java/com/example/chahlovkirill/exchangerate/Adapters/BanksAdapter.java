@@ -54,7 +54,7 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
         // Populate the data into the template view using the data object
         bankName.setText(bank.getName());
         //String t = String.format("$.3f",bank.getCurrency());//String.valueOf(bank.getCurrency());
-
+        //bankValueCurrency.setTextScaleX((float)1.6);
         bankValueCurrency.setText(String.format("%.2f",bank.getCurrency()));
 
         goToGoogleMap.setOnClickListener(new View.OnClickListener(){

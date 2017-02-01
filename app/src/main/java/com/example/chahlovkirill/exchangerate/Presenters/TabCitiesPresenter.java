@@ -32,7 +32,7 @@ public class TabCitiesPresenter implements IControlListener {
 
     public void LoadModelOfSetting(){
         cities = Setting.getCities(context);
-        FoundOfSelectCity();
+        MakeTheCitySelectedInTheModel();
 
     }
 
@@ -43,10 +43,8 @@ public class TabCitiesPresenter implements IControlListener {
         DataService.getInstance().addListener(this);
         DataService.getInstance().CitiesDownload();
 
-        FoundOfSelectCity();
-
     }
-    private void FoundOfSelectCity(){
+    private void MakeTheCitySelectedInTheModel(){
 
         String selectCity = String.valueOf(Setting.getselectCityID(context));
 
@@ -80,11 +78,13 @@ public class TabCitiesPresenter implements IControlListener {
     public void onCitiesDownloaded(List<CityModel> cities) {
         Setting.setCities(cities,context);
         this.cities = cities;
+        MakeTheCitySelectedInTheModel();
         if (adapter != null) {
             adapter.clear();
             adapter.addAll(this.cities);
             adapter.notifyDataSetChanged();
         }
+
     }
 
     @Override

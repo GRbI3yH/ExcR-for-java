@@ -92,19 +92,21 @@ public class MapGooglePresenter implements IControlListener {
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
 
         if (!gis2Model.getResponse_code().equals("400")){
-            if (gis2Model.getresult().size() == 50){ // & aBoolean
-                page++;
-                inquiry++;
-                DataService.getInstance().Gis2DataSearchDownload(Setting.getselectBank(context), Setting.getselectCityName(context), page);
-                //aBoolean = false;
-            }
+            if(gis2Model.getresult()!= null){
+                if (gis2Model.getresult().size() == 50 &
+                        gis2Model.getresult().size() != 0){ // & aBoolean
+                    page++;
+                    inquiry++;
+                    DataService.getInstance().Gis2DataSearchDownload(Setting.getselectBank(context), Setting.getselectCityName(context), page);
+                    //aBoolean = false;
+                }
+                Gis2ClearTrash();
+                Gis2ClearNotSelected();
 
-            Gis2ClearTrash();
-            Gis2ClearNotSelected();
-
-            for (Result result:gis2Model.getresult()) {
-                for (String rubric: result.getRubrics()) {
-                    Log.e("Name bank = ",result.getName());
+                for (Result result:gis2Model.getresult()) {
+                    for (String rubric: result.getRubrics()) {
+                        Log.e("Name bank = ",result.getName());
+                    }
                 }
             }
             mapGoogleActivity.renderMarkers (getPositionBanks());
@@ -112,19 +114,21 @@ public class MapGooglePresenter implements IControlListener {
     }
 
     private void Gis2ClearTrash(){
-        Iterator<Result> iterResult = gis2Model.getresult().iterator();
-        while(iterResult.hasNext()){
-            Result result = iterResult.next();
-            boolean boo = true;
+        if(gis2Model.getresult()!= null){
+            Iterator<Result> iterResult = gis2Model.getresult().iterator();
+            while(iterResult.hasNext()){
+                Result result = iterResult.next();
+                boolean boo = true;
 
-            for (String rubric: result.getRubrics()) {
-                if(rubric.equals("Банки")){
-                    boo = false;
+                for (String rubric: result.getRubrics()) {
+                    if(rubric.equals("Банки")){
+                        boo = false;
+                    }
                 }
-            }
-            if (boo){
-                iterResult.remove();
-                Log.e(" YDALENIE--------------","элемент удален");
+                if (boo){
+                    iterResult.remove();
+                    Log.e(" YDALENIE--------------","элемент удален");
+                }
             }
         }
     }
@@ -142,20 +146,22 @@ else
     }
 
     private void Gis2ClearNotSelected(){
-        String selectBankName = Setting.getselectBank(context);
-        Iterator<Result> iterResult = gis2Model.getresult().iterator();
-        selectBankName = selectBankName.toUpperCase();
+        if(gis2Model.getresult()!= null){
+            String selectBankName = Setting.getselectBank(context);
+            Iterator<Result> iterResult = gis2Model.getresult().iterator();
+            selectBankName = selectBankName.toUpperCase();
 
-        while(iterResult.hasNext()){
-            Result result = iterResult.next();
-            String nameBank = result.getName();
-            nameBank = nameBank.toUpperCase();
+            while(iterResult.hasNext()){
+                Result result = iterResult.next();
+                String nameBank = result.getName();
+                nameBank = nameBank.toUpperCase();
 
-            //boolean bool = nameBank.startsWith(selectBankName);
-            //if(!result.getName().startsWith(selectBankName)){
-            if (!checForWord(nameBank,selectBankName)){
-                iterResult.remove();
-                Log.e(" YDALENIE--------------","элемент удален");
+                //boolean bool = nameBank.startsWith(selectBankName);
+                //if(!result.getName().startsWith(selectBankName)){
+                if (!checForWord(nameBank,selectBankName)){
+                    iterResult.remove();
+                    Log.e(" YDALENIE--------------","элемент удален");
+                }
             }
         }
     }
