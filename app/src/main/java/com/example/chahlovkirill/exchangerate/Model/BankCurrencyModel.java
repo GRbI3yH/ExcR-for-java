@@ -1,6 +1,5 @@
 package com.example.chahlovkirill.exchangerate.Model;
 
-import com.example.chahlovkirill.exchangerate.Services.SortBanks;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

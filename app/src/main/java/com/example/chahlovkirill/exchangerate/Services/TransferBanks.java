@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 
-public class SortBanks{
+public class TransferBanks{
 
-    public static List<BankCurrencyModel> Sort(List<BankModel> Banks, EExchangeAction mode, Context context){
+    public static List<BankCurrencyModel> Transfer(List<BankModel> Banks, EExchangeAction mode, Context context){
         List<BankCurrencyModel> BanksCurrency = new ArrayList<BankCurrencyModel>()  ;
         if (Banks != null){
             //Collections.sort(Banks);
@@ -45,7 +45,6 @@ public class SortBanks{
             {
                 BanksCurrency.add(new BankCurrencyModel(bank, mode));
             }
-            Collections.sort(BanksCurrency,BankCurrencyModel.bankCurrencyModelComparator );
         }
         return BanksCurrency;
     }

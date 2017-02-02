@@ -16,7 +16,6 @@ import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.SortBanks;
 
 import java.util.Collections;
 import java.util.List;

@@ -11,10 +11,12 @@ import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
+import com.example.chahlovkirill.exchangerate.Services.CoupBanksCurrency;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
-import com.example.chahlovkirill.exchangerate.Services.SortBanks;
+import com.example.chahlovkirill.exchangerate.Services.TransferBanks;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,11 +41,12 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     }
 
     public void  LoadModelOfSetting(){
-        banksCurrency = SortBanks.Sort( //достаем из настроек и сортируем
+        banksCurrency = TransferBanks.Transfer( //достаем из настроек и сортируем
                 Setting.getBanks(context),
                 Setting.getSelectCurrency(context),
                 context
         );
+        Collections.sort(banksCurrency,BankCurrencyModel.bankCurrencyModelComparator );
     }
 
     public void DownloadModelOfServices(){
@@ -57,11 +60,13 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     public void ButtonSortCurrency(EExchangeAction mode){
 
         for (BankCurrencyModel bankCurrency :banksCurrency){
-            //bankCurrency.setName("TEST");
             bankCurrency.setCurrencyOf(mode);
         }
-
         Collections.sort(banksCurrency,BankCurrencyModel.bankCurrencyModelComparator );
+        
+        if(mode == EExchangeAction.EURSell || mode == EExchangeAction.USDSell){
+            banksCurrency = CoupBanksCurrency.Coup(banksCurrency);
+        }
 
         adapter.clear();
         adapter.addAll(banksCurrency);
@@ -76,11 +81,12 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     @Override
     public void onBanksDownloaded(List<BankModel> Banks) {
         this.banks = Banks;
-        banksCurrency = SortBanks.Sort(
+        banksCurrency = TransferBanks.Transfer(
                 banks,
                 Setting.getSelectCurrency(context),
                 context
         );
+        Collections.sort(banksCurrency,BankCurrencyModel.bankCurrencyModelComparator );
         if (adapter != null) {
             adapter.clear();
             adapter.addAll(banksCurrency);
@@ -97,15 +103,4 @@ public class TabBanksPresenter implements IControlListener {//implements Control
     public void onCitiesDownloaded(List<CityModel> cities) {
 
     }
-
-//    @Override
-//    public void onDataChanged() {
-//        DownloadModelOfServices();
-//    }
-//    public static void EventDovload(){
-//
-//        adapter.clear();
-//        adapter.addAll(banksCurrency);
-//        adapter.notifyDataSetChanged();
-//    }
 }
