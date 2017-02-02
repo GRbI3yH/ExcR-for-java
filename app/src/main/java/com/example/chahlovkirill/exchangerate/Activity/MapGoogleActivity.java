@@ -29,7 +29,7 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mapGooglePresenter = new MapGooglePresenter(this);
+        mapGooglePresenter = new MapGooglePresenter(this,getIntent().getStringExtra("SelectedBank"));
     }
 
     @Override

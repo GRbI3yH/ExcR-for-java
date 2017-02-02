@@ -25,9 +25,11 @@ public class MapGooglePresenter implements IControlListener {
 
     private Gis2Model gis2Model;
     private Context context;
+    private String selectedBank;
 
-    public MapGooglePresenter(Context context){
+    public MapGooglePresenter(Context context, String selectedBank){
         this.context = context;
+        this.selectedBank = selectedBank;
     }
 
     public List<MyItem> getPositionBanks(){
@@ -45,8 +47,9 @@ public class MapGooglePresenter implements IControlListener {
     public void DownloadOfServices(){
         DataService.getInstance().addListener(this);
         DataService.getInstance().Gis2DataSearchDownload(
-                Settings.getToSelectedBank(context),
-                Settings.getToSelectedCityName(context), 1
+                selectedBank,
+                Settings.getToSelectedCityName(context),
+                1
         );
     }
 
@@ -63,7 +66,7 @@ public class MapGooglePresenter implements IControlListener {
                         gis2Model.getresult().size() != 0){
                     page++;
                     inquiry++;
-                    DataService.getInstance().Gis2DataSearchDownload(Settings.getToSelectedBank(context), Settings.getToSelectedCityName(context), page);
+                    DataService.getInstance().Gis2DataSearchDownload(selectedBank, Settings.getToSelectedCityName(context), page);
                 }
                 СheckMismatchColumn();
                 VerificationDoNotMatchTheName();
@@ -100,16 +103,17 @@ public class MapGooglePresenter implements IControlListener {
         }
     }
 
-    private void VerificationDoNotMatchTheName(){
-        if(gis2Model.getresult()!= null & gis2Model.getresult().get(0).getRubrics() != null){
-            String selectBankName = Settings.getToSelectedBank(context).toUpperCase();
+    private void VerificationDoNotMatchTheName(){//перестал правильно работать а именно удаляет всё подряд
+        if(gis2Model.getresult()!= null){
+            String selectedBankUp = selectedBank.toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
-
+            Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
-                String nameBank = iterResult.next().getName();
+                //Log.d("я = ",iterResult.next().getName());
+                String nameBank = result.getName();//Log.d("я = ","ошибка");
                 nameBank = nameBank.toUpperCase();
-                if (!nameBank.contains(selectBankName)){
+                if (!nameBank.contains(selectedBankUp)){
                     iterResult.remove();
                     Log.e(result.getName()+" = ","элемент удален за не совпадении имени");
                 }
@@ -126,5 +130,4 @@ public class MapGooglePresenter implements IControlListener {
     public void onBanksDownloaded(List<BankModel> banks) {
 
     }
-}Feature #6968: Пересмотр презентера
-        Feature #6973: Нам не нужно в настройках хранить выбранный банк
+}

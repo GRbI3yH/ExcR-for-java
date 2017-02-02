@@ -63,8 +63,9 @@ public class TabBanksPresenter implements IControlListener {
         UpdateAdapter();
     }
 
-    public void GoToMapGoogleActivity(){
+    public void GoToMapGoogleActivity(String selectedBank){
         Intent intent = new Intent(context, MapGoogleActivity.class);
+        intent.putExtra("SelectedBank",selectedBank);
         context.startActivity(intent);
     }
 
