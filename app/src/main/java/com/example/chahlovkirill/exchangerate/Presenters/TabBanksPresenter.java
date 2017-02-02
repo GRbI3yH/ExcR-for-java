@@ -11,10 +11,10 @@ import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
-import com.example.chahlovkirill.exchangerate.Services.CoupBanksCurrency;
+import com.example.chahlovkirill.exchangerate.Services.CoupBanksView;
 import com.example.chahlovkirill.exchangerate.Services.DataService;
 import com.example.chahlovkirill.exchangerate.Services.IControlListener;
-import com.example.chahlovkirill.exchangerate.Services.TransferBanks;
+import com.example.chahlovkirill.exchangerate.Services.TransferBanksInBankView;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,45 +31,36 @@ public class TabBanksPresenter implements IControlListener {
 
     private Context context;
     private List<BankModel> banks;
-    private List<BankViewModel> banksCurrency ;
+    private List<BankViewModel> banksView ;
     private BanksAdapter adapter;
-    //private DataServices dataServices;
 
     public BanksAdapter getAdapter(){
-        return adapter = new BanksAdapter( context , banksCurrency, this);
+        return adapter = new BanksAdapter( context , banksView, this);
     }
 
-    public void  LoadModelOfSetting(){
-        banksCurrency = TransferBanks.Transfer( //достаем из настроек и сортируем
+    public void  LoadingOfSettings(){
+        banksView = TransferBanksInBankView.Transfer(
                 Settings.getBanks(context),
                 Settings.getToSelectedCurrency(context),
                 context
         );
-        Collections.sort(banksCurrency,BankViewModel.bankCurrencyModelComparator );
+        Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator);
     }
 
-    public void DownloadModelOfServices(){
-
-        //DATASERVISE <-------<
-        String selectCities = String.valueOf(Settings.getToSelectedCityID(context));
+    public void DownloadOfServices(){
         DataService.getInstance().addListener(this);
-        DataService.getInstance().BanksDownload(selectCities);
+        DataService.getInstance().BanksDownload(String.valueOf(Settings.getToSelectedCityID(context)));
     }
 
     public void ButtonSortCurrency(EExchangeAction mode){
-
-        for (BankViewModel bankCurrency :banksCurrency){
-            bankCurrency.setCurrencyOf(mode);
+        for (BankViewModel bankView :banksView){
+            bankView.setCurrencyOf(mode);
         }
-        Collections.sort(banksCurrency,BankViewModel.bankCurrencyModelComparator );
-
+        Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
         if(mode == EExchangeAction.EURSell || mode == EExchangeAction.USDSell){
-            banksCurrency = CoupBanksCurrency.Coup(banksCurrency);
+            banksView = CoupBanksView.Coup(banksView);
         }
-
-        adapter.clear();
-        adapter.addAll(banksCurrency);
-        adapter.notifyDataSetChanged();
+        UpdateAdapter();
     }
 
     public void GoToMapGoogleActivity(){
@@ -80,15 +71,18 @@ public class TabBanksPresenter implements IControlListener {
     @Override
     public void onBanksDownloaded(List<BankModel> Banks) {
         this.banks = Banks;
-        banksCurrency = TransferBanks.Transfer(
+        banksView = TransferBanksInBankView.Transfer(
                 banks,
                 Settings.getToSelectedCurrency(context),
                 context
         );
-        Collections.sort(banksCurrency,BankViewModel.bankCurrencyModelComparator );
+        Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
+        UpdateAdapter();
+    }
+    private void UpdateAdapter(){
         if (adapter != null) {
             adapter.clear();
-            adapter.addAll(banksCurrency);
+            adapter.addAll(this.banksView);
             adapter.notifyDataSetChanged();
         }
     }

@@ -40,15 +40,12 @@ public class MapGooglePresenter implements IControlListener {
         return offsetItem;
     }
 
-    public boolean DownloadModelOfServices(){
-
-        //DATASERVISE <-------<
-        String selectCities = Settings.getToSelectedCityName(context);
-        String selectBank = Settings.getToSelectedBank(context);
-
+    public boolean DownloadOfServices(){
         DataService.getInstance().addListener(this);
-        DataService.getInstance().Gis2DataSearchDownload(selectBank, selectCities, 1);
-
+        DataService.getInstance().Gis2DataSearchDownload(
+                Settings.getToSelectedBank(context),
+                Settings.getToSelectedCityName(context), 1
+        );
         return true;
     }
 
@@ -72,7 +69,7 @@ public class MapGooglePresenter implements IControlListener {
 
                 for (Result result:gis2Model.getresult()) {
                     for (String rubric: result.getRubrics()) {
-                        Log.e("Name bank = ",result.getName());
+                        Log.e("Оставшийся элемент = ",result.getName());
                     }
                 }
             }
@@ -94,7 +91,7 @@ public class MapGooglePresenter implements IControlListener {
                 }
                 if (boo){
                     iterResult.remove();
-                    Log.e(" YDALENIE--------------","элемент удален");
+                    Log.e(result.getName()+" = ","элемент удален за несовподении рубрики");
                 }
             }
         }
@@ -112,7 +109,7 @@ public class MapGooglePresenter implements IControlListener {
                 nameBank = nameBank.toUpperCase();
                 if (!nameBank.contains(selectBankName)){
                     iterResult.remove();
-                    Log.e(" YDALENIE--------------","элемент удален");
+                    Log.e(result.getName()+" = ","элемент удален за не совпадении имени");
                 }
             }
         }

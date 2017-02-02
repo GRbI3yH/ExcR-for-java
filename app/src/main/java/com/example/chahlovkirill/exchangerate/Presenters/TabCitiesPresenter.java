@@ -30,24 +30,18 @@ public class TabCitiesPresenter implements IControlListener {
         return adapter = new CitiesAdapter( context , cities, this);
     }
 
-    public void LoadModelOfSetting(){
+    public void LoadingOfSettings(){
         cities = Settings.getCities(context);
         MakeTheCitySelectedInTheModel();
-
     }
 
-    public void DownloadModelOfServices(){
-
-        //DATASERVISE <-------<
-
+    public void DownloadOfServices(){
         DataService.getInstance().addListener(this);
         DataService.getInstance().CitiesDownload();
-
     }
+
     private void MakeTheCitySelectedInTheModel(){
-
         String selectCity = String.valueOf(Settings.getToSelectedCityID(context));
-
         for (CityModel city :cities){
             if (String.valueOf(city.getId()).equals(selectCity)){
                 city.setSelected(true);
@@ -56,7 +50,7 @@ public class TabCitiesPresenter implements IControlListener {
         }
     }
 
-    public void CityItemClick(CityModel city){
+    public void CityClick(CityModel city){
         for (CityModel cityEdit: cities){
             if (cityEdit.getSelected()){
                 cityEdit.setSelected(false);
@@ -64,13 +58,7 @@ public class TabCitiesPresenter implements IControlListener {
         }
         city.setSelected(true);
         Settings.setselectCityID(city.getId(),context);
-
-        if (adapter != null) {
-            adapter.clear();
-            adapter.addAll(cities);
-            adapter.notifyDataSetChanged();
-        }
-
+        UpdateAdapter();
         DataService.getInstance().BanksDownload(String.valueOf(city.getId()));
     }
 
@@ -79,12 +67,15 @@ public class TabCitiesPresenter implements IControlListener {
         Settings.setCities(cities,context);
         this.cities = cities;
         MakeTheCitySelectedInTheModel();
+        UpdateAdapter();
+    }
+
+    private void UpdateAdapter(){
         if (adapter != null) {
             adapter.clear();
             adapter.addAll(this.cities);
             adapter.notifyDataSetChanged();
         }
-
     }
 
     @Override

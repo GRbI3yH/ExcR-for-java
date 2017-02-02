@@ -56,8 +56,8 @@ public class TabCitiesFragment extends Fragment {
         listViewCities = (ListView)rootView.findViewById(R.id.lvCityM);
 
         citiesPresenter = new TabCitiesPresenter(getContext());
-        citiesPresenter.LoadModelOfSetting();
-        citiesPresenter.DownloadModelOfServices();
+        citiesPresenter.LoadingOfSettings();
+        citiesPresenter.DownloadOfServices();
         listViewCities.setAdapter(citiesPresenter.getAdapter());
 
         listViewCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {

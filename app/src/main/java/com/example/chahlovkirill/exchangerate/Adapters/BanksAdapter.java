@@ -27,25 +27,25 @@ public class  BanksAdapter extends ArrayAdapter<BankViewModel> {
         this.tabBanksPresenter = tabBanksPresenter;
     }
     TabBanksPresenter tabBanksPresenter;
-    BankViewModel bank;
+    BankViewModel bankView;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        bank = getItem(position);
+        bankView = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bank_list_item, parent, false);
         }
         Button goToGoogleMap = (Button)convertView.findViewById(R.id.GoToGoogleMap);
-        goToGoogleMap.setTag(bank);
+        goToGoogleMap.setTag(bankView);
         // Lookup view for data population
         TextView bankName = (TextView) convertView.findViewById(R.id.bank_name);
         TextView bankValueCurrency = (TextView) convertView.findViewById(R.id.bank_valueCurrency);
         // Populate the data into the template view using the data object
-        bankName.setText(bank.getName());
-        //String t = String.format("$.3f",bank.getCurrency());//String.valueOf(bank.getCurrency());
-        bankValueCurrency.setText(String.format("%.2f",bank.getCurrency()));
+        bankName.setText(bankView.getName());
+
+        bankValueCurrency.setText(String.format("%.2f",bankView.getCurrency()));
 
         goToGoogleMap.setOnClickListener(new View.OnClickListener(){
             @Override

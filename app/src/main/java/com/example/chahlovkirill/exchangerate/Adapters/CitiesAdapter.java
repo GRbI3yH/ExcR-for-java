@@ -44,7 +44,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
             @Override
             public void onClick(View v) {
                 Settings.setselectCityName(city.getName(),getContext());
-                tabCitiesPresenter.CityItemClick(city);
+                tabCitiesPresenter.CityClick(city);
             }
 
         });

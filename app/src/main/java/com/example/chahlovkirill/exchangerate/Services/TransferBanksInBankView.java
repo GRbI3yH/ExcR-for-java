@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 
-public class TransferBanks{
+public class TransferBanksInBankView{
 
     public static List<BankViewModel> Transfer(List<BankModel> Banks, EExchangeAction mode, Context context){
         List<BankViewModel> BanksCurrency = new ArrayList<BankViewModel>()  ;

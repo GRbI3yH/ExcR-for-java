@@ -9,7 +9,7 @@ import java.util.List;
  * Created by chahlov.kirill on 02/02/17.
  */
 
-public class CoupBanksCurrency {
+public class CoupBanksView {
 
     public static List<BankViewModel> Coup(List<BankViewModel> banks){
         List<BankViewModel> banksCoup = new ArrayList<BankViewModel>();

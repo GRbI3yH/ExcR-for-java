@@ -19,6 +19,8 @@ import java.util.List;
 public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private MapGooglePresenter mapGooglePresenter;
+    private ClusterManager<MyItem> mClusterManager;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +32,16 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
         mapGooglePresenter = new MapGooglePresenter(this);
     }
 
-    GoogleMap map ;
     @Override
     public void onMapReady(GoogleMap map) {
         // Add a marker in Sydney, Australia, and move the camera.
-        mapGooglePresenter.DownloadModelOfServices();
+        mapGooglePresenter.DownloadOfServices();
         this.map = map;
 
     }
 
-    private ClusterManager<MyItem> mClusterManager;
-
     public void renderMarkers(){
-
         mClusterManager = new ClusterManager<MyItem>(this,map);
-
         map.setOnCameraIdleListener(mClusterManager);
         map.setOnMarkerClickListener(mClusterManager);
 
