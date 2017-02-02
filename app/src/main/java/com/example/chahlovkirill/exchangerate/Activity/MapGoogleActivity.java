@@ -34,24 +34,22 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap map) {
-        // Add a marker in Sydney, Australia, and move the camera.
         mapGooglePresenter.DownloadOfServices();
         this.map = map;
 
+        mClusterManager = new ClusterManager<MyItem>(this,this.map);
+        this.map.setOnCameraIdleListener(mClusterManager);
+        this.map.setOnMarkerClickListener(mClusterManager);
     }
 
     public void renderMarkers(){
-        mClusterManager = new ClusterManager<MyItem>(this,map);
-        map.setOnCameraIdleListener(mClusterManager);
-        map.setOnMarkerClickListener(mClusterManager);
-
         List<MyItem> myItem = mapGooglePresenter.getPositionBanks();
         if(myItem != null & myItem.size() != 0){
             LatLng latLng = new LatLng(1,1);
-            for (MyItem points: myItem) {
-                mClusterManager.addItem(points);
-                if (points != null) {
-                    latLng = points.getPosition();
+            for (MyItem point: myItem) {
+                mClusterManager.addItem(point);
+                if (point != null) {
+                    latLng = point.getPosition();
                 }
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,9));

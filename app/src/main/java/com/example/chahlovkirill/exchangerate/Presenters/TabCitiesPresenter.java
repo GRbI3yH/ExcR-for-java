@@ -30,12 +30,12 @@ public class TabCitiesPresenter implements IControlListener {
         return adapter = new CitiesAdapter( context , cities, this);
     }
 
-    public void LoadingOfSettings(){
+    public void LoadingFromSettings(){
         cities = Settings.getCities(context);
         MakeTheCitySelectedInTheModel();
     }
 
-    public void DownloadOfServices(){
+    public void DownloadFromServices(){
         DataService.getInstance().addListener(this);
         DataService.getInstance().CitiesDownload();
     }
@@ -87,4 +87,5 @@ public class TabCitiesPresenter implements IControlListener {
     public void onGis2DataSearchDownload(Gis2Model Gis2) {
 
     }
+
 }

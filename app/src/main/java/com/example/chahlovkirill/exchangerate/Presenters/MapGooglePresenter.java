@@ -34,19 +34,20 @@ public class MapGooglePresenter implements IControlListener {
         List<MyItem> offsetItem = new ArrayList<MyItem>();
         if (gis2Model.getresult()!=null){
             for (Result gis2Result : gis2Model.getresult() ) {
-                offsetItem.add(new MyItem(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
+                if(gis2Result != null & gis2Result.getLat() !=  null & gis2Result.getLon() != null){
+                    offsetItem.add(new MyItem(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
+                }
             }
         }
         return offsetItem;
     }
 
-    public boolean DownloadOfServices(){
+    public void DownloadOfServices(){
         DataService.getInstance().addListener(this);
         DataService.getInstance().Gis2DataSearchDownload(
                 Settings.getToSelectedBank(context),
                 Settings.getToSelectedCityName(context), 1
         );
-        return true;
     }
 
     int page = 1;
@@ -64,32 +65,34 @@ public class MapGooglePresenter implements IControlListener {
                     inquiry++;
                     DataService.getInstance().Gis2DataSearchDownload(Settings.getToSelectedBank(context), Settings.getToSelectedCityName(context), page);
                 }
-                Gis2ClearTrash();
-                Gis2ClearNotSelected();
+                СheckMismatchColumn();
+                VerificationDoNotMatchTheName();
 
                 for (Result result:gis2Model.getresult()) {
                     for (String rubric: result.getRubrics()) {
                         Log.e("Оставшийся элемент = ",result.getName());
                     }
                 }
+                mapGoogleActivity.renderMarkers ();
             }
-            mapGoogleActivity.renderMarkers ();
         }
     }
 
-    private void Gis2ClearTrash(){
+    private void СheckMismatchColumn(){
         if(gis2Model.getresult()!= null){
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
-                boolean boo = true;
-
-                for (String rubric: result.getRubrics()) {
-                    if(rubric.equals("Банки")){
-                        boo = false;
+                boolean rubricsСheck = true;
+                Log.i("Gis2ClearTrash","Имя="+result.getName()+"\tRubrics="+ result.getRubrics() );
+                if (result.getRubrics() != null){
+                    for (String rubric: result.getRubrics()) {
+                        if(rubric.equals("Банки")){
+                            rubricsСheck = false;
+                        }
                     }
                 }
-                if (boo){
+                if (rubricsСheck){
                     iterResult.remove();
                     Log.e(result.getName()+" = ","элемент удален за несовподении рубрики");
                 }
@@ -97,15 +100,14 @@ public class MapGooglePresenter implements IControlListener {
         }
     }
 
-    private void Gis2ClearNotSelected(){
-        if(gis2Model.getresult()!= null){
-            String selectBankName = Settings.getToSelectedBank(context);
+    private void VerificationDoNotMatchTheName(){
+        if(gis2Model.getresult()!= null & gis2Model.getresult().get(0).getRubrics() != null){
+            String selectBankName = Settings.getToSelectedBank(context).toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
-            selectBankName = selectBankName.toUpperCase();
 
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
-                String nameBank = result.getName();
+                String nameBank = iterResult.next().getName();
                 nameBank = nameBank.toUpperCase();
                 if (!nameBank.contains(selectBankName)){
                     iterResult.remove();
@@ -124,4 +126,5 @@ public class MapGooglePresenter implements IControlListener {
     public void onBanksDownloaded(List<BankModel> banks) {
 
     }
-}
+}Feature #6968: Пересмотр презентера
+        Feature #6973: Нам не нужно в настройках хранить выбранный банк

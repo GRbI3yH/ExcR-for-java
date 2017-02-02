@@ -38,7 +38,7 @@ public class TabBanksPresenter implements IControlListener {
         return adapter = new BanksAdapter( context , banksView, this);
     }
 
-    public void  LoadingOfSettings(){
+    public void  LoadingFromSettings(){
         banksView = TransferBanksInBankView.Transfer(
                 Settings.getBanks(context),
                 Settings.getToSelectedCurrency(context),
@@ -47,7 +47,7 @@ public class TabBanksPresenter implements IControlListener {
         Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator);
     }
 
-    public void DownloadOfServices(){
+    public void DownloadFromServices(){
         DataService.getInstance().addListener(this);
         DataService.getInstance().BanksDownload(String.valueOf(Settings.getToSelectedCityID(context)));
     }

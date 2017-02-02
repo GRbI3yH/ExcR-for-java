@@ -74,8 +74,8 @@ public class TabBanksFragment extends Fragment {
         }
 
         banksPresenter = new TabBanksPresenter(getContext());
-        banksPresenter.LoadingOfSettings();
-        banksPresenter.DownloadOfServices();
+        banksPresenter.LoadingFromSettings();
+        banksPresenter.DownloadFromServices();
         listViewBanks.setAdapter(banksPresenter.getAdapter());
 
         buttonRUBToUSD.setOnClickListener(new View.OnClickListener(){
