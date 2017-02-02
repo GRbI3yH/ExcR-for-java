@@ -1,6 +1,6 @@
 package com.example.chahlovkirill.exchangerate.Services;
 
-import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
+import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,13 @@ import java.util.List;
  */
 
 public class CoupBanksCurrency {
-    public static List<BankCurrencyModel> Coup(List<BankCurrencyModel> banks){
-        List<BankCurrencyModel> banksCoup = new ArrayList<BankCurrencyModel>();
+
+    public static List<BankViewModel> Coup(List<BankViewModel> banks){
+        List<BankViewModel> banksCoup = new ArrayList<BankViewModel>();
         for (int i = banks.size()-1;i >= 0 ;i--){
             banksCoup.add(banks.get(i));
         }
         return banksCoup;
     }
+
 }

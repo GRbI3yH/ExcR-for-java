@@ -10,34 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
-import com.example.chahlovkirill.exchangerate.Fragments.TabBanksFragment;
-import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
-import com.example.chahlovkirill.exchangerate.Model.BankModel;
-import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
+import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.v4.content.ContextCompat.startActivity;
-
-//import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by chahlov.kirill on 19/01/17.
  */
 
-public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
-    public BanksAdapter(Context context, List<BankCurrencyModel> bank , TabBanksPresenter tabBanksPresenter){
+public class  BanksAdapter extends ArrayAdapter<BankViewModel> {
+    public BanksAdapter(Context context, List<BankViewModel> bank , TabBanksPresenter tabBanksPresenter){
         super(context,0,bank);
         this.tabBanksPresenter = tabBanksPresenter;
     }
     TabBanksPresenter tabBanksPresenter;
-    BankCurrencyModel bank;
-    //GoToGoogleMap
+    BankViewModel bank;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -54,18 +45,16 @@ public class  BanksAdapter extends ArrayAdapter<BankCurrencyModel> {
         // Populate the data into the template view using the data object
         bankName.setText(bank.getName());
         //String t = String.format("$.3f",bank.getCurrency());//String.valueOf(bank.getCurrency());
-        //bankValueCurrency.setTextScaleX((float)1.6);
         bankValueCurrency.setText(String.format("%.2f",bank.getCurrency()));
 
         goToGoogleMap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                BankCurrencyModel bcm = (BankCurrencyModel)v.getTag();
+                BankViewModel bcm = (BankViewModel)v.getTag();
                 Log.e("setBank = ", bcm.getName());
-                Setting.setselectBank(bcm.getName(),getContext());
+                Settings.setselectBank(bcm.getName(),getContext());
                 tabBanksPresenter.GoToMapGoogleActivity();
-                //startActivitity(intent);
             }
         });
         // Return the completed view to render on screen

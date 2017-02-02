@@ -20,10 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import com.google.gson.Gson;
 
 public class ServicesAPI {
-    //public static DataService dataservice = new DataService();
     private static final String cash2cash_URL = "http://wsv3.cash2cash.ru/ExRatesJson.svc/";
     private static final String gis2_URL = "http://catalog.api.2gis.ru/";
-    //private Gson gson = new GsonBuilder().create();
 
     public static void getCallCitiesModel (Callback<List<CityModel>> callbak){
         Retrofit retrofit = getClient(cash2cash_URL);
@@ -48,7 +46,6 @@ public class ServicesAPI {
         IGis2API gis2api = retrofit.create(IGis2API.class);
 
         Map<String,String> map = new HashMap<>();
-        //String what = "отделения_"+whatBanks;
         map.put("what","отделения_"+whatBank);//"отделения_"+whatBanks
         map.put("where",where);
         map.put("version","1.3");

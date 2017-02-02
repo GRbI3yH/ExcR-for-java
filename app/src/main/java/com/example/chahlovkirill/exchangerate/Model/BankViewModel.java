@@ -10,9 +10,9 @@ import java.util.Comparator;
  * Created by chahlov.kirill on 19/01/17.
  */
 
-public class BankCurrencyModel extends BankModel {
+public class BankViewModel extends BankModel {
 
-    public BankCurrencyModel(BankModel bankmodel, EExchangeAction mode){
+    public BankViewModel(BankModel bankmodel, EExchangeAction mode){
 
         this.setBankId(bankmodel.getBankId());
         this.setName(bankmodel.getName());
@@ -48,7 +48,7 @@ public class BankCurrencyModel extends BankModel {
         this.Currency = Currency;
     }
 
-    public int compareTo(BankCurrencyModel o) {
+    public int compareTo(BankViewModel o) {
         //return  this.getCurrency() > o.getCurrency() ? 1 : this.getCurrency() < o.getCurrency() ? -1 : 0;
         if (this.getCurrency()<o.getCurrency()){
             return -1;
@@ -58,9 +58,9 @@ public class BankCurrencyModel extends BankModel {
         }
         return 0;
     }
-    public static Comparator<BankCurrencyModel> bankCurrencyModelComparator = new Comparator<BankCurrencyModel>() {
+    public static Comparator<BankViewModel> bankCurrencyModelComparator = new Comparator<BankViewModel>() {
         @Override
-        public int compare(BankCurrencyModel o1, BankCurrencyModel o2) {
+        public int compare(BankViewModel o1, BankViewModel o2) {
             Double C1 = o1.getCurrency();
             Double C2 = o2.getCurrency();
             return C1.compareTo(C2);

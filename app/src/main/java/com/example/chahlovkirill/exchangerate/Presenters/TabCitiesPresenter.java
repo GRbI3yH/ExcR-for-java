@@ -3,7 +3,7 @@ package com.example.chahlovkirill.exchangerate.Presenters;
 import android.content.Context;
 
 import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
+import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
@@ -31,7 +31,7 @@ public class TabCitiesPresenter implements IControlListener {
     }
 
     public void LoadModelOfSetting(){
-        cities = Setting.getCities(context);
+        cities = Settings.getCities(context);
         MakeTheCitySelectedInTheModel();
 
     }
@@ -46,7 +46,7 @@ public class TabCitiesPresenter implements IControlListener {
     }
     private void MakeTheCitySelectedInTheModel(){
 
-        String selectCity = String.valueOf(Setting.getselectCityID(context));
+        String selectCity = String.valueOf(Settings.getToSelectedCityID(context));
 
         for (CityModel city :cities){
             if (String.valueOf(city.getId()).equals(selectCity)){
@@ -63,7 +63,7 @@ public class TabCitiesPresenter implements IControlListener {
             }
         }
         city.setSelected(true);
-        Setting.setselectCityID(city.getId(),context);
+        Settings.setselectCityID(city.getId(),context);
 
         if (adapter != null) {
             adapter.clear();
@@ -76,7 +76,7 @@ public class TabCitiesPresenter implements IControlListener {
 
     @Override
     public void onCitiesDownloaded(List<CityModel> cities) {
-        Setting.setCities(cities,context);
+        Settings.setCities(cities,context);
         this.cities = cities;
         MakeTheCitySelectedInTheModel();
         if (adapter != null) {

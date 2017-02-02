@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
-import com.example.chahlovkirill.exchangerate.Model.CityModel;
-import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 

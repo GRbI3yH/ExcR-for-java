@@ -5,24 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
-import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
-import com.example.chahlovkirill.exchangerate.Model.BankCurrencyModel;
-import com.example.chahlovkirill.exchangerate.Model.BankModel;
+import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-
-import java.util.Collections;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by chahlov.kirill on 23/01/17.
@@ -69,7 +58,7 @@ public class TabBanksFragment extends Fragment {
         buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
 
-        switch (Setting.getSelectCurrency(getContext())){
+        switch (Settings.getToSelectedCurrency(getContext())){
             case USDBuy:
                 buttonRUBToUSD.setChecked(true);
             break;
@@ -93,7 +82,6 @@ public class TabBanksFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 banksPresenter.ButtonSortCurrency(EExchangeAction.USDBuy);
-                //listViewBanks.setAdapter(banksPresenter.getAdapter());
             }
         });
 

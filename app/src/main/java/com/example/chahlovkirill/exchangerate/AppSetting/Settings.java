@@ -1,10 +1,8 @@
 package com.example.chahlovkirill.exchangerate.AppSetting;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
-import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,16 +19,15 @@ import com.google.gson.reflect.TypeToken;
  * Created by chahlov.kirill on 19/01/17.
  */
 
-public class Setting {
+public class Settings {
 
-    public static final String APP_PREFERENCES = "ExchangeRate";
-    //private  SharedPreferences sPref = getSharedPreferences (APP_PREFERENCES, Context.MODE_PRIVATE); //;
-
+    private static final String APP_PREFERENCES = "ExchangeRate";
     private static String selectCityID_key = "selectCityID_key";
+
     public static void setselectCityID(int selectcity, Context ctx) {
         saveSetting(selectCityID_key,String.valueOf(selectcity),ctx);
     }
-    public static int getselectCityID(Context ctx){
+    public static int getToSelectedCityID(Context ctx){
         String selectCity = loadSetting(selectCityID_key,ctx);
         if(selectCity != null){
             return Integer.parseInt(selectCity);
@@ -43,7 +40,7 @@ public class Setting {
     public static void setselectCityName(String selectcity, Context ctx) {
         saveSetting(selectCityName_key,selectcity,ctx);
     }
-    public static String getselectCityName(Context ctx){
+    public static String getToSelectedCityName(Context ctx){
         String selectCity = loadSetting(selectCityName_key,ctx);
         if(selectCity != null){
             return selectCity;
@@ -55,7 +52,7 @@ public class Setting {
     public static void setselectBank(String selectBank, Context ctx) {
         saveSetting(selectBank_key,selectBank,ctx);
     }
-    public static String getselectBank(Context ctx){
+    public static String getToSelectedBank(Context ctx){
         String selectBank = loadSetting(selectBank_key,ctx);
         if(selectBank != null){
             return selectBank;
@@ -81,7 +78,7 @@ public class Setting {
                 break;
         }
     }
-    public static EExchangeAction getSelectCurrency(Context ctx){
+    public static EExchangeAction getToSelectedCurrency(Context ctx){
         String mode =  loadSetting(currency_key,ctx);
         if (mode != null){
             switch (mode){
@@ -119,7 +116,7 @@ public class Setting {
             Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
             ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
 
-            String selectCity = String.valueOf(Setting.getselectCityID(ctx));
+            String selectCity = String.valueOf(Settings.getToSelectedCityID(ctx));
 
             if( (selectCity != null) && (cities != null)){
                 for (CityModel CM : cities) {

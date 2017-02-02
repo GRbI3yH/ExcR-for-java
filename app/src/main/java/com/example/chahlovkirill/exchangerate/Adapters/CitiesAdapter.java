@@ -9,19 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chahlovkirill.exchangerate.AppSetting.Setting;
-import com.example.chahlovkirill.exchangerate.Model.BankModel;
+import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
-import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-import com.example.chahlovkirill.exchangerate.Services.DataService;
 
-
-import java.util.ArrayList;
 import java.util.List;
-
-//import retrofit2.Callback;
 
 /**
  * Created by chahlov.kirill on 19/01/17.
@@ -31,13 +24,9 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
     public CitiesAdapter(Context context, List<CityModel> Cities,TabCitiesPresenter tabCitiesPresenter){
         super(context,0,Cities);
         this.tabCitiesPresenter = tabCitiesPresenter;
-        //this.Cities = Cities;
     }
 
     private TabCitiesPresenter tabCitiesPresenter ;
-    //private List<CityModel> Cities = new ArrayList<>();
-
-    //ListenersRegistrator registrator = new ListenersRegistrator();
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,7 +43,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Setting.setselectCityName(city.getName(),getContext());
+                Settings.setselectCityName(city.getName(),getContext());
                 tabCitiesPresenter.CityItemClick(city);
             }
 
