@@ -17,25 +17,25 @@ import java.util.List;
 
 public class TransferBanksInBankView{
 
-    public static List<BankViewModel> Transfer(List<BankModel> Banks, EExchangeAction mode, Context context){
+    public static List<BankViewModel> Transfer(List<BankModel> Banks, EExchangeAction mode){
         List<BankViewModel> BanksCurrency = new ArrayList<BankViewModel>()  ;
         if (Banks != null){
             switch (mode)
             {
                 case EURBuy:
-                    Settings.setSelectCurrency(EExchangeAction.EURBuy,context);
+                    Settings.setSelectCurrency(EExchangeAction.EURBuy);
                     break;
 
                 case EURSell:
-                    Settings.setSelectCurrency(EExchangeAction.EURSell,context);
+                    Settings.setSelectCurrency(EExchangeAction.EURSell);
                     break;
 
                 case USDBuy:
-                    Settings.setSelectCurrency(EExchangeAction.USDBuy,context);
+                    Settings.setSelectCurrency(EExchangeAction.USDBuy);
                     break;
 
                 case USDSell:
-                    Settings.setSelectCurrency(EExchangeAction.USDSell,context);
+                    Settings.setSelectCurrency(EExchangeAction.USDSell);
                     break;
             }
             for (BankModel bank : Banks)

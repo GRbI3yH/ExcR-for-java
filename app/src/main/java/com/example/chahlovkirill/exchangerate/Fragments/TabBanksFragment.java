@@ -58,24 +58,9 @@ public class TabBanksFragment extends Fragment {
         buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
 
-        switch (Settings.getToSelectedCurrency(getContext())){
-            case USDBuy:
-                buttonRUBToUSD.setChecked(true);
-            break;
-            case USDSell:
-                buttonUSDToRUB.setChecked(true);
-            break;
-            case EURBuy:
-                buttonRUBtoEUR.setChecked(true);
-            break;
-            case EURSell:
-                buttonEURtoRUB.setChecked(true);
-            break;
-        }
-
         banksPresenter = new TabBanksPresenter(getContext());
-        banksPresenter.LoadingFromSettings();
-        banksPresenter.DownloadFromServices();
+//        banksPresenter.LoadingFromSettings();
+//        banksPresenter.DownloadFromServices();
         listViewBanks.setAdapter(banksPresenter.getAdapter());
 
         buttonRUBToUSD.setOnClickListener(new View.OnClickListener(){
@@ -109,5 +94,21 @@ public class TabBanksFragment extends Fragment {
 
 
         return rootView;
+    }
+    public void selectBattonCurrency(EExchangeAction mode){
+        switch (mode){
+            case USDBuy:
+                buttonRUBToUSD.setChecked(true);
+            break;
+            case USDSell:
+                buttonUSDToRUB.setChecked(true);
+            break;
+            case EURBuy:
+                buttonRUBtoEUR.setChecked(true);
+            break;
+            case EURSell:
+                buttonEURtoRUB.setChecked(true);
+            break;
+        }
     }
 }

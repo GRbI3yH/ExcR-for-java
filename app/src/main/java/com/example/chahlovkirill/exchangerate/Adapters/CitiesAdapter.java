@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
@@ -43,7 +44,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Settings.setselectCityName(city.getName(),getContext());
+                DataProvider.getInstance().setTheSelectedCity(city);
                 tabCitiesPresenter.CityClick(city);
             }
 

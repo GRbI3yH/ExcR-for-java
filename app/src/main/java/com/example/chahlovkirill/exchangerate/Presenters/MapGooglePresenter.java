@@ -4,14 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
-import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
+import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
-import com.example.chahlovkirill.exchangerate.Services.DataService;
-import com.example.chahlovkirill.exchangerate.Services.IControlListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,11 +21,13 @@ import java.util.List;
  * Created by chahlov.kirill on 27/01/17.
  */
 
-public class MapGooglePresenter implements IControlListener {
+public class MapGooglePresenter implements IDataProviderOutput {
 
     private Gis2Model gis2Model;
     private Context context;
     private String selectedBank;
+    private String selectedCity;
+    int page = 0;
 
     public MapGooglePresenter(Context context, String selectedBank){
         this.context = context;
@@ -45,40 +47,8 @@ public class MapGooglePresenter implements IControlListener {
     }
 
     public void DownloadOfServices(){
-        DataService.getInstance().addListener(this);
-        DataService.getInstance().Gis2DataSearchDownload(
-                selectedBank,
-                Settings.getToSelectedCityName(context),
-                1
-        );
-    }
-
-    int page = 1;
-    int inquiry = 1;
-    @Override
-    public void onGis2DataSearchDownload(Gis2Model Gis2) {
-        this.gis2Model = Gis2;
-        MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
-
-        if (!gis2Model.getResponse_code().equals("400")){
-            if(gis2Model.getresult()!= null){
-                if (gis2Model.getresult().size() == 50 &
-                        gis2Model.getresult().size() != 0){
-                    page++;
-                    inquiry++;
-                    DataService.getInstance().Gis2DataSearchDownload(selectedBank, Settings.getToSelectedCityName(context), page);
-                }
-                СheckMismatchColumn();
-                VerificationDoNotMatchTheName();
-
-                for (Result result:gis2Model.getresult()) {
-                    for (String rubric: result.getRubrics()) {
-                        Log.e("Оставшийся элемент = ",result.getName());
-                    }
-                }
-                mapGoogleActivity.renderMarkers ();
-            }
-        }
+        DataProvider.getInstance().addListener(this);
+        DataProvider.getInstance().getTheSelectedCity();
     }
 
     private void СheckMismatchColumn(){
@@ -122,12 +92,62 @@ public class MapGooglePresenter implements IControlListener {
     }
 
     @Override
-    public void onCitiesDownloaded(List<CityModel> cities) {
+    public void didReceiveGis2Data(Gis2Model gis2) {
+        this.gis2Model = gis2;
+        MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
 
+        if (!gis2Model.getResponse_code().equals("400")){
+            if(gis2Model.getresult()!= null){
+                if (gis2Model.getresult().size() == 50 &
+                        gis2Model.getresult().size() != 0){
+                    page++;
+                    DataProvider.getInstance().getTheSelectedCity();
+//                    DataProvider.getInstance().getGis2Data(selectedBank, Settings.getTheSelectedCityName(context), page);
+//                    DataService.getInstance().Gis2DataSearchDownload(selectedBank, Settings.getTheSelectedCityName(context), page);
+                }
+                СheckMismatchColumn();
+                VerificationDoNotMatchTheName();
+
+                for (Result result:gis2Model.getresult()) {
+                    for (String rubric: result.getRubrics()) {
+                        Log.e("Оставшийся элемент = ",result.getName());
+                    }
+                }
+                mapGoogleActivity.renderMarkers ();
+            }
+        }
+        Log.i("MapGooglePresenter","didReceiveGis2Data");
     }
 
     @Override
-    public void onBanksDownloaded(List<BankModel> banks) {
-
+    public void didReceiveTheSelectedCity(CityModel city) {
+        DataProvider.getInstance().getGis2Data(
+                selectedBank,
+                city.getName(),
+                page
+        );
+        Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
     }
+
+    @Override
+    public void didReceiveCities(List<CityModel> cities) {
+        Log.i("MapGooglePresenter","didReceiveCities");
+    }
+
+
+
+    @Override
+    public void didReceiveBanks(List<BankModel> banks) {
+        Log.i("MapGooglePresenter","didReceiveBanks");
+    }
+
+    @Override
+    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
+        Log.i("MapGooglePresenter","didReceiveSelectCurrencyForSorting");
+    }
+
+
 }
+
+
+
