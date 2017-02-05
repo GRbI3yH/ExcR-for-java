@@ -5,8 +5,10 @@ package com.example.chahlovkirill.exchangerate.Activity;
  */
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Presenters.MapGooglePresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -34,7 +36,6 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap map) {
-        mapGooglePresenter.DownloadOfServices();
         this.map = map;
 
         mClusterManager = new ClusterManager<MyItem>(this,this.map);
@@ -52,7 +53,13 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
                     latLng = point.getPosition();
                 }
             }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,9));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,8));
         }
+    }
+    @Override
+    public void onDestroy() {
+        DataProvider.getInstance().removeListener(mapGooglePresenter);
+        Log.i("я дистрой от  ","MapGoogleActivity");
+        super.onDestroy();
     }
 }

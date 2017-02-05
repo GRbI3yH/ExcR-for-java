@@ -2,6 +2,7 @@ package com.example.chahlovkirill.exchangerate.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 
 import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;
 import com.example.chahlovkirill.exchangerate.R;
@@ -57,7 +59,6 @@ public class TabBanksFragment extends Fragment {
         buttonRUBtoEUR = (RadioButton)rootView.findViewById(R.id.RUBtoEUR);
         buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
-
         banksPresenter = new TabBanksPresenter(getContext());
 //        banksPresenter.LoadingFromSettings();
 //        banksPresenter.DownloadFromServices();
@@ -110,5 +111,11 @@ public class TabBanksFragment extends Fragment {
                 buttonEURtoRUB.setChecked(true);
             break;
         }
+    }
+    @Override
+    public void onDestroy() {
+        DataProvider.getInstance().removeListener(banksPresenter);
+        Log.i("я дистрой от  ","TabBanksFragment");
+        super.onDestroy();
     }
 }

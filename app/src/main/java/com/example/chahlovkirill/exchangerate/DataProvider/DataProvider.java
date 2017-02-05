@@ -35,6 +35,14 @@ public class DataProvider implements IDataProvider {
         listeners.add(listener);
     }
 
+    public void  removeListener(IDataProviderOutput listener){
+        listeners.remove(listener);
+    }
+
+    public void  clearListener(IDataProviderOutput listener){
+        listeners.clear();
+    }
+
     private DataProvider(){
     }
 
@@ -49,15 +57,15 @@ public class DataProvider implements IDataProvider {
             public void onResponse(Call<List<BankModel>> call, Response<List<BankModel>> response) {
                 if (response.isSuccessful() && response.body() != null){
                     for (IDataProviderOutput cl:listeners){
-                        Log.i("ServicesAPI = ","didReceiveBanks");
                         cl.didReceiveBanks(response.body());
                     }
+                    Log.i("ServicesAPI = ","didReceiveBanks");
                 }
             }
 
             @Override
             public void onFailure(Call<List<BankModel>> call, Throwable t) {
-                System.out.print("fail");
+                Log.i("ServicesAPI","Банки не загрузились");
             }
         });
     }
@@ -70,7 +78,7 @@ public class DataProvider implements IDataProvider {
     @Override
     public void getReceiveSelectCurrencyForSorting() {
         for (IDataProviderOutput cl:listeners){
-            cl.didReceiveTheSelectedCity(Settings.getSelectCity());
+            cl.didReceiveSelectCurrencyForSorting(Settings.getToSelectedCurrency());
         }
     }
 
@@ -88,9 +96,16 @@ public class DataProvider implements IDataProvider {
         ServicesAPI.getCallCitiesModel(new Callback<List<CityModel>>(){
             @Override
             public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
+                Log.i("ServicesAPI","didReceiveCities");
                 if (response.isSuccessful() && response.body() != null){
+                    int cityId = Settings.getSelectCity().getId();
+                    for (CityModel city:response.body()){
+                        if (city.getId()== cityId){
+                            city.setSelected(true);
+                            break;
+                        }
+                    }
                     for (IDataProviderOutput cl:listeners){
-                        Log.i("ServicesAPI = ","didReceiveCities");//возможно что я тут снова увиличиваю
                         cl.didReceiveCities(response.body());
                     }
                 }
@@ -98,6 +113,7 @@ public class DataProvider implements IDataProvider {
 
             @Override
             public void onFailure(Call<List<CityModel>> call, Throwable t) {
+                Log.i("ServicesAPI","города не загрузились");
             }
         });
     }
@@ -124,17 +140,18 @@ public class DataProvider implements IDataProvider {
         ServicesAPI.getCallGis2ModelSearch(whatBank, where , page, new Callback<Gis2Model>(){
             @Override
             public void onResponse(Call<Gis2Model> call, Response<Gis2Model> response) {
+                Log.i("ServicesAPI","didReceiveGis2Data");
                 if (response.isSuccessful() && response.body() != null){
                     for (IDataProviderOutput cl:listeners){
-                        Log.i("ServicesAPI = ","didReceiveGis2Data");
                         cl.didReceiveGis2Data(response.body());
                     }
+
                 }
             }
 
             @Override
             public void onFailure(Call<Gis2Model> call, Throwable t) {
-                System.out.print("fail");
+                Log.i("ServicesAPI","2Gis не загрузились");
             }
         });
     }

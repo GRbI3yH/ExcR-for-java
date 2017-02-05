@@ -1,6 +1,7 @@
 package com.example.chahlovkirill.exchangerate.Presenters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Adapters.CitiesAdapter;
@@ -11,7 +12,11 @@ import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by chahlov.kirill on 23/01/17.
@@ -25,22 +30,20 @@ public class TabCitiesPresenter implements IDataProviderOutput {
 
     public TabCitiesPresenter(Context context){
         this.context = context;
+        adapter = new CitiesAdapter(context, new ArrayList<CityModel>(), this);
+        DataProvider.getInstance().addListener(this);
+        DataProvider.getInstance().getCities();
+        DataProvider.getInstance().getTheSelectedCity();
     }
 
     public CitiesAdapter getAdapter(){
-        return adapter = new CitiesAdapter( context , cities, this);
+        return adapter = new CitiesAdapter(context, cities, this);
     }
 
 //    public void LoadingFromSettings(){//как один
 //        cities = Settings.getCities(context);
 //        MakeTheCitySelectedInTheModel();
 //    }
-    public void startCitiesPresenter(){//как один
-        //DataService.getInstance().addListener(this);
-        //DataService.getInstance().CitiesDownload();
-        DataProvider.getInstance().addListener(this);
-        DataProvider.getInstance().getCities();
-    }
 
     private void MakeTheCitySelectedInTheModel(String selectCity){
         //String selectCity = String.valueOf(Settings.getTheSelectedCityID(context));
@@ -62,7 +65,6 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         UpdateAdapter();
 
         //Settings.setTheSelectCityID(city.getId(),context);
-        DataProvider.getInstance().addListener(this);
         DataProvider.getInstance().setTheSelectedCity(city);
         DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
     }
@@ -70,44 +72,48 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     private void UpdateAdapter(){
         if (adapter != null) {
             adapter.clear();
-            adapter.addAll(this.cities);
+            if (cities.size()==0){Log.i("TabCitiesPresenter.UA","а города то пустые");}
+            adapter.addAll(cities);
             adapter.notifyDataSetChanged();
         }
     }
-
-    boolean addListener = true;
+    int i = 0;
     @Override
     public void didReceiveCities(List<CityModel> cities) {
+        i++;
+        Log.i("TabCitiesPresenter","didReceiveCities ="+i);
         this.cities = cities;
         Log.i("cities = ",String.valueOf(cities.size()));
-
-        if (addListener){DataProvider.getInstance().addListener(this);addListener=false;}
-        DataProvider.getInstance().setCities(cities);
-        DataProvider.getInstance().getTheSelectedCity();
+        DataProvider.getInstance().setCities(cities);//удаляю выбранные города
+        //DataProvider.getInstance().getTheSelectedCity();
         //didReceiveTheSelectedCity вызов
         UpdateAdapter();
-        Log.i("TabCitiesPresenter","didReceiveCities");
+
     }
 
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
-        MakeTheCitySelectedInTheModel(city.getName());
-        UpdateAdapter();
         Log.i("TabCitiesPresenter","didReceiveTheSelectedCity");
+        DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
+//        MakeTheCitySelectedInTheModel(city.getName());
+        //DataProvider.getInstance().removeListener(this);
+//        Log.i("TabCitiesPresenter","я отписываюсь");
+//        UpdateAdapter();
+//        Log.i("TabCitiesPresenter","didReceiveTheSelectedCity");
     }
 
     @Override
     public void didReceiveBanks(List<BankModel> banks) {
-        Log.i("TabCitiesPresenter","didReceiveBanks");
+        //Log.i("TabCitiesPresenter","didReceiveBanks");
     }
 
     @Override
     public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-        Log.i("TabCitiesPresenter","didReceiveSelectCurrencyForSorting");
+        //Log.i("TabCitiesPresenter","didReceiveSelectCurrencyForSorting");
     }
 
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {
-        Log.i("TabCitiesPresenter","didReceiveGis2Data");
+        //Log.i("TabCitiesPresenter","didReceiveGis2Data");
     }
 }

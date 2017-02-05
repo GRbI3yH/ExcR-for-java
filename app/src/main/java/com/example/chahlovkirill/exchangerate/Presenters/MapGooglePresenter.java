@@ -27,11 +27,13 @@ public class MapGooglePresenter implements IDataProviderOutput {
     private Context context;
     private String selectedBank;
     private String selectedCity;
-    int page = 0;
+    int page = 1;
 
     public MapGooglePresenter(Context context, String selectedBank){
         this.context = context;
         this.selectedBank = selectedBank;
+        DataProvider.getInstance().addListener(this);
+        DataProvider.getInstance().getTheSelectedCity();
     }
 
     public List<MyItem> getPositionBanks(){
@@ -44,11 +46,6 @@ public class MapGooglePresenter implements IDataProviderOutput {
             }
         }
         return offsetItem;
-    }
-
-    public void DownloadOfServices(){
-        DataProvider.getInstance().addListener(this);
-        DataProvider.getInstance().getTheSelectedCity();
     }
 
     private void СheckMismatchColumn(){
@@ -93,6 +90,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
 
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {
+        Log.i("MapGooglePresenter","didReceiveGis2Data");
         this.gis2Model = gis2;
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
 
@@ -116,34 +114,33 @@ public class MapGooglePresenter implements IDataProviderOutput {
                 mapGoogleActivity.renderMarkers ();
             }
         }
-        Log.i("MapGooglePresenter","didReceiveGis2Data");
     }
 
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
+        Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
         DataProvider.getInstance().getGis2Data(
                 selectedBank,
                 city.getName(),
                 page
         );
-        Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
     }
 
     @Override
     public void didReceiveCities(List<CityModel> cities) {
-        Log.i("MapGooglePresenter","didReceiveCities");
+        //Log.i("MapGooglePresenter","didReceiveCities");
     }
 
 
 
     @Override
     public void didReceiveBanks(List<BankModel> banks) {
-        Log.i("MapGooglePresenter","didReceiveBanks");
+        //Log.i("MapGooglePresenter","didReceiveBanks");
     }
 
     @Override
     public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-        Log.i("MapGooglePresenter","didReceiveSelectCurrencyForSorting");
+        //Log.i("MapGooglePresenter","didReceiveSelectCurrencyForSorting");
     }
 
 

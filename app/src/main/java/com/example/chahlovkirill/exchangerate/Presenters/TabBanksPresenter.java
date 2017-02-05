@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.chahlovkirill.exchangerate.Activity.MainActivity;
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
 import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
+import com.example.chahlovkirill.exchangerate.Fragments.TabBanksFragment;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
@@ -28,12 +30,17 @@ public class TabBanksPresenter implements IDataProviderOutput {
 
     public TabBanksPresenter(Context context){
         this.context = context;
+        DataProvider.getInstance().addListener(this);
+//        if (selectedCity != null){
+//            DataProvider.getInstance().getBanks(String.valueOf(selectedCity.getId()));//как то получить сюда город
+//        }
     }
 
     private Context context;
     private List<BankModel> banks;
     private List<BankViewModel> banksView =new ArrayList<BankViewModel>();
     private BanksAdapter adapter;
+    //private CityModel selectedCity;
 
     public BanksAdapter getAdapter(){
         return adapter = new BanksAdapter( context , banksView, this);
@@ -83,44 +90,44 @@ public class TabBanksPresenter implements IDataProviderOutput {
     private void UpdateAdapter(){
         if (adapter != null) {
             adapter.clear();
-            adapter.addAll(this.banksView);
+            adapter.addAll(banksView);
             adapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public void didReceiveBanks(List<BankModel> banks) {
-        this.banks = banks;
-        DataProvider.getInstance().addListener(this);
-        DataProvider.getInstance().getReceiveSelectCurrencyForSorting();
         Log.i("TabBanksPresenter","didReceiveBanks");
+        this.banks = banks;
+        DataProvider.getInstance().getReceiveSelectCurrencyForSorting();
     }
 
     @Override
     public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-//        TabBanksPresenter tabBanksPresenter = (TabBanksPresenter) context;вызов выбора кнобки по нажатию
-//        tabBanksPresenter.selectBattonCurrency(mode);
+        Log.i("TabBanksPresenter","didReceiveSelectCurrencyForSorting");
+//        TabBanksFragment tabBanksFragment = (TabBanksFragment) context;//вызов выбора кнобки по нажатию
+//        TabBanksFragment.selectBattonCurrency(mode);
         banksView = TransferBanksInBankView.Transfer(banks, mode);
         Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
+
         UpdateAdapter();
-        Log.i("TabBanksPresenter","didReceiveSelectCurrencyForSorting");
     }
 
     @Override
     public void didReceiveCities(List<CityModel> cities) {
-        Log.i("TabBanksPresenter","didReceiveCities");
+        //Log.i("TabBanksPresenter","didReceiveCities");
     }
 
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
-        DataProvider.getInstance().addListener(this);
+        Log.i("TabBanksPresenter","didReceiveTheSelectedCity");
+        //this.selectedCity = city;
         //DataService.getInstance().BanksDownload(String.valueOf(Settings.getTheSelectedCityID(context)));
         DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
-        Log.i("TabBanksPresenter","didReceiveTheSelectedCity");
     }
 
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {
-        Log.i("TabBanksPresenter","didReceiveGis2Data");
+        //Log.i("TabBanksPresenter","didReceiveGis2Data");
     }
 }

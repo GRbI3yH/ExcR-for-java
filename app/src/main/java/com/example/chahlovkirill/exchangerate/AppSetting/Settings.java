@@ -3,6 +3,7 @@ package com.example.chahlovkirill.exchangerate.AppSetting;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
+import android.util.Log;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -32,12 +33,14 @@ public class Settings {
     public static void setSelectCity(CityModel city){
         setTheSelectCityID(city.getId());
         setTheSelectCityName(city.getName());
+
     }
     public static CityModel getSelectCity(){
         CityModel city = new CityModel();
         city.setId(getTheSelectedCityID());
         city.setName(getTheSelectedCityName());
         city.setSelected(true);
+
         return city;
     }
 
@@ -108,6 +111,11 @@ public class Settings {
 
     private static String cities_key = "Cities_key";
     public static void setCities(List<CityModel> cities){
+//        List<CityModel> LCM = new ArrayList<CityModel>();
+//        for (CityModel city:cities) {
+//            LCM.add(city);
+//            city.setSelected(false);
+//        }
         String json = gson.toJson(cities);
         saveSetting(cities_key, json);
     }
@@ -117,13 +125,14 @@ public class Settings {
          if (json != null){
             Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
             ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
-
+             Log.i("Settings","выбранный город");
             String selectCity = String.valueOf(Settings.getTheSelectedCityID());
-
             if( (selectCity != null) && (cities != null)){
                 for (CityModel CM : cities) {
-                    if (CM.getId() == Integer.parseInt(selectCity) )
+                    if (CM.getId() == Integer.parseInt(selectCity) ){
                         CM.setSelected(true);
+                        break;
+                    }
                 }
             }
             return cities;
@@ -133,7 +142,6 @@ public class Settings {
 
     private static String banks_key = "Banks_key";
     public static void setBanks(List<BankModel> banks){
-
         String json = gson.toJson(banks);
         saveSetting(banks_key, json);
     }
@@ -148,14 +156,15 @@ public class Settings {
     }
 
     private static void saveSetting(String key,String value){
+        Log.i("Settings.saveSetting",key);
         SharedPreferences sPref = context.getSharedPreferences (APP_PREFERENCES, Context.MODE_PRIVATE);
         Editor editor = sPref.edit();
         editor.putString(key,value);
         editor.commit();
     }
     private static String loadSetting(String key){
+        Log.i("Settings.loadSetting",key);
         SharedPreferences sPref = context.getSharedPreferences (APP_PREFERENCES, Context.MODE_PRIVATE);
-        String s = "";
         return sPref.getString(key, null);
     }
 }
