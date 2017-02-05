@@ -28,13 +28,15 @@ import java.util.List;
 
 public class TabBanksPresenter implements IDataProviderOutput {
 
-    public TabBanksPresenter(Context context){
+    public TabBanksPresenter(Context context,TabBanksFragment fragment){
+        tabBanksFragment = fragment;
         this.context = context;
         DataProvider.getInstance().addListener(this);
-        //DataProvider.getInstance().getBanks(String.valueOf(selectedCity.getId()));//как то получить сюда город
+        DataProvider.getInstance().getTheSelectedCity();//как то получить сюда город
         //из презентора городов брать выбранный
     }
 
+    TabBanksFragment tabBanksFragment;
     private Context context;
     private List<BankModel> banks;
     private List<BankViewModel> banksView =new ArrayList<BankViewModel>();
@@ -107,6 +109,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
         Log.i("TabBanksPresenter","didReceiveSelectCurrencyForSorting");
 //        TabBanksFragment tabBanksFragment = (TabBanksFragment) context;//вызов выбора кнобки по нажатию
 //        TabBanksFragment.selectBattonCurrency(mode);
+        tabBanksFragment.selectBattonCurrency(mode);
         banksView = TransferBanksInBankView.Transfer(banks, mode);
         Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
 

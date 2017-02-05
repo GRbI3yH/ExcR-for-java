@@ -94,7 +94,7 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("TabCitiesPresenter","didReceiveTheSelectedCity");
-        DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
+        //DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
 //        MakeTheCitySelectedInTheModel(city.getName());
         //DataProvider.getInstance().removeListener(this);
 //        Log.i("TabCitiesPresenter","я отписываюсь");

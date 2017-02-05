@@ -59,7 +59,7 @@ public class TabBanksFragment extends Fragment {
         buttonRUBtoEUR = (RadioButton)rootView.findViewById(R.id.RUBtoEUR);
         buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
-        banksPresenter = new TabBanksPresenter(getContext());
+        banksPresenter = new TabBanksPresenter(getContext(),this);
 //        banksPresenter.LoadingFromSettings();
 //        banksPresenter.DownloadFromServices();
         listViewBanks.setAdapter(banksPresenter.getAdapter());

@@ -23,6 +23,7 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
     private MapGooglePresenter mapGooglePresenter;
     private ClusterManager<MyItem> mClusterManager;
     private GoogleMap map;
+    private float mapZoom = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
                     latLng = point.getPosition();
                 }
             }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,8));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,mapZoom));
         }
     }
     @Override

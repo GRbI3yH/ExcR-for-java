@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by chahlov.kirill on 27/01/17.
  */
-
+// здесь нужна грамотная фильтрация
 public class MapGooglePresenter implements IDataProviderOutput {
 
     private Gis2Model gis2Model;
@@ -70,7 +70,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
         }
     }
 
-    private void VerificationDoNotMatchTheName(){//перестал правильно работать а именно удаляет всё подряд
+    private void VerificationDoNotMatchTheName(){//перестал правильно работать а именно удаляет всё подряд. А вроде всё нормально
         if(gis2Model.getresult()!= null){
             String selectedBankUp = selectedBank.toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
@@ -80,6 +80,12 @@ public class MapGooglePresenter implements IDataProviderOutput {
                 //Log.d("я = ",iterResult.next().getName());
                 String nameBank = result.getName();//Log.d("я = ","ошибка");
                 nameBank = nameBank.toUpperCase();
+                if (nameBank.contains(selectedBankUp)){
+                    Log.e(nameBank,"равен "+selectedBankUp);
+                }
+                else {
+                    Log.e(nameBank,"не равен "+selectedBankUp);
+                }
                 if (!nameBank.contains(selectedBankUp)){
                     iterResult.remove();
                     Log.e(result.getName()+" = ","элемент удален за не совпадении имени");
