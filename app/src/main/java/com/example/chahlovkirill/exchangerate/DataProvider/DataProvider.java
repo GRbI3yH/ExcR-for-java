@@ -56,8 +56,10 @@ public class DataProvider implements IDataProvider {
             @Override
             public void onResponse(Call<List<BankModel>> call, Response<List<BankModel>> response) {
                 if (response.isSuccessful() && response.body() != null){
+                    List<BankModel> banks= response.body();
+                    Settings.setBanks(banks);
                     for (IDataProviderOutput cl:listeners){
-                        cl.didReceiveBanks(response.body());
+                        cl.didReceiveBanks(banks);
                     }
                     Log.i("ServicesAPI = ","didReceiveBanks");
                 }
@@ -98,8 +100,10 @@ public class DataProvider implements IDataProvider {
             public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
                 Log.i("ServicesAPI","didReceiveCities");
                 if (response.isSuccessful() && response.body() != null){
+                    List<CityModel> cities= response.body();
+                    Settings.setCities(cities);
                     int cityId = Settings.getSelectCity().getId();
-                    for (CityModel city:response.body()){
+                    for (CityModel city: cities){
                         if (city.getId()== cityId){
                             city.setSelected(true);
                             break;

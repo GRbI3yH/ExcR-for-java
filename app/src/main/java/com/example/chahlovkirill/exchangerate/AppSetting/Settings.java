@@ -111,11 +111,7 @@ public class Settings {
 
     private static String cities_key = "Cities_key";
     public static void setCities(List<CityModel> cities){
-//        List<CityModel> LCM = new ArrayList<CityModel>();
-//        for (CityModel city:cities) {
-//            LCM.add(city);
-//            city.setSelected(false);
-//        }
+        //city.setSelected(false);
         String json = gson.toJson(cities);
         saveSetting(cities_key, json);
     }
@@ -123,18 +119,18 @@ public class Settings {
     public static List<CityModel> getCities(){
          String json =  loadSetting(cities_key);
          if (json != null){
-            Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
-            ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
+             Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
+             ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
              Log.i("Settings","выбранный город");
-            String selectCity = String.valueOf(Settings.getTheSelectedCityID());
-            if( (selectCity != null) && (cities != null)){
-                for (CityModel CM : cities) {
+             String selectCity = String.valueOf(Settings.getTheSelectedCityID());
+             if( (selectCity != null) && (cities != null)){
+                 for (CityModel CM : cities) {
                     if (CM.getId() == Integer.parseInt(selectCity) ){
                         CM.setSelected(true);
                         break;
                     }
                 }
-            }
+             }
             return cities;
         }
         return new ArrayList<CityModel>();

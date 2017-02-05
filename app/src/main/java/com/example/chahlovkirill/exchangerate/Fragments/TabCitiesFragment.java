@@ -60,12 +60,12 @@ public class TabCitiesFragment extends Fragment {
         citiesPresenter = new TabCitiesPresenter(getContext());
         listViewCities.setAdapter(citiesPresenter.getAdapter());
 
-        listViewCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //registrator.addListener(new TabBanksPresenter(getContext()));
-            }
-        });
+//        listViewCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //registrator.addListener(new TabBanksPresenter(getContext()));
+//            }
+//        });
 
         return rootView;
     }

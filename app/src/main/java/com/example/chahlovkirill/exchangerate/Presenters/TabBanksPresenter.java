@@ -31,9 +31,8 @@ public class TabBanksPresenter implements IDataProviderOutput {
     public TabBanksPresenter(Context context){
         this.context = context;
         DataProvider.getInstance().addListener(this);
-//        if (selectedCity != null){
-//            DataProvider.getInstance().getBanks(String.valueOf(selectedCity.getId()));//как то получить сюда город
-//        }
+        //DataProvider.getInstance().getBanks(String.valueOf(selectedCity.getId()));//как то получить сюда город
+        //из презентора городов брать выбранный
     }
 
     private Context context;
@@ -69,6 +68,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
 //    }
 
     public void ButtonSortCurrency(EExchangeAction mode){
+        DataProvider.getInstance().setReceiveSelectCurrencyForSorting(mode);Log.i("ButtonSortCurrency","Сохраняю");
         if (banksView != null){
             for (BankViewModel bankView :banksView){
                 bankView.setCurrencyOf(mode);

@@ -84,7 +84,7 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         Log.i("TabCitiesPresenter","didReceiveCities ="+i);
         this.cities = cities;
         Log.i("cities = ",String.valueOf(cities.size()));
-        DataProvider.getInstance().setCities(cities);//удаляю выбранные города
+        //DataProvider.getInstance().setCities(cities);
         //DataProvider.getInstance().getTheSelectedCity();
         //didReceiveTheSelectedCity вызов
         UpdateAdapter();
