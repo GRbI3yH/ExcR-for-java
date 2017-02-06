@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="GreenTheme" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="GreenTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <!--android:background="@drawable/background1024_500"-->

@@ -43,6 +43,15 @@ public class CityModel implements Serializable {
         this.Selected = Selected;
     }
 
+    public CityModel(){}
+
+    public CityModel(int id, String name,Boolean selected){
+        Id = id;
+        Name = name;
+        Selected = selected;
+
+    }
+
 
 //    public String getTranslitId() {
 //        return this.TranslitId;

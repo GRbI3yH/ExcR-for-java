@@ -60,9 +60,10 @@ public class TabBanksPresenter implements IDataProviderOutput {
         }
     }
 
-    public void GoToMapGoogleActivity(String selectedBank){
+    public void GoToMapGoogleActivity(BankViewModel bankGoGoogle){
         Intent intent = new Intent(context, MapGoogleActivity.class);
-        intent.putExtra("SelectedBank",selectedBank);
+        //intent.putExtra("SelectedBank",selectedBank); // передовать Serializable Parcelable весь целиком
+        intent.putExtra("SelectedBank",bankGoGoogle);
         context.startActivity(intent);
     }
 

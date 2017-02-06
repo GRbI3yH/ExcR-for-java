@@ -11,6 +11,8 @@ import com.example.chahlovkirill.exchangerate.Adapters.TabSectionsPagerAdapter;
 import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.R;
 
+import net.hockeyapp.android.UpdateManager;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +62,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        checkForUpdates();
+    }
+    private void checkForUpdates() {
+        // Remove this for store builds!
+        UpdateManager.register(this);
+    }
 
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterManagers();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
     }
 }

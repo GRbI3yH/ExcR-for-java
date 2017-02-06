@@ -29,44 +29,67 @@ public class Settings {
     private static final String APP_PREFERENCES = "ExchangeRate";
     private static Context context;
 
+//    public static void setBanks(List<BankModel> banks){
+//        String json = gson.toJson(banks);
+//        saveSetting(banks_key, json);
+//    }
+//    public static List<BankModel> getBanks(){
+//        String Banks = loadSetting(banks_key);
+//        if (Banks != null){
+//            String json =  Banks;
+//            Type listOfTestObject = new TypeToken<ArrayList<BankModel>>(){}.getType();
+//            return gson.fromJson(json, listOfTestObject);
+//        }
+//        return new ArrayList<BankModel>();
+//    }
+
     private static String selectCity = "selectCity";
     public static void setSelectCity(CityModel city){
-        setTheSelectCityID(city.getId());
-        setTheSelectCityName(city.getName());
+//        setTheSelectCityID(city.getId());
+//        setTheSelectCityName(city.getName());
+        String json = gson.toJson(city);
+        saveSetting(selectCity, json);
 
     }
     public static CityModel getSelectCity(){
-        CityModel city = new CityModel();
-        city.setId(getTheSelectedCityID());
-        city.setName(getTheSelectedCityName());
-        city.setSelected(true);
-
-        return city;
-    }
-
-    private static String selectCityID_key = "selectCityID_key";
-    private static void setTheSelectCityID(int selectcity) {//обЪединить 1
-        saveSetting(selectCityID_key,String.valueOf(selectcity));
-    }
-    private static int getTheSelectedCityID(){
-        String selectCity = loadSetting(selectCityID_key);
-        if(selectCity != null){
-            return Integer.parseInt(selectCity);
+//        CityModel city = new CityModel();
+//        city.setId(getTheSelectedCityID());
+//        city.setName(getTheSelectedCityName());
+//        city.setSelected(true);
+        String stringCity = loadSetting(selectCity);
+        if (stringCity != null){
+            String json =  stringCity;
+            Type listOfTestObject = new TypeToken<CityModel>(){}.getType();
+            CityModel city = gson.fromJson(json, listOfTestObject);
+            city.setSelected(true);
+            return city;
         }
-        return 7701;
+        return new CityModel(7701,"Москва",true);
     }
 
-    private static String selectCityName_key = "selectCityName_key";
-    private static void setTheSelectCityName(String selectcity) {//обЪединить 1
-        saveSetting(selectCityName_key,selectcity);
-    }
-    private static String getTheSelectedCityName(){
-        String selectCity = loadSetting(selectCityName_key);
-        if(selectCity != null){
-            return selectCity;
-        }
-        return "Москва";
-    }
+//    private static String selectCityID_key = "selectCityID_key";
+//    private static void setTheSelectCityID(int selectcity) {//обЪединить 1
+//        saveSetting(selectCityID_key,String.valueOf(selectcity));
+//    }
+//    private static int getTheSelectedCityID(){
+//        String selectCity = loadSetting(selectCityID_key);
+//        if(selectCity != null){
+//            return Integer.parseInt(selectCity);
+//        }
+//        return 7701;
+//    }
+//
+//    private static String selectCityName_key = "selectCityName_key";
+//    private static void setTheSelectCityName(String selectcity) {//обЪединить 1
+//        saveSetting(selectCityName_key,selectcity);
+//    }
+//    private static String getTheSelectedCityName(){
+//        String selectCity = loadSetting(selectCityName_key);
+//        if(selectCity != null){
+//            return selectCity;
+//        }
+//        return "Москва";
+//    }
 
     private static String currency_key = "currency_key";
     public static void setSelectCurrency(EExchangeAction mode) {
@@ -120,8 +143,7 @@ public class Settings {
          if (json != null){
              Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
              ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
-             Log.i("Settings","выбранный город");
-             String selectCity = String.valueOf(Settings.getTheSelectedCityID());
+             String selectCity = String.valueOf(Settings.getSelectCity().getId());
              if( (selectCity != null) && (cities != null)){
                  for (CityModel CM : cities) {
                     if (CM.getId() == Integer.parseInt(selectCity) ){

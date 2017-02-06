@@ -51,9 +51,9 @@ public class  BanksAdapter extends ArrayAdapter<BankViewModel> {
             @Override
             public void onClick(View v) {
 
-                BankViewModel bcm = (BankViewModel)v.getTag();//в данном вью берем список банков
-                Log.e("Выбран банк = ", bcm.getName());
-                tabBanksPresenter.GoToMapGoogleActivity(bcm.getName());
+                BankViewModel bankGoGoogle = (BankViewModel)v.getTag();//в данном вью берем список банков
+                Log.e("Выбран банк = ", bankGoGoogle.getName());
+                tabBanksPresenter.GoToMapGoogleActivity(bankGoGoogle);
             }
         });
         // Return the completed view to render on screen

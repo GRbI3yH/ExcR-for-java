@@ -3,12 +3,14 @@ package com.example.chahlovkirill.exchangerate.Activity;
 /**
  * Created by chahlov.kirill on 26/01/17.
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
+import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Presenters.MapGooglePresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -32,7 +34,8 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mapGooglePresenter = new MapGooglePresenter(this,getIntent().getStringExtra("SelectedBank"));
+        //Intent intent = getIntent();
+        mapGooglePresenter = new MapGooglePresenter(this,(BankViewModel)getIntent().getSerializableExtra("SelectedBank"));
     }
 
     @Override

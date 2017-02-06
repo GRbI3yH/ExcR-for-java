@@ -1,8 +1,12 @@
 package com.example.chahlovkirill.exchangerate.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -10,7 +14,7 @@ import java.util.Comparator;
  * Created by chahlov.kirill on 19/01/17.
  */
 
-public class BankViewModel extends BankModel {
+public class BankViewModel extends BankModel implements Serializable {
 
     public BankViewModel(BankModel bankmodel, EExchangeAction mode){
 
@@ -87,4 +91,43 @@ public class BankViewModel extends BankModel {
         }
 
     }
+
+//    private BankViewModel(){
+//    }
+
+//    public static final Parcelable.Creator<BankViewModel> CREATOR = new Creator<BankViewModel>() {
+//        @Override
+//        public BankViewModel createFromParcel(Parcel source) {
+//            BankViewModel bankV = new BankViewModel();
+//            bankV.setBankId(source.readString());
+//            bankV.setName(source.readString());
+//            bankV.setEURBuy(source.readDouble());
+//            bankV.setEURSell(source.readDouble());
+//            bankV.setUSDBuy(source.readDouble());
+//            bankV.setUSDSell(source.readDouble());
+//            bankV.setCurrency(source.readDouble());
+//            return bankV;
+//        }
+//
+//        @Override
+//        public BankViewModel[] newArray(int size) {
+//            return new BankViewModel[size];
+//        }
+//    };
+//
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(getBankId());
+//        dest.writeString(getName());
+//        dest.writeDouble(getEURBuy());
+//        dest.writeDouble(getEURSell());
+//        dest.writeDouble(getUSDBuy());
+//        dest.writeDouble(getUSDSell());
+//        dest.writeDouble(getCurrency());
+//    }
 }

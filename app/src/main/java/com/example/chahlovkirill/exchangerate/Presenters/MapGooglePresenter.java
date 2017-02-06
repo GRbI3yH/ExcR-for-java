@@ -8,6 +8,7 @@ import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
+import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
@@ -26,12 +27,13 @@ public class MapGooglePresenter implements IDataProviderOutput {
     private Gis2Model gis2Model;
     private Context context;
     private String selectedBank;
-    private String selectedCity;
+    private BankViewModel bank;
     int page = 1;
 
-    public MapGooglePresenter(Context context, String selectedBank){
+    public MapGooglePresenter(Context context, BankViewModel bank){
         this.context = context;
-        this.selectedBank = selectedBank;
+        this.bank = bank;
+        //this.selectedBank = selectedBank;
         DataProvider.getInstance().addListener(this);
         DataProvider.getInstance().getTheSelectedCity();
     }
@@ -48,7 +50,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
         return offsetItem;
     }
 
-    private void СheckMismatchColumn(){
+    private void CheckMismatchColumn(){
         if(gis2Model.getresult()!= null){
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             while(iterResult.hasNext()){
@@ -72,7 +74,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
 
     private void VerificationDoNotMatchTheName(){
         if(gis2Model.getresult()!= null){
-            String selectedBankUp = selectedBank.toUpperCase();
+            String selectedBankUp = bank.getName().toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
             while(iterResult.hasNext()){
@@ -106,7 +108,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
                     page++;
                     DataProvider.getInstance().getTheSelectedCity();
                 }
-                СheckMismatchColumn();
+                CheckMismatchColumn();
                 VerificationDoNotMatchTheName();
 
                 for (Result result:gis2Model.getresult()) {
@@ -123,7 +125,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
         DataProvider.getInstance().getGis2Data(
-                selectedBank,
+                bank.getName(),
                 city.getName(),
                 page
         );

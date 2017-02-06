@@ -7,10 +7,11 @@ android {
         applicationId "com.example.chahlovkirill.exchangerate"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "4451ae58e42b4737830aeb0a0f76b93c"]
     }
     buildTypes {
         release {
@@ -30,6 +31,8 @@ dependencies {
     compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.google.maps.android:android-maps-utils:0.4.4'
     compile 'com.android.support:multidex:1.0.0'
+
+    compile 'net.hockeyapp.android:HockeySDK:4.0.0'
 
     compile 'ru.rambler.android:swipe-layout:1.0.14'
     compile 'com.android.support:appcompat-v7:25.1.0'
