@@ -111,7 +111,6 @@ public class Settings {
 
     private static String cities_key = "Cities_key";
     public static void setCities(List<CityModel> cities){
-        //city.setSelected(false);
         String json = gson.toJson(cities);
         saveSetting(cities_key, json);
     }

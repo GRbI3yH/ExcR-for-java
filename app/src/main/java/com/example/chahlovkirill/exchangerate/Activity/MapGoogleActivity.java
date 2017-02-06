@@ -60,7 +60,7 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onDestroy() {
         DataProvider.getInstance().removeListener(mapGooglePresenter);
-        Log.i("я дистрой от  ","MapGoogleActivity");
+        Log.i("onDestroy","MapGoogleActivity");
         super.onDestroy();
     }
 }

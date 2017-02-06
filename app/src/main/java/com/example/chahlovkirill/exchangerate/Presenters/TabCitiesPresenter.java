@@ -40,20 +40,14 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         return adapter = new CitiesAdapter(context, cities, this);
     }
 
-//    public void LoadingFromSettings(){//как один
-//        cities = Settings.getCities(context);
-//        MakeTheCitySelectedInTheModel();
+//    private void MakeTheCitySelectedInTheModel(String selectCity){
+//        for (CityModel city :cities){
+//            if (String.valueOf(city.getId()).equals(selectCity)){
+//                city.setSelected(true);
+//                break;
+//            }
+//        }
 //    }
-
-    private void MakeTheCitySelectedInTheModel(String selectCity){
-        //String selectCity = String.valueOf(Settings.getTheSelectedCityID(context));
-        for (CityModel city :cities){
-            if (String.valueOf(city.getId()).equals(selectCity)){
-                city.setSelected(true);
-                break;
-            }
-        }
-    }
 
     public void CityClick(CityModel city){
         for (CityModel cityEdit: cities){
@@ -63,8 +57,6 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         }
         city.setSelected(true);
         UpdateAdapter();
-
-        //Settings.setTheSelectCityID(city.getId(),context);
         DataProvider.getInstance().setTheSelectedCity(city);
         DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
     }
@@ -84,9 +76,6 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         Log.i("TabCitiesPresenter","didReceiveCities ="+i);
         this.cities = cities;
         Log.i("cities = ",String.valueOf(cities.size()));
-        //DataProvider.getInstance().setCities(cities);
-        //DataProvider.getInstance().getTheSelectedCity();
-        //didReceiveTheSelectedCity вызов
         UpdateAdapter();
 
     }
@@ -94,12 +83,6 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("TabCitiesPresenter","didReceiveTheSelectedCity");
-        //DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
-//        MakeTheCitySelectedInTheModel(city.getName());
-        //DataProvider.getInstance().removeListener(this);
-//        Log.i("TabCitiesPresenter","я отписываюсь");
-//        UpdateAdapter();
-//        Log.i("TabCitiesPresenter","didReceiveTheSelectedCity");
     }
 
     @Override

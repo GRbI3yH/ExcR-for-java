@@ -70,15 +70,14 @@ public class MapGooglePresenter implements IDataProviderOutput {
         }
     }
 
-    private void VerificationDoNotMatchTheName(){//перестал правильно работать а именно удаляет всё подряд. А вроде всё нормально
+    private void VerificationDoNotMatchTheName(){
         if(gis2Model.getresult()!= null){
             String selectedBankUp = selectedBank.toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
-                //Log.d("я = ",iterResult.next().getName());
-                String nameBank = result.getName();//Log.d("я = ","ошибка");
+                String nameBank = result.getName();
                 nameBank = nameBank.toUpperCase();
                 if (nameBank.contains(selectedBankUp)){
                     Log.e(nameBank,"равен "+selectedBankUp);
@@ -106,8 +105,6 @@ public class MapGooglePresenter implements IDataProviderOutput {
                         gis2Model.getresult().size() != 0){
                     page++;
                     DataProvider.getInstance().getTheSelectedCity();
-//                    DataProvider.getInstance().getGis2Data(selectedBank, Settings.getTheSelectedCityName(context), page);
-//                    DataService.getInstance().Gis2DataSearchDownload(selectedBank, Settings.getTheSelectedCityName(context), page);
                 }
                 СheckMismatchColumn();
                 VerificationDoNotMatchTheName();

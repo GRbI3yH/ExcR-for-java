@@ -49,7 +49,6 @@ public class BankViewModel extends BankModel {
     }
 
     public int compareTo(BankViewModel o) {
-        //return  this.getCurrency() > o.getCurrency() ? 1 : this.getCurrency() < o.getCurrency() ? -1 : 0;
         if (this.getCurrency()<o.getCurrency()){
             return -1;
         }
@@ -88,14 +87,4 @@ public class BankViewModel extends BankModel {
         }
 
     }
-//    public Comparator<BankCurrencyModel> bankCurrencyMComparator = new Comparator<BankCurrencyModel>() {
-//        @Override
-//        public int compare(BankCurrencyModel o1, BankCurrencyModel o2) {
-////            Double C1 = o1.getCurrency();
-////            Double C2 = o2.getCurrency();
-////
-////            return C1 - C2;
-//            String B1 = o1.co;
-//        }
-//    }
 }

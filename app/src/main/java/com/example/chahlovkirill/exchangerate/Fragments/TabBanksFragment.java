@@ -60,8 +60,6 @@ public class TabBanksFragment extends Fragment {
         buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
         listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
         banksPresenter = new TabBanksPresenter(getContext(),this);
-//        banksPresenter.LoadingFromSettings();
-//        banksPresenter.DownloadFromServices();
         listViewBanks.setAdapter(banksPresenter.getAdapter());
 
         buttonRUBToUSD.setOnClickListener(new View.OnClickListener(){
@@ -115,7 +113,7 @@ public class TabBanksFragment extends Fragment {
     @Override
     public void onDestroy() {
         DataProvider.getInstance().removeListener(banksPresenter);
-        Log.i("я дистрой от  ","TabBanksFragment");
+        Log.i("onDestroy","TabBanksFragment");
         super.onDestroy();
     }
 }

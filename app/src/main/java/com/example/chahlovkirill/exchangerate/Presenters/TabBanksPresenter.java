@@ -32,8 +32,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
         tabBanksFragment = fragment;
         this.context = context;
         DataProvider.getInstance().addListener(this);
-        DataProvider.getInstance().getTheSelectedCity();//как то получить сюда город
-        //из презентора городов брать выбранный
+        DataProvider.getInstance().getTheSelectedCity();
     }
 
     TabBanksFragment tabBanksFragment;
@@ -46,28 +45,6 @@ public class TabBanksPresenter implements IDataProviderOutput {
     public BanksAdapter getAdapter(){
         return adapter = new BanksAdapter( context , banksView, this);
     }
-
-//    public void  LoadingFromSettings(){//как один
-//        banksView = TransferBanksInBankView.Transfer(
-//                Settings.getBanks(context),
-//                Settings.getToSelectedCurrency(context),
-//                context
-//        );
-//        Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator);
-//    }
-//    public void startCitiesPresenter(){//как один
-//        //DataService.getInstance().addListener(this);
-//        //DataService.getInstance().CitiesDownload();
-//        DataProvider.getInstance().addListener(this);
-//        DataProvider.getInstance().getCities();
-//    }
-
-//    public void startBanksPresenter(){//как один
-//        DataProvider.getInstance().addListener(this);
-//        //DataService.getInstance().BanksDownload(String.valueOf(Settings.getTheSelectedCityID(context)));
-//        DataProvider.getInstance().getBanks();
-//
-//    }
 
     public void ButtonSortCurrency(EExchangeAction mode){
         DataProvider.getInstance().setReceiveSelectCurrencyForSorting(mode);Log.i("ButtonSortCurrency","Сохраняю");
@@ -107,8 +84,6 @@ public class TabBanksPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
         Log.i("TabBanksPresenter","didReceiveSelectCurrencyForSorting");
-//        TabBanksFragment tabBanksFragment = (TabBanksFragment) context;//вызов выбора кнобки по нажатию
-//        TabBanksFragment.selectBattonCurrency(mode);
         tabBanksFragment.selectBattonCurrency(mode);
         banksView = TransferBanksInBankView.Transfer(banks, mode);
         Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
@@ -124,8 +99,6 @@ public class TabBanksPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("TabBanksPresenter","didReceiveTheSelectedCity");
-        //this.selectedCity = city;
-        //DataService.getInstance().BanksDownload(String.valueOf(Settings.getTheSelectedCityID(context)));
         DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
     }
 
