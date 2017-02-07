@@ -48,7 +48,6 @@ public class TabCitiesFragment extends Fragment {
     private View rootView;
     private ListView listViewCities;
     private TabCitiesPresenter citiesPresenter;
-    //ListenersRegistrator registrator = new ListenersRegistrator();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

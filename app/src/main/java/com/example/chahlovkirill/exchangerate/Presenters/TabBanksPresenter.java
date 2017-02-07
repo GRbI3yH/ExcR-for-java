@@ -40,7 +40,6 @@ public class TabBanksPresenter implements IDataProviderOutput {
     private List<BankModel> banks;
     private List<BankViewModel> banksView =new ArrayList<BankViewModel>();
     private BanksAdapter adapter;
-    //private CityModel selectedCity;
 
     public BanksAdapter getAdapter(){
         return adapter = new BanksAdapter( context , banksView, this);
@@ -61,8 +60,8 @@ public class TabBanksPresenter implements IDataProviderOutput {
     }
 
     public void GoToMapGoogleActivity(BankViewModel bankGoGoogle){
+        Log.e("Selected bank = ", bankGoGoogle.getName());
         Intent intent = new Intent(context, MapGoogleActivity.class);
-        //intent.putExtra("SelectedBank",selectedBank); // передовать Serializable Parcelable весь целиком
         intent.putExtra("SelectedBank",bankGoGoogle);
         context.startActivity(intent);
     }
@@ -93,9 +92,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
     }
 
     @Override
-    public void didReceiveCities(List<CityModel> cities) {
-        //Log.i("TabBanksPresenter","didReceiveCities");
-    }
+    public void didReceiveCities(List<CityModel> cities) {}
 
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
@@ -104,7 +101,5 @@ public class TabBanksPresenter implements IDataProviderOutput {
     }
 
     @Override
-    public void didReceiveGis2Data(Gis2Model gis2) {
-        //Log.i("TabBanksPresenter","didReceiveGis2Data");
-    }
+    public void didReceiveGis2Data(Gis2Model gis2) {}
 }

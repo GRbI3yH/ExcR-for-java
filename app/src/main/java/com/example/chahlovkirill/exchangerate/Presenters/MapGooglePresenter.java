@@ -33,7 +33,6 @@ public class MapGooglePresenter implements IDataProviderOutput {
     public MapGooglePresenter(Context context, BankViewModel bank){
         this.context = context;
         this.bank = bank;
-        //this.selectedBank = selectedBank;
         DataProvider.getInstance().addListener(this);
         DataProvider.getInstance().getTheSelectedCity();
     }
@@ -132,21 +131,13 @@ public class MapGooglePresenter implements IDataProviderOutput {
     }
 
     @Override
-    public void didReceiveCities(List<CityModel> cities) {
-        //Log.i("MapGooglePresenter","didReceiveCities");
-    }
-
-
+    public void didReceiveCities(List<CityModel> cities) {}
 
     @Override
-    public void didReceiveBanks(List<BankModel> banks) {
-        //Log.i("MapGooglePresenter","didReceiveBanks");
-    }
+    public void didReceiveBanks(List<BankModel> banks) {}
 
     @Override
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-        //Log.i("MapGooglePresenter","didReceiveSelectCurrencyForSorting");
-    }
+    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {}
 
 
 }

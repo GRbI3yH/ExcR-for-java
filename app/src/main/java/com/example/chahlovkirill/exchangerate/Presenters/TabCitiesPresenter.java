@@ -40,15 +40,6 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         return adapter = new CitiesAdapter(context, cities, this);
     }
 
-//    private void MakeTheCitySelectedInTheModel(String selectCity){
-//        for (CityModel city :cities){
-//            if (String.valueOf(city.getId()).equals(selectCity)){
-//                city.setSelected(true);
-//                break;
-//            }
-//        }
-//    }
-
     public void CityClick(CityModel city){
         for (CityModel cityEdit: cities){
             if (cityEdit.getSelected()){
@@ -86,17 +77,11 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     }
 
     @Override
-    public void didReceiveBanks(List<BankModel> banks) {
-        //Log.i("TabCitiesPresenter","didReceiveBanks");
-    }
+    public void didReceiveBanks(List<BankModel> banks) {}
 
     @Override
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-        //Log.i("TabCitiesPresenter","didReceiveSelectCurrencyForSorting");
-    }
+    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {}
 
     @Override
-    public void didReceiveGis2Data(Gis2Model gis2) {
-        //Log.i("TabCitiesPresenter","didReceiveGis2Data");
-    }
+    public void didReceiveGis2Data(Gis2Model gis2) {}
 }
