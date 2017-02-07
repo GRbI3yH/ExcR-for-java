@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         checkForUpdates();
     }
     private void checkForUpdates() {
-        // Remove this for store builds!
         UpdateManager.register(this);
     }
 

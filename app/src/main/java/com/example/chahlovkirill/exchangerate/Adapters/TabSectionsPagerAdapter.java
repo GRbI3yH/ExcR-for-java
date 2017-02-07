@@ -20,24 +20,22 @@ import com.example.chahlovkirill.exchangerate.Fragments.TabCitiesFragment;
  */
 public class TabSectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private int NumOfTabs;
+    private int numOfTabs;
 
-    public TabSectionsPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public TabSectionsPagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
-        this.NumOfTabs = NumOfTabs;
+        this.numOfTabs = numOfTabs;
     }
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position){
             case 0:
-                TabCitiesFragment TCitiesA = new TabCitiesFragment();
-                return TCitiesA;
+                TabCitiesFragment tabCitiesFragment = new TabCitiesFragment();
+                return tabCitiesFragment;
             case 1:
-                TabBanksFragment TBanksA = new TabBanksFragment();
-                return TBanksA;
+                TabBanksFragment tabBanksFragment = new TabBanksFragment();
+                return tabBanksFragment;
             default:
                 return null;
         }
@@ -45,6 +43,6 @@ public class TabSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return NumOfTabs;
+        return numOfTabs;
     }
 }

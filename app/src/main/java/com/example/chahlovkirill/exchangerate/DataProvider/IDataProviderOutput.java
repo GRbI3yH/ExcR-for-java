@@ -19,7 +19,7 @@ public interface IDataProviderOutput{
 
     public void didReceiveBanks(List<BankModel> banks);
 
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode);
+    public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode);
 
     public void didReceiveGis2Data (Gis2Model gis2);
 }

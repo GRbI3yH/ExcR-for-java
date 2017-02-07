@@ -29,18 +29,18 @@ public class Settings {
     private static final String APP_PREFERENCES = "ExchangeRate";
     private static Context context;
 
-    private static String selectCity = "selectedСity_key";
+    private static String selectedCity = "selectedСity_key";
     public static void setTheSelectedCity(CityModel city){
         String json = gson.toJson(city);
-        saveSetting(selectCity, json);
+        saveSetting(selectedCity, json);
 
     }
     public static CityModel getTheSelectedCity(){
-        String stringCity = loadSetting(selectCity);
+        String stringCity = loadSetting(selectedCity);
         if (stringCity != null){
             String json =  stringCity;
-            Type listOfTestObject = new TypeToken<CityModel>(){}.getType();
-            CityModel city = gson.fromJson(json, listOfTestObject);
+            Type type = new TypeToken<CityModel>(){}.getType();
+            CityModel city = gson.fromJson(json, type);
             city.setSelected(true);
             return city;
         }
@@ -97,8 +97,8 @@ public class Settings {
     public static List<CityModel> getCities(){
          String json =  loadSetting(cities_key);
          if (json != null){
-             Type listOfTestObject = new TypeToken<ArrayList<CityModel>>(){}.getType();
-             ArrayList<CityModel> cities = gson.fromJson(json, listOfTestObject);
+             Type type = new TypeToken<ArrayList<CityModel>>(){}.getType();
+             ArrayList<CityModel> cities = gson.fromJson(json, type);
              String selectedCity = String.valueOf(Settings.getTheSelectedCity().getId());
              if( (selectedCity != null) && (cities != null)){
                  for (CityModel CM : cities) {
@@ -122,8 +122,8 @@ public class Settings {
         String Banks = loadSetting(banks_key);
         if (Banks != null){
             String json =  Banks;
-            Type listOfTestObject = new TypeToken<ArrayList<BankModel>>(){}.getType();
-            return gson.fromJson(json, listOfTestObject);
+            Type type = new TypeToken<ArrayList<BankModel>>(){}.getType();
+            return gson.fromJson(json, type);
         }
         return new ArrayList<BankModel>();
     }

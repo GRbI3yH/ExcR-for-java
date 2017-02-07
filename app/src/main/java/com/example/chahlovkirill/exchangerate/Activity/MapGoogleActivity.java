@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
+import com.example.chahlovkirill.exchangerate.Cluster.Position;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Presenters.MapGooglePresenter;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private MapGooglePresenter mapGooglePresenter;
-    private ClusterManager<MyItem> mClusterManager;
+    private ClusterManager<Position> mClusterManager;
     private GoogleMap map;
     private float mapZoom = 7;
 
@@ -41,19 +41,19 @@ public class MapGoogleActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        mClusterManager = new ClusterManager<MyItem>(this,this.map);
+        mClusterManager = new ClusterManager<Position>(this,this.map);
         this.map.setOnCameraIdleListener(mClusterManager);
         this.map.setOnMarkerClickListener(mClusterManager);
     }
 
     public void renderMarkers(){
-        List<MyItem> myItem = mapGooglePresenter.getPositionBanks();
-        if(myItem != null & myItem.size() != 0){
+        List<Position> positions = mapGooglePresenter.getPositionBanks();
+        if(positions != null & positions.size() != 0){
             LatLng latLng = new LatLng(1,1);
-            for (MyItem point: myItem) {
-                mClusterManager.addItem(point);
-                if (point != null) {
-                    latLng = point.getPosition();
+            for (Position position: positions) {
+                mClusterManager.addItem(position);
+                if (position != null) {
+                    latLng = position.getPosition();
                 }
             }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,mapZoom));

@@ -22,8 +22,8 @@ import java.util.List;
  */
 
 public class  CitiesAdapter extends ArrayAdapter<CityModel> {
-    public CitiesAdapter(Context context, List<CityModel> Cities,TabCitiesPresenter tabCitiesPresenter){
-        super(context,0,Cities);
+    public CitiesAdapter(Context context, List<CityModel> cities,TabCitiesPresenter tabCitiesPresenter){
+        super(context,0,cities);
         this.tabCitiesPresenter = tabCitiesPresenter;
     }
 
@@ -31,9 +31,7 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         final CityModel city = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cities_list_item, parent, false);
         }
@@ -44,20 +42,17 @@ public class  CitiesAdapter extends ArrayAdapter<CityModel> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                tabCitiesPresenter.CityClick(city);
+                tabCitiesPresenter.ClickCity(city);
             }
 
         });
-        // Lookup view for data population
         if (city.getSelected()){
             imageView.setVisibility(View.VISIBLE);
         }
         else{
             imageView.setVisibility(View.GONE);
         }
-        // Populate the data into the template view using the data object
         cityName.setText(city.getName());
-        // Return the completed view to render on screen
         return convertView;
     }
 

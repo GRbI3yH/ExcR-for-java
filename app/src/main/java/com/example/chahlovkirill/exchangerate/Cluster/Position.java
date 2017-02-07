@@ -7,10 +7,10 @@ import com.google.maps.android.clustering.ClusterItem;
  * Created by chahlov.kirill on 30/01/17.
  */
 
-public class MyItem implements ClusterItem {
+public class Position implements ClusterItem {
     private final LatLng mPosition;
 
-    public MyItem(double lat,double lng){
+    public Position(double lat,double lng){
         mPosition = new LatLng(lat,lng);
     }
 

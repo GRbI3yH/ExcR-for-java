@@ -55,19 +55,19 @@ public class DataProvider implements IDataProvider {
         ServicesAPI.getCallBanksModel(idSelectCity, new Callback<List<BankModel>>(){
             @Override
             public void onResponse(Call<List<BankModel>> call, Response<List<BankModel>> response) {
+                Log.i("ServicesAPI = ","didReceiveBanks");
                 if (response.isSuccessful() && response.body() != null){
-                    List<BankModel> banks= response.body();
+                    List<BankModel> banks = response.body();
                     Settings.setBanks(banks);
                     for (IDataProviderOutput cl:listeners){
                         cl.didReceiveBanks(banks);
                     }
-                    Log.i("ServicesAPI = ","didReceiveBanks");
                 }
             }
 
             @Override
             public void onFailure(Call<List<BankModel>> call, Throwable t) {
-                Log.i("ServicesAPI","Банки не загрузились");
+                Log.i("ServicesAPI","Banks are not loaded");
             }
         });
     }
@@ -78,15 +78,15 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void getReceiveSelectCurrencyForSorting() {
+    public void getReceiveSelectedCurrencyForSorting() {
         for (IDataProviderOutput cl:listeners){
-            cl.didReceiveSelectCurrencyForSorting(Settings.getToSelectedCurrency());
+            cl.didReceiveSelectedCurrencyForSorting(Settings.getTheSelectedCurrency());
         }
     }
 
     @Override
-    public void setReceiveSelectCurrencyForSorting(EExchangeAction mode) {
-        Settings.setSelectCurrency(mode);
+    public void setReceiveSelectedCurrencyForSorting(EExchangeAction mode) {
+        Settings.setTheSelectedCurrency(mode);
     }
 
     @Override
@@ -100,9 +100,9 @@ public class DataProvider implements IDataProvider {
             public void onResponse(Call<List<CityModel>> call, Response<List<CityModel>> response) {
                 Log.i("ServicesAPI","didReceiveCities");
                 if (response.isSuccessful() && response.body() != null){
-                    List<CityModel> cities= response.body();
+                    List<CityModel> cities = response.body();
                     Settings.setCities(cities);
-                    int cityId = Settings.getSelectCity().getId();
+                    int cityId = Settings.getTheSelectedCity().getId();
                     for (CityModel city: cities){
                         if (city.getId()== cityId){
                             city.setSelected(true);
@@ -117,7 +117,7 @@ public class DataProvider implements IDataProvider {
 
             @Override
             public void onFailure(Call<List<CityModel>> call, Throwable t) {
-                Log.i("ServicesAPI","города не загрузились");
+                Log.i("ServicesAPI","Cities are not loaded");
             }
         });
     }
@@ -130,13 +130,13 @@ public class DataProvider implements IDataProvider {
     @Override
     public void getTheSelectedCity() {
         for (IDataProviderOutput cl:listeners){
-            cl.didReceiveTheSelectedCity(Settings.getSelectCity());
+            cl.didReceiveTheSelectedCity(Settings.getTheSelectedCity());
         }
     }
 
     @Override
     public void setTheSelectedCity(CityModel city) {
-        Settings.setSelectCity(city);
+        Settings.setTheSelectedCity(city);
     }
 
     @Override
@@ -155,7 +155,7 @@ public class DataProvider implements IDataProvider {
 
             @Override
             public void onFailure(Call<Gis2Model> call, Throwable t) {
-                Log.i("ServicesAPI","2Gis не загрузились");
+                Log.i("ServicesAPI","2Gis are not loaded");
             }
         });
     }

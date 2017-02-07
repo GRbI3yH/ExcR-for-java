@@ -43,58 +43,55 @@ public class TabBanksFragment extends Fragment {
 
     private ListView listViewBanks;
 
-    private View rootView;
+    private View view;
     private RadioButton buttonRUBToUSD;
     private RadioButton buttonUSDToRUB;
     private RadioButton buttonRUBtoEUR;
     private RadioButton buttonEURtoRUB;
-    private TabBanksPresenter banksPresenter;
+    private TabBanksPresenter tabBanksPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.banks_tab_exc_rate, container, false);
-        buttonRUBToUSD = (RadioButton)rootView.findViewById(R.id.RUBToUSD);
-        buttonUSDToRUB = (RadioButton)rootView.findViewById(R.id.USDToRUB);
-        buttonRUBtoEUR = (RadioButton)rootView.findViewById(R.id.RUBtoEUR);
-        buttonEURtoRUB = (RadioButton)rootView.findViewById(R.id.EURtoRUB);
-        listViewBanks = (ListView)rootView.findViewById(R.id.lvBankM);
-        banksPresenter = new TabBanksPresenter(getContext(),this);
-        listViewBanks.setAdapter(banksPresenter.getAdapter());
-
+        view = inflater.inflate(R.layout.banks_tab_exc_rate, container, false);
+        buttonRUBToUSD = (RadioButton)view.findViewById(R.id.RUBToUSD);
+        buttonUSDToRUB = (RadioButton)view.findViewById(R.id.USDToRUB);
+        buttonRUBtoEUR = (RadioButton)view.findViewById(R.id.RUBtoEUR);
+        buttonEURtoRUB = (RadioButton)view.findViewById(R.id.EURtoRUB);
+        listViewBanks = (ListView)view.findViewById(R.id.lvBankM);
+        tabBanksPresenter = new TabBanksPresenter(getContext(),this);
+        listViewBanks.setAdapter(tabBanksPresenter.getAdapter());
         buttonRUBToUSD.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                banksPresenter.ButtonSortCurrency(EExchangeAction.USDBuy);
+                tabBanksPresenter.ButtonSortCurrency(EExchangeAction.USDBuy);
             }
         });
 
         buttonUSDToRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                banksPresenter.ButtonSortCurrency(EExchangeAction.USDSell);
+                tabBanksPresenter.ButtonSortCurrency(EExchangeAction.USDSell);
             }
         });
 
         buttonRUBtoEUR.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                banksPresenter.ButtonSortCurrency(EExchangeAction.EURBuy);
+                tabBanksPresenter.ButtonSortCurrency(EExchangeAction.EURBuy);
             }
         });
 
         buttonEURtoRUB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                banksPresenter.ButtonSortCurrency((EExchangeAction.EURSell));
+                tabBanksPresenter.ButtonSortCurrency((EExchangeAction.EURSell));
             }
         });
-
-
-
-        return rootView;
+        return view;
     }
-    public void selectBattonCurrency(EExchangeAction mode){
+
+    public void selectedBattonCurrency(EExchangeAction mode){
         switch (mode){
             case USDBuy:
                 buttonRUBToUSD.setChecked(true);
@@ -110,9 +107,10 @@ public class TabBanksFragment extends Fragment {
             break;
         }
     }
+
     @Override
     public void onDestroy() {
-        DataProvider.getInstance().removeListener(banksPresenter);
+        DataProvider.getInstance().removeListener(tabBanksPresenter);
         Log.i("onDestroy","TabBanksFragment");
         super.onDestroy();
     }

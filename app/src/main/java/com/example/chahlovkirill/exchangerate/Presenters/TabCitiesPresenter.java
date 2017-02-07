@@ -40,7 +40,7 @@ public class TabCitiesPresenter implements IDataProviderOutput {
         return adapter = new CitiesAdapter(context, cities, this);
     }
 
-    public void CityClick(CityModel city){
+    public void ClickCity(CityModel city){
         for (CityModel cityEdit: cities){
             if (cityEdit.getSelected()){
                 cityEdit.setSelected(false);
@@ -55,18 +55,15 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     private void UpdateAdapter(){
         if (adapter != null) {
             adapter.clear();
-            if (cities.size()==0){Log.i("TabCitiesPresenter.UA","а города то пустые");}
             adapter.addAll(cities);
             adapter.notifyDataSetChanged();
         }
     }
-    int i = 0;
+
     @Override
     public void didReceiveCities(List<CityModel> cities) {
-        i++;
-        Log.i("TabCitiesPresenter","didReceiveCities ="+i);
+        Log.i("TabCitiesPresenter","didReceiveCities");
         this.cities = cities;
-        Log.i("cities = ",String.valueOf(cities.size()));
         UpdateAdapter();
 
     }
@@ -80,7 +77,7 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     public void didReceiveBanks(List<BankModel> banks) {}
 
     @Override
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {}
+    public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode) {}
 
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {}

@@ -14,8 +14,8 @@ public interface IDataProvider {
     public void getBanks(String selectCity);
     public void setBanks(List<BankModel> banks);
 
-    public void getReceiveSelectCurrencyForSorting();
-    public void setReceiveSelectCurrencyForSorting(EExchangeAction mode);
+    public void getReceiveSelectedCurrencyForSorting();
+    public void setReceiveSelectedCurrencyForSorting(EExchangeAction mode);
 
     public void getCities();
     public void setCities(List<CityModel> cities);

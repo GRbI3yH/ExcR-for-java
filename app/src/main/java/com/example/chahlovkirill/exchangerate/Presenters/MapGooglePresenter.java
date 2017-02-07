@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
-import com.example.chahlovkirill.exchangerate.Cluster.MyItem;
+import com.example.chahlovkirill.exchangerate.Cluster.Position;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
@@ -21,41 +21,39 @@ import java.util.List;
 /**
  * Created by chahlov.kirill on 27/01/17.
  */
-// здесь нужна грамотная фильтрация
+
 public class MapGooglePresenter implements IDataProviderOutput {
 
     private Gis2Model gis2Model;
     private Context context;
-    private String selectedBank;
-    private BankViewModel bank;
-    int page = 1;
+    private BankViewModel bankView;
+    private int page = 1;
 
-    public MapGooglePresenter(Context context, BankViewModel bank){
+    public MapGooglePresenter(Context context, BankViewModel bankView){
         this.context = context;
-        this.bank = bank;
+        this.bankView = bankView;
         DataProvider.getInstance().addListener(this);
         DataProvider.getInstance().getTheSelectedCity();
     }
 
-    public List<MyItem> getPositionBanks(){
-        List<MyItem> offsetItem = new ArrayList<MyItem>();
+    public List<Position> getPositionBanks(){
+        List<Position> offsetItem = new ArrayList<Position>();
         if (gis2Model.getresult()!=null){
             for (Result gis2Result : gis2Model.getresult() ) {
                 if(gis2Result != null & gis2Result.getLat() !=  null & gis2Result.getLon() != null){
-                    offsetItem.add(new MyItem(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
+                    offsetItem.add(new Position(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
                 }
             }
         }
         return offsetItem;
     }
 
-    private void CheckMismatchColumn(){
+    private void CheckMismatchRubric(){
         if(gis2Model.getresult()!= null){
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
                 boolean rubricsСheck = true;
-                Log.i("Gis2ClearTrash","Имя="+result.getName()+"\tRubrics="+ result.getRubrics() );
                 if (result.getRubrics() != null){
                     for (String rubric: result.getRubrics()) {
                         if(rubric.equals("Банки")){
@@ -65,7 +63,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
                 }
                 if (rubricsСheck){
                     iterResult.remove();
-                    Log.e(result.getName()+" = ","элемент удален за несовподении рубрики");
+                    Log.e(result.getName()+" = ","элемент удален за несовподением рубрики");
                 }
             }
         }
@@ -73,22 +71,15 @@ public class MapGooglePresenter implements IDataProviderOutput {
 
     private void VerificationDoNotMatchTheName(){
         if(gis2Model.getresult()!= null){
-            String selectedBankUp = bank.getName().toUpperCase();
+            String selectedBankUp = bankView.getName().toUpperCase();
             Iterator<Result> iterResult = gis2Model.getresult().iterator();
             Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
             while(iterResult.hasNext()){
                 Result result = iterResult.next();
-                String nameBank = result.getName();
-                nameBank = nameBank.toUpperCase();
-                if (nameBank.contains(selectedBankUp)){
-                    Log.e(nameBank,"равен "+selectedBankUp);
-                }
-                else {
-                    Log.e(nameBank,"не равен "+selectedBankUp);
-                }
+                String nameBank = result.getName().toUpperCase();
                 if (!nameBank.contains(selectedBankUp)){
                     iterResult.remove();
-                    Log.e(result.getName()+" = ","элемент удален за не совпадении имени");
+                    Log.e(result.getName()+" = ","элемент удален за несовпадением имени");
                 }
             }
         }
@@ -99,23 +90,19 @@ public class MapGooglePresenter implements IDataProviderOutput {
         Log.i("MapGooglePresenter","didReceiveGis2Data");
         this.gis2Model = gis2;
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
-
         if (!gis2Model.getResponse_code().equals("400")){
             if(gis2Model.getresult()!= null){
-                if (gis2Model.getresult().size() == 50 &
-                        gis2Model.getresult().size() != 0){
+                int sizeResult = gis2Model.getresult().size();
+                if (sizeResult == 50 & sizeResult != 0){
                     page++;
                     DataProvider.getInstance().getTheSelectedCity();
                 }
-                CheckMismatchColumn();
+                CheckMismatchRubric();
                 VerificationDoNotMatchTheName();
-
                 for (Result result:gis2Model.getresult()) {
-                    for (String rubric: result.getRubrics()) {
-                        Log.e("Оставшийся элемент = ",result.getName());
-                    }
+                    Log.e("Оставшийся элемент = ",result.getName());
                 }
-                mapGoogleActivity.renderMarkers ();
+                mapGoogleActivity.renderMarkers();
             }
         }
     }
@@ -124,7 +111,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
         DataProvider.getInstance().getGis2Data(
-                bank.getName(),
+                bankView.getName(),
                 city.getName(),
                 page
         );
@@ -137,7 +124,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     public void didReceiveBanks(List<BankModel> banks) {}
 
     @Override
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {}
+    public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode) {}
 
 
 }

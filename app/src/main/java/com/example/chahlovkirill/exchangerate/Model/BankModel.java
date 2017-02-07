@@ -29,7 +29,6 @@ public class BankModel implements Serializable , Comparable<BankModel> {
     @SerializedName("Message")
     @Expose
     private String Message;
-//    private String TranslitId;
 
     public String getBankId(){
         return this.BankId;
@@ -95,12 +94,4 @@ public class BankModel implements Serializable , Comparable<BankModel> {
         result = Double.compare(this.USDSell,    o.getUSDSell());
         return result;
     }
-
-//    private String getTranslitId(){
-//        return this.TranslitId;
-//    }
-//    private void setTranslitId(String TranslitId){
-//        this.TranslitId = TranslitId;
-//    }
-
 }

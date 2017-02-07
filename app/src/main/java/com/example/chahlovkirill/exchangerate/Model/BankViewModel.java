@@ -89,6 +89,5 @@ public class BankViewModel extends BankModel implements Serializable {
                 setCurrency(this.getUSDSell());
                 break;
         }
-
     }
 }

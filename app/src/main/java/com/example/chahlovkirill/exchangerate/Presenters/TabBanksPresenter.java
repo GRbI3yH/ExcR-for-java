@@ -35,7 +35,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
         DataProvider.getInstance().getTheSelectedCity();
     }
 
-    TabBanksFragment tabBanksFragment;
+    private TabBanksFragment tabBanksFragment;
     private Context context;
     private List<BankModel> banks;
     private List<BankViewModel> banksView =new ArrayList<BankViewModel>();
@@ -46,23 +46,23 @@ public class TabBanksPresenter implements IDataProviderOutput {
     }
 
     public void ButtonSortCurrency(EExchangeAction mode){
-        DataProvider.getInstance().setReceiveSelectCurrencyForSorting(mode);Log.i("ButtonSortCurrency","Сохраняю");
+        DataProvider.getInstance().setReceiveSelectedCurrencyForSorting(mode);
         if (banksView != null){
             for (BankViewModel bankView :banksView){
                 bankView.setCurrencyOf(mode);
             }
             Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
-            if(mode == EExchangeAction.EURSell || mode == EExchangeAction.USDSell){
+            if(mode == EExchangeAction.EURBuy || mode == EExchangeAction.USDBuy){
                 banksView = CoupBanksView.Coup(banksView);
             }
             UpdateAdapter();
         }
     }
 
-    public void GoToMapGoogleActivity(BankViewModel bankGoGoogle){
-        Log.e("Selected bank = ", bankGoGoogle.getName());
+    public void GoToMapGoogleActivity(BankViewModel bankView){
+        Log.e("Selected bank = ", bankView.getName());
         Intent intent = new Intent(context, MapGoogleActivity.class);
-        intent.putExtra("SelectedBank",bankGoGoogle);
+        intent.putExtra("SelectedBank",bankView);
         context.startActivity(intent);
     }
 
@@ -78,16 +78,15 @@ public class TabBanksPresenter implements IDataProviderOutput {
     public void didReceiveBanks(List<BankModel> banks) {
         Log.i("TabBanksPresenter","didReceiveBanks");
         this.banks = banks;
-        DataProvider.getInstance().getReceiveSelectCurrencyForSorting();
+        DataProvider.getInstance().getReceiveSelectedCurrencyForSorting();
     }
 
     @Override
-    public void didReceiveSelectCurrencyForSorting(EExchangeAction mode) {
+    public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode) {
         Log.i("TabBanksPresenter","didReceiveSelectCurrencyForSorting");
-        tabBanksFragment.selectBattonCurrency(mode);
+        tabBanksFragment.selectedBattonCurrency(mode);
         banksView = TransferBanksInBankView.Transfer(banks, mode);
         Collections.sort(banksView,BankViewModel.bankCurrencyModelComparator );
-
         UpdateAdapter();
     }
 

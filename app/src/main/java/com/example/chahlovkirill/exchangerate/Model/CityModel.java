@@ -20,8 +20,6 @@ public class CityModel implements Serializable {
 
     private boolean Selected;
 
-//    private String TranslitId ;
-
     public int getId() {
         return this.Id;
     }
@@ -49,14 +47,5 @@ public class CityModel implements Serializable {
         Id = id;
         Name = name;
         Selected = selected;
-
     }
-
-
-//    public String getTranslitId() {
-//        return this.TranslitId;
-//    }
-//    public void setTranslitId(String TranslitId) {
-//        this.TranslitId = TranslitId;
-//    }
 }

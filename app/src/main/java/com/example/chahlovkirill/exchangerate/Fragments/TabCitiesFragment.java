@@ -45,25 +45,23 @@ public class TabCitiesFragment extends Fragment {
         return fragment;
     }
 
-    private View rootView;
+    private View view;
     private ListView listViewCities;
-    private TabCitiesPresenter citiesPresenter;
+    private TabCitiesPresenter tabCitiesPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.cities_tab_exc_rate, container, false);
+        view = inflater.inflate(R.layout.cities_tab_exc_rate, container, false);
+        listViewCities = (ListView)view.findViewById(R.id.lvCityM);
+        tabCitiesPresenter = new TabCitiesPresenter(getContext());
+        listViewCities.setAdapter(tabCitiesPresenter.getAdapter());
 
-        listViewCities = (ListView)rootView.findViewById(R.id.lvCityM);
-
-        citiesPresenter = new TabCitiesPresenter(getContext());
-        listViewCities.setAdapter(citiesPresenter.getAdapter());
-
-        return rootView;
+        return view;
     }
     @Override
     public void onDestroy() {
-        DataProvider.getInstance().removeListener(citiesPresenter);
+        DataProvider.getInstance().removeListener(tabCitiesPresenter);
         Log.i("onDestroy","TabCitiesFragment");
         super.onDestroy();
     }
