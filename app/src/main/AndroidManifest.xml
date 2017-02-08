@@ -3,32 +3,26 @@
     package="com.example.chahlovkirill.exchangerate">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
-    <!--21:9F:2D:57:44:73:64:E0:70:6C:DC:7D:81:09:B3:1E:1A:3E:10:21-->
+    <!-- 21:9F:2D:57:44:73:64:E0:70:6C:DC:7D:81:09:B3:1E:1A:3E:10:21 -->
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/GreenTheme"
-        android:name="android.support.multidex.MultiDexApplication">
-
+        android:theme="@style/GreenTheme">
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAY1Vcqw8daLFtUJQK7FONJDrNaodOvVvY" />
@@ -46,7 +40,13 @@
         <activity
             android:name=".Activity.MapGoogleActivity"
             android:label="GoogleMap"
-            android:theme="@style/GreenTheme">>
+            android:theme="@style/GreenTheme">
+        </activity>
+        <activity
+            android:name=".Activity.BankDetailsActivity"
+            android:label="BankDetails"
+            android:theme="@style/GreenTheme">
+
         </activity>
     </application>
 

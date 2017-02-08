@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.chahlovkirill.exchangerate.Fragments.TabBanksFragment;
-import com.example.chahlovkirill.exchangerate.Fragments.TabCitiesFragment;
+import com.example.chahlovkirill.exchangerate.Fragments.FragmentsMain.TabBanksFragment;
+import com.example.chahlovkirill.exchangerate.Fragments.FragmentsMain.TabCitiesFragment;
 
 /**
  * Created by chahlov.kirill on 23/01/17.

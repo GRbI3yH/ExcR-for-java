@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.chahlovkirill.exchangerate.Activity.MainActivity;
+import com.example.chahlovkirill.exchangerate.Activity.BankDetailsActivity;
 import com.example.chahlovkirill.exchangerate.Activity.MapGoogleActivity;
 import com.example.chahlovkirill.exchangerate.Adapters.BanksAdapter;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
-import com.example.chahlovkirill.exchangerate.Fragments.TabBanksFragment;
+import com.example.chahlovkirill.exchangerate.Fragments.FragmentsMain.TabBanksFragment;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
@@ -62,6 +62,11 @@ public class TabBanksPresenter implements IDataProviderOutput {
     public void GoToMapGoogleActivity(BankViewModel bankView){
         Log.e("Selected bank = ", bankView.getName());
         Intent intent = new Intent(context, MapGoogleActivity.class);
+        intent.putExtra("SelectedBank",bankView);
+        context.startActivity(intent);
+    }
+    public void ClickBank(BankViewModel bankView){
+        Intent intent = new Intent(context, BankDetailsActivity.class);
         intent.putExtra("SelectedBank",bankView);
         context.startActivity(intent);
     }

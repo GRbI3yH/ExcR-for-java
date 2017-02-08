@@ -21,12 +21,13 @@
     <!--все отделения выбранного банка по нажатию на кнопку-->
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="10dp">
 
         <TextView
             android:text="Default_bank_Name"
@@ -34,20 +35,15 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_gravity="left|center"
-            android:layout_weight="0.95" />
+            android:gravity="left|center" />
 
         <TextView
-
             android:text="Default_Currency"
             android:id="@+id/bank_valueCurrency"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:elevation="18dp"
-            android:layout_gravity="right|center" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:gravity="left|center" />
+    </RelativeLayout>
 
 </com.daimajia.swipe.SwipeLayout>

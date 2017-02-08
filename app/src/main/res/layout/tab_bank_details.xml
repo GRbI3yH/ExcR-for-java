@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Информация"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="@drawable/gradient_in_the_name" />
+        <TextView
+            android:id="@+id/details_bank_name"
+            android:text="Bank_name"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="26dp"/>
+        <TextView
+            android:id="@+id/details_URL"
+            android:text="URL"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textColor="@color/FontDarkGreenColor"
+            android:textSize="26dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:text="Информация"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="@drawable/gradient_in_the_name"/>
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="$ Покупка"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/details_USDBuy"
+                android:text="USDBuy"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="24dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="$ Продажа"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="26dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/details_USDSell"
+                android:text="USDSell"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="24dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="€ Покупка"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="26dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/details_EURBuy"
+                android:text="EURBuy"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="24dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="€ Продажа"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="26dp"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/details_EURSell"
+                android:text="EURSell"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="24dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

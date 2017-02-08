@@ -30,6 +30,10 @@ public class BankModel implements Serializable , Comparable<BankModel> {
     @Expose
     private String Message;
 
+    @SerializedName("Url")
+    @Expose
+    private String Url;
+
     public String getBankId(){
         return this.BankId;
     }
@@ -77,6 +81,13 @@ public class BankModel implements Serializable , Comparable<BankModel> {
     }
     public void setMessage(String Message){
         this.Message = Message;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+    public void setUrl(String url) {
+        Url = url;
     }
 
     @Override

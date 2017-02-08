@@ -28,6 +28,9 @@ public class Result {
     @SerializedName("rubrics")
     @Expose
     private List<String> rubrics;
+    @SerializedName("city_name")
+    @Expose
+    private String city_name;
 
     public String getId() {
         return this.id;
@@ -74,5 +77,12 @@ public class Result {
     }
     public void setRubrics(List<String> rubrics) {
         this.rubrics = rubrics;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
     }
 }

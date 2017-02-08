@@ -41,6 +41,7 @@ public class  BanksAdapter extends ArrayAdapter<BankViewModel> {
         TextView bankValueCurrency = (TextView) convertView.findViewById(R.id.bank_valueCurrency);
         bankName.setText(bankView.getName());
         bankValueCurrency.setText(String.format("%.2f",bankView.getCurrency()));
+        convertView.setTag(bankView);
 
         goToGoogleMap.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,6 +50,14 @@ public class  BanksAdapter extends ArrayAdapter<BankViewModel> {
                 BankViewModel bankView = (BankViewModel)v.getTag();
                 tabBanksPresenter.GoToMapGoogleActivity(bankView);
             }
+        });
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                BankViewModel bankView = (BankViewModel)v.getTag();
+                tabBanksPresenter.ClickBank(bankView);
+            }
+
         });
         return convertView;
     }

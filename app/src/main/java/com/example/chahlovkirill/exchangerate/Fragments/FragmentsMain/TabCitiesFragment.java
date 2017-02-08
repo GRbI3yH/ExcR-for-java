@@ -1,4 +1,4 @@
-package com.example.chahlovkirill.exchangerate.Fragments;
+package com.example.chahlovkirill.exchangerate.Fragments.FragmentsMain;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,18 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Presenters.TabCitiesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by chahlov.kirill on 23/01/17.

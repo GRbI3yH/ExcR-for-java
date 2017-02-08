@@ -1,4 +1,4 @@
-package com.example.chahlovkirill.exchangerate.Fragments;
+package com.example.chahlovkirill.exchangerate.Fragments.FragmentsMain;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
-import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Presenters.TabBanksPresenter;

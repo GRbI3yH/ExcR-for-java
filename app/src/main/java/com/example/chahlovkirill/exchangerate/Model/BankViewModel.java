@@ -25,6 +25,7 @@ public class BankViewModel extends BankModel implements Serializable {
         this.setUSDBuy(bankmodel.getUSDBuy());
         this.setUSDSell(bankmodel.getUSDSell());
         this.setMessage(bankmodel.getMessage());
+        this.setUrl(bankmodel.getUrl());
         switch (mode)
         {
             case EURBuy:
