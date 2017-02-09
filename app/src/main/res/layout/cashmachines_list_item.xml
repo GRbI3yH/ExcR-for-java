@@ -14,7 +14,15 @@
     <TextView
         android:text="address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/cashmachines_address_text"
         android:gravity="left|center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cashmachines_distance_text"
+        android:gravity="right" />
+
 </LinearLayout>

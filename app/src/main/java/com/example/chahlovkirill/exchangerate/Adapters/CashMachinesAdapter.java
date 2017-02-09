@@ -1,6 +1,7 @@
 package com.example.chahlovkirill.exchangerate.Adapters;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabCashMachinesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
+import com.example.chahlovkirill.exchangerate.Services.ListenerLocation;
 
 import java.util.List;
 
@@ -35,6 +37,8 @@ public class CashMachinesAdapter extends ArrayAdapter<Result> {
         nameText.setText(gis2Result.getName());
         TextView addressText = (TextView) convertView.findViewById(R.id.cashmachines_address_text);
         addressText.setText(gis2Result.getCity_name()+", "+gis2Result.getAddress());
+        TextView distance = (TextView) convertView.findViewById(R.id.cashmachines_distance_text);
+        distance.setText(String.format("%.2f",gis2Result.getDistances())+" км");
         return convertView;
     }
 }

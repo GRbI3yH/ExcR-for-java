@@ -17,4 +17,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/department_address_text"
         android:gravity="left|center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/department_distance_text"
+        android:gravity="right" />
 </LinearLayout>

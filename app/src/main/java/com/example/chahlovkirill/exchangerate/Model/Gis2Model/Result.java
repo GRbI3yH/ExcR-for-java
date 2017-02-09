@@ -3,13 +3,18 @@ package com.example.chahlovkirill.exchangerate.Model.Gis2Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by chahlov.kirill on 27/01/17.
  */
 
-public class Result {
+public class Result implements Comparable<Result>,Serializable {
+
+    private Double distances;
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -85,4 +90,30 @@ public class Result {
     public void setCity_name(String city_name) {
         this.city_name = city_name;
     }
+
+    public void setDistances(Double distances) {
+        this.distances = distances;
+    }
+    public Double getDistances() {
+        return distances;
+    }
+
+    @Override
+    public int compareTo(Result o) {
+        if (this.getDistances()<o.getDistances()){
+            return -1;
+        }
+        else if(this.getDistances()>o.getDistances()){
+            return 1;
+        }
+        return 0;
+    }
+    public static Comparator<Result> ResultModelComparator = new Comparator<Result>() {
+        @Override
+        public int compare(Result o1, Result o2) {
+            Double C1 = o1.getDistances();
+            Double C2 = o2.getDistances();
+            return C1.compareTo(C2);
+        }
+    };
 }

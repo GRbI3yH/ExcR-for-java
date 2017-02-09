@@ -1,6 +1,7 @@
 package com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails;
 
 import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 import android.widget.Adapter;
 
@@ -14,7 +15,9 @@ import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
+import com.example.chahlovkirill.exchangerate.Services.ListenerLocation;
 import com.example.chahlovkirill.exchangerate.Services.Operations2GISModel;
+import com.example.chahlovkirill.exchangerate.Services.SortByDistance;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,6 +50,13 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
         return adapter = new CashMachinesAdapter( context, new ArrayList<Result>(), this);
     }
 
+    private List<Result> SortGis2(List<Result> gis2Result){
+        Location location = ListenerLocation.getImHere();
+        location.getLatitude();
+        location.getLongitude();
+        return SortByDistance.Sort(location.getLatitude(),location.getLongitude(),gis2Result);
+    }
+
     private void UpdateAdapter(List<Result> gis2Result){
         if (adapter != null) {
             adapter.clear();
@@ -74,7 +84,7 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
                             Log.e("Оставшийся элемент = ",result.getName());
                         }
                     }
-                    UpdateAdapter(gis2Result);
+                    UpdateAdapter(SortGis2(gis2Result));
                 }
             }
         }

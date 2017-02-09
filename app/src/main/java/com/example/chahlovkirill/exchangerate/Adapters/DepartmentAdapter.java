@@ -35,6 +35,8 @@ public class DepartmentAdapter extends ArrayAdapter<Result> {
         nameText.setText(gis2Result.getName());
         TextView addressText = (TextView) convertView.findViewById(R.id.department_address_text);
         addressText.setText(gis2Result.getCity_name()+", "+gis2Result.getAddress());
+        TextView distance = (TextView) convertView.findViewById(R.id.department_distance_text);
+        distance.setText(String.format("%.2f",gis2Result.getDistances())+" км");
         return convertView;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.chahlovkirill.exchangerate.Adapters.TabBankDetailsAdapter;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.R;
+import com.example.chahlovkirill.exchangerate.Services.ListenerLocation;
 
 public class BankDetailsActivity extends FragmentActivity {
 
@@ -27,9 +28,9 @@ public class BankDetailsActivity extends FragmentActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Отделения"));
         tabLayout.addTab(tabLayout.newTab().setText("Конвертер"));
 
+        ListenerLocation.SetUpLocationListener(this);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_BankDetails);
         BankViewModel bankView = (BankViewModel)getIntent().getSerializableExtra("SelectedBank");
-
         final TabBankDetailsAdapter adapter = new TabBankDetailsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), bankView);
         viewPager.setAdapter(adapter);
