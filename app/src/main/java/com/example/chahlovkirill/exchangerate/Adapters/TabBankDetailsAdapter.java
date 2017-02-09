@@ -32,9 +32,11 @@ public class TabBankDetailsAdapter extends FragmentPagerAdapter {
                 return tabBankDetailsFragment;
             case 1:
                 TabСashMachinesFragment tabСashMachinesFragment = new TabСashMachinesFragment();
+                tabСashMachinesFragment.setBank(bankView);
                 return tabСashMachinesFragment;
             case 2:
                 TabDepartmentFragment tabDepartmentFragment = new TabDepartmentFragment();
+                tabDepartmentFragment.setBank(bankView);
                 return tabDepartmentFragment;
             case 3:
                 TabСonverterFragment tabСonverterFragment = new TabСonverterFragment();

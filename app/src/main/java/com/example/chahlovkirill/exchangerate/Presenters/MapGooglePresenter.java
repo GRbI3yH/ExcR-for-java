@@ -13,6 +13,7 @@ import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
+import com.example.chahlovkirill.exchangerate.Services.Operations2GISModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,57 +49,57 @@ public class MapGooglePresenter implements IDataProviderOutput {
         return offsetItem;
     }
 
-    private void CheckMismatchRubric(){
-        if(gis2Model.getresult()!= null){
-            Iterator<Result> iterResult = gis2Model.getresult().iterator();
-            while(iterResult.hasNext()){
-                Result result = iterResult.next();
-                boolean rubricsСheck = true;
-                if (result.getRubrics() != null){
-                    for (String rubric: result.getRubrics()) {
-                        if(rubric.equals("Банки")){
-                            rubricsСheck = false;
-                        }
-                    }
-                }
-                if (rubricsСheck){
-                    iterResult.remove();
-                    Log.e(result.getName()+" = ","элемент удален за несовподением рубрики");
-                }
-            }
-        }
-    }
-
-    private void VerificationDoNotMatchTheName(){
-        if(gis2Model.getresult()!= null){
-            String selectedBankUp = bankView.getName().toUpperCase();
-            Iterator<Result> iterResult = gis2Model.getresult().iterator();
-            Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
-            while(iterResult.hasNext()){
-                Result result = iterResult.next();
-                String nameBank = result.getName().toUpperCase();
-                if (!nameBank.contains(selectedBankUp)){
-                    iterResult.remove();
-                    Log.e(result.getName()+" = ","элемент удален за несовпадением имени");
-                }
-            }
-        }
-    }
+//    private void CheckMismatchRubric(){
+//        if(gis2Model.getresult()!= null){
+//            Iterator<Result> iterResult = gis2Model.getresult().iterator();
+//            while(iterResult.hasNext()){
+//                Result result = iterResult.next();
+//                boolean rubricsСheck = true;
+//                if (result.getRubrics() != null){
+//                    for (String rubric: result.getRubrics()) {
+//                        if(rubric.equals("Банки")){
+//                            rubricsСheck = false;
+//                        }
+//                    }
+//                }
+//                if (rubricsСheck){
+//                    iterResult.remove();
+//                    Log.e(result.getName()+" = ","элемент удален за несовподением рубрики");
+//                }
+//            }
+//        }
+//    }
+//
+//    private void VerificationDoNotMatchTheName(){
+//        if(gis2Model.getresult()!= null){
+//            String selectedBankUp = bankView.getName().toUpperCase();
+//            Iterator<Result> iterResult = gis2Model.getresult().iterator();
+//            Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
+//            while(iterResult.hasNext()){
+//                Result result = iterResult.next();
+//                String nameBank = result.getName().toUpperCase();
+//                if (!nameBank.contains(selectedBankUp)){
+//                    iterResult.remove();
+//                    Log.e(result.getName()+" = ","элемент удален за несовпадением имени");
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {
         Log.i("MapGooglePresenter","didReceiveGis2Data");
-        this.gis2Model = gis2;
+        //this.gis2Model = gis2;
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
-        if (!gis2Model.getResponse_code().equals("400")){
-            if(gis2Model.getresult()!= null){
-                int sizeResult = gis2Model.getresult().size();
+        if (!gis2.getResponse_code().equals("400")){
+            if(gis2.getresult()!= null){
+                int sizeResult = gis2.getresult().size();
                 if (sizeResult == 50 & sizeResult != 0){
                     page++;
                     DataProvider.getInstance().getTheSelectedCity();
                 }
-                CheckMismatchRubric();
-                VerificationDoNotMatchTheName();
+                gis2Model = Operations2GISModel.VerificationDoNotMatchTheName(
+                        Operations2GISModel.CheckMismatchRubric(gis2,"Банки"),bankView.getName());
                 for (Result result:gis2Model.getresult()) {
                     Log.e("Оставшийся элемент = ",result.getName());
                 }
@@ -111,7 +112,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
         DataProvider.getInstance().getGis2Data(
-                bankView.getName(),
+                "отделения_"+bankView.getName(),
                 city.getName(),
                 page
         );

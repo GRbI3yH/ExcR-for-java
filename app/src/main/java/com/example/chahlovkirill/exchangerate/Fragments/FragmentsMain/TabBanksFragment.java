@@ -110,7 +110,7 @@ public class TabBanksFragment extends Fragment {
     @Override
     public void onDestroy() {
         DataProvider.getInstance().removeListener(tabBanksPresenter);
-        Log.i("onDestroy","TabBanksFragment");
+        Log.e("onDestroy","TabBanksFragment");
         super.onDestroy();
     }
 }

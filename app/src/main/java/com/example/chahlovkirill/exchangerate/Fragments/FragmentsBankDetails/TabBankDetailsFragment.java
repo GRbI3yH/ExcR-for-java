@@ -3,12 +3,14 @@ package com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.Activity.BankDetailsActivity;
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabBankDetailsPresenter;
 import com.example.chahlovkirill.exchangerate.R;
@@ -66,7 +68,6 @@ public class TabBankDetailsFragment extends Fragment {
 
         return view;
     }
-
     public void setBank(BankViewModel bankView){
         this.bankView = bankView;
     }

@@ -55,7 +55,7 @@ public class TabCitiesFragment extends Fragment {
     @Override
     public void onDestroy() {
         DataProvider.getInstance().removeListener(tabCitiesPresenter);
-        Log.i("onDestroy","TabCitiesFragment");
+        Log.e("onDestroy","TabCitiesFragment");
         super.onDestroy();
     }
 }

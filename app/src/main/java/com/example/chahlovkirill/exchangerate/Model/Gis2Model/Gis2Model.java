@@ -15,7 +15,9 @@ public class Gis2Model {
     @SerializedName("response_code")
     @Expose
     private String response_code;
-
+    @SerializedName("what")
+    @Expose
+    private String what;
     @SerializedName("result")
     @Expose
     private List<Result> result;
@@ -32,6 +34,13 @@ public class Gis2Model {
     }
     public void setResponse_code(String response_code) {
         this.response_code = response_code;
+    }
+
+    public String getWhat() {
+        return what;
+    }
+    public void setWhat(String what) {
+        this.what = what;
     }
 }
 

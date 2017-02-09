@@ -46,7 +46,7 @@ public class ServicesAPI {
         IGis2API gis2api = retrofit.create(IGis2API.class);
 
         Map<String,String> map = new HashMap<>();
-        map.put("what","отделения_"+whatBank);
+        map.put("what",whatBank);
         map.put("where",where);
         map.put("version","1.3");
         map.put("key","ruiqff5223");

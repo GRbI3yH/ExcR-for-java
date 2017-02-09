@@ -2,11 +2,14 @@ package com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
+import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabDepartmentPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -38,14 +41,25 @@ public class TabDepartmentFragment extends Fragment {
 
     private View view;
     private TabDepartmentPresenter tabDepartmentPresenter;
+    private BankViewModel bankView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_department, container, false);
-        tabDepartmentPresenter = new TabDepartmentPresenter(getContext(),this);
+        tabDepartmentPresenter = new TabDepartmentPresenter(getContext(),this,bankView);
         ListView departmentlistView = (ListView)view.findViewById(R.id.department_listview);
         departmentlistView.setAdapter(tabDepartmentPresenter.getAdapter());
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        DataProvider.getInstance().removeListener(tabDepartmentPresenter);
+        Log.e("onDestroy","TabDepartmentFragment");
+        super.onDestroy();
+    }
+    public void setBank(BankViewModel bankView){
+        this.bankView = bankView;
     }
 }
