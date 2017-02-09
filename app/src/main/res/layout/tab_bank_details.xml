@@ -12,8 +12,8 @@
             android:text="Информация"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:background="@drawable/gradient_in_the_name" />
+            android:background="@drawable/gradient_in_the_name"
+            android:paddingLeft="10dp"/>
         <TextView
             android:id="@+id/details_bank_name"
             android:text="Bank_name"
@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textColor="@color/FontDarkGreenColor"
-            android:textSize="26dp"/>
+            android:textSize="26dp"
+            android:autoLink="web"/>
 
     </LinearLayout>
 
@@ -37,11 +38,11 @@
         >
 
         <TextView
-            android:text="Информация"
+            android:text="Курсы"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:background="@drawable/gradient_in_the_name"/>
+            android:background="@drawable/gradient_in_the_name"
+            android:paddingLeft="10dp"/>
         <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

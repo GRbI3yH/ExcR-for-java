@@ -28,8 +28,8 @@
         android:text="Банкоматы"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:background="@drawable/gradient_in_the_name"/>
+        android:background="@drawable/gradient_in_the_name"
+        android:paddingLeft="10dp"/>
 
     <ListView
         android:layout_width="match_parent"

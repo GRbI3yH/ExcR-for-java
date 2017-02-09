@@ -3,6 +3,8 @@ package com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +62,7 @@ public class TabBankDetailsFragment extends Fragment {
 
         NameText.setText(bankView.getName());
         URlText.setText(bankView.getUrl());
+        Linkify.addLinks(URlText, Linkify.WEB_URLS);
 
         USDBuyText.setText(String.format("%.2f",bankView.getUSDBuy()));
         USDSellText.setText(String.format("%.2f",bankView.getUSDSell()));
