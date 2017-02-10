@@ -2,4 +2,15 @@
     <string name="app_name">ExchangeRate</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="dialog_title">Ближайшие отделения</string>
+    <string name="dialog_all">Показать все</string>
+    <string name="dialog_1km">На расстоянии до 1 км</string>
+    <string name="dialog_3km">На расстоянии до 3 км</string>
+    <string name="dialog_5km">На расстоянии до 5 км</string>
+    <string name="all">Все</string>
+    <string name="km1">1км</string>
+    <string name="km3">3км</string>
+    <string name="km5">5км</string>
+
 </resources>

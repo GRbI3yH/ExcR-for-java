@@ -14,6 +14,7 @@ import com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails.Tab
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
@@ -29,11 +30,12 @@ import java.util.List;
  * Created by chahlov.kirill on 08/02/17.
  */
 
-public class TabDepartmentPresenter implements IDataProviderOutput {
+public class TabDepartmentPresenter implements IDataProviderOutput,IDistansPresentersEvent {
     public TabDepartmentPresenter(Context context, TabDepartmentFragment fragment, BankViewModel bankView){
         tabDepartmentFragment = fragment;
         this.context = context;
         this.bankView = bankView;
+        DataProvider.getInstance().addListenerDistans(this);
         DataProvider.getInstance().addListener(this);
         DataProvider.getInstance().getTheSelectedCity();
     }
@@ -42,7 +44,8 @@ public class TabDepartmentPresenter implements IDataProviderOutput {
     private TabDepartmentFragment tabDepartmentFragment;
     private Context context;
     private DepartmentAdapter adapter;
-    private List<Result> gis2Results = new ArrayList<Result>();;
+    private List<Result> gis2Results = new ArrayList<Result>();
+    private List<Result> gis2ResultsDistanse = new ArrayList<Result>();
     private String what ="отделения_";
     private int page = 1;
     private CityModel city;
@@ -125,5 +128,32 @@ public class TabDepartmentPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode) {
 
+    }
+
+    @Override
+    public void onSelectDistance(EDistans mode) {
+        for (Result result:gis2Results){
+            switch (mode){
+                case all:
+                        gis2ResultsDistanse.add(result);
+                    break;
+                case km1:
+                    if(result.getDistances() < 1.0){
+                        gis2ResultsDistanse.add(result);
+                    }
+                    break;
+                case km3:
+                    if(result.getDistances() < 3.0){
+                        gis2ResultsDistanse.add(result);
+                    }
+                    break;
+                case km5:
+                    if(result.getDistances() < 5.0){
+                        gis2ResultsDistanse.add(result);
+                    }
+                    break;
+            }
+        }
+        UpdateAdapter(gis2ResultsDistanse);
     }
 }

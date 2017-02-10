@@ -2,6 +2,7 @@ package com.example.chahlovkirill.exchangerate.DataProvider;
 
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface IDataProvider {
     public void setTheSelectedCity(CityModel city);
 
     public void getGis2Data (String whatBank, String where, int page);
+
+    public void onSelectDistance(EDistans mode);
 }

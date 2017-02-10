@@ -6,8 +6,10 @@ import android.util.Log;
 import com.example.chahlovkirill.exchangerate.AppSetting.Settings;
 import com.example.chahlovkirill.exchangerate.Model.BankModel;
 import com.example.chahlovkirill.exchangerate.Model.CityModel;
+import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Gis2Model;
+import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.IDistansPresentersEvent;
 import com.example.chahlovkirill.exchangerate.Services.ServicesAPI;
 
 import java.util.ArrayList;
@@ -30,22 +32,18 @@ public class DataProvider implements IDataProvider {
     }
 
     private static List<IDataProviderOutput> listeners = new ArrayList<IDataProviderOutput>();
-
     public void  addListener(IDataProviderOutput listener){
         listeners.add(listener);
     }
-
     public void  removeListener(IDataProviderOutput listener){
         listeners.remove(listener);
     }
-
     public void  clearListener(IDataProviderOutput listener){
         listeners.clear();
     }
 
     private DataProvider(){
     }
-
 
     @Override
     public void getBanks(String idSelectCity) {
@@ -158,5 +156,23 @@ public class DataProvider implements IDataProvider {
                 Log.i("ServicesAPI","2Gis are not loaded");
             }
         });
+    }
+
+    private static List<IDistansPresentersEvent> listenersDistans = new ArrayList<IDistansPresentersEvent>();
+    public void  addListenerDistans(IDistansPresentersEvent listener){
+        listenersDistans.add(listener);
+    }
+    public void  removeListenerDistans(IDistansPresentersEvent listener){
+        listenersDistans.remove(listener);
+    }
+    public void  clearListenerDistans(IDistansPresentersEvent listener){
+        listenersDistans.clear();
+    }
+
+    @Override
+    public void onSelectDistance(EDistans mode) {
+        for (IDistansPresentersEvent cl:listenersDistans){
+            cl.onSelectDistance(mode);
+        }
     }
 }

@@ -1,16 +1,20 @@
 package com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabDepartmentPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -43,6 +47,7 @@ public class TabDepartmentFragment extends Fragment {
     private View view;
     private TabDepartmentPresenter tabDepartmentPresenter;
     private BankViewModel bankView;
+    private Button buttonSelectDistance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +57,8 @@ public class TabDepartmentFragment extends Fragment {
         ListView departmentlistView = (ListView)view.findViewById(R.id.department_listview);
         departmentlistView.setAdapter(tabDepartmentPresenter.getAdapter());
         TextView TextViewShowAll = (TextView) view.findViewById(R.id.departament_ShowAll);
+        buttonSelectDistance =(Button)view.findViewById(R.id.departament_select_distance);
+        buttonSelectDistance.setOnClickListener(setDistClickListener);
         TextViewShowAll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -61,6 +68,47 @@ public class TabDepartmentFragment extends Fragment {
 
         return view;
     }
+
+    View.OnClickListener setDistClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String[] distarr = {
+                    getResources().getString(R.string.dialog_all),
+                    getResources().getString(R.string.dialog_1km),
+                    getResources().getString(R.string.dialog_3km),
+                    getResources().getString(R.string.dialog_5km)
+            };
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.dialog_title)
+                    .setItems(distarr, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            EDistans DistansMode = EDistans.all;
+                            switch (which) {
+                                case 0:
+                                    DistansMode = EDistans.all;
+                                    buttonSelectDistance.setText(R.string.all);
+                                    break;
+                                case 1:
+                                    DistansMode = EDistans.km1;
+                                    buttonSelectDistance.setText(R.string.km1);
+                                    break;
+                                case 2:
+                                    DistansMode = EDistans.km3;
+                                    buttonSelectDistance.setText(R.string.km3);
+                                    break;
+                                case 3:
+                                    DistansMode = EDistans.km5;
+                                    buttonSelectDistance.setText(R.string.km5);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            DataProvider.getInstance().onSelectDistance(DistansMode);
+                            onResume();
+                        }
+                    }).show();//40.84.152.35
+        }
+    };
 
     @Override
     public void onDestroy() {
