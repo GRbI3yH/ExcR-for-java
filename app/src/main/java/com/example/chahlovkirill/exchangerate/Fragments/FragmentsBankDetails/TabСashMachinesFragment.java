@@ -16,8 +16,11 @@ import com.example.chahlovkirill.exchangerate.Activity.BankDetailsActivity;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.EDistans;
+import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabCashMachinesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by chahlov.kirill on 08/02/17.
@@ -116,7 +119,19 @@ public class TabСashMachinesFragment extends Fragment {
         Log.e("onDestroy","TabСashMachinesFragment");
         super.onDestroy();
     }
+    @Override
+    public void onResume() {
 
+        super.onResume();
+        Log.d("TabСashMachinesFragment", "onResume");
+    }
+    @Override
+    public void onDestroyView() {
+        DataProvider.getInstance().removeListenerDistans(tabCashMachinesPresenter);
+        tabCashMachinesPresenter.setGis2Results(new ArrayList<Result>());
+        super.onDestroyView();
+        Log.d("TabСashMachinesFragment", "onDestroyView");
+    }
     public void setBank(BankViewModel bankView){
         this.bankView = bankView;
     }

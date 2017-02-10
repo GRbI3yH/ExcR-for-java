@@ -24,7 +24,14 @@ public class CashMachinesAdapter extends ArrayAdapter<Result> {
     public CashMachinesAdapter(Context context, List<Result> gis2Results , TabCashMachinesPresenter tabCashMachinesPresenter){
         super(context,0,gis2Results);
         this.tabCashMachinesPresenter = tabCashMachinesPresenter;
+        this.gis2Results = gis2Results;
     }
+
+    public List<Result> getGis2Results() {
+        return gis2Results;
+    }
+
+    private List<Result> gis2Results;
     TabCashMachinesPresenter tabCashMachinesPresenter;
     Result gis2Result;
 

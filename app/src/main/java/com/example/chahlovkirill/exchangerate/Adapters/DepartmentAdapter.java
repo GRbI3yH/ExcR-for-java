@@ -22,7 +22,14 @@ public class DepartmentAdapter extends ArrayAdapter<Result> {
     public DepartmentAdapter(Context context, List<Result> gis2Results , TabDepartmentPresenter tabDepartmentPresenter){
         super(context,0,gis2Results);
         this.tabDepartmentPresenter = tabDepartmentPresenter;
+        this.gis2Results = gis2Results;
     }
+
+    public List<Result> getGis2Results() {
+        return gis2Results;
+    }
+
+    private List<Result> gis2Results;
     TabDepartmentPresenter tabDepartmentPresenter;
     Result gis2Result;
 

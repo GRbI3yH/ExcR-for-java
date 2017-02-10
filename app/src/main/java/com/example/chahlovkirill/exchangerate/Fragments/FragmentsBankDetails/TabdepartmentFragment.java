@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 import com.example.chahlovkirill.exchangerate.Model.EDistans;
+import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabDepartmentPresenter;
 import com.example.chahlovkirill.exchangerate.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by chahlov.kirill on 08/02/17.
@@ -115,6 +118,19 @@ public class TabDepartmentFragment extends Fragment {
         DataProvider.getInstance().removeListener(tabDepartmentPresenter);
         Log.e("onDestroy","TabDepartmentFragment");
         super.onDestroy();
+    }
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        Log.d("TabDepartmentFragment", "onResume");
+    }
+    @Override
+    public void onDestroyView() {
+        DataProvider.getInstance().removeListenerDistans(tabDepartmentPresenter);
+        tabDepartmentPresenter.setGis2Results(new ArrayList<Result>());
+        super.onDestroyView();
+        Log.d("TabDepartmentFragment", "onDestroyView");
     }
     public void setBank(BankViewModel bankView){
         this.bankView = bankView;

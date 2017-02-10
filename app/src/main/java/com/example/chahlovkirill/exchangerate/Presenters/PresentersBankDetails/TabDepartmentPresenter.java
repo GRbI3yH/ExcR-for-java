@@ -45,6 +45,11 @@ public class TabDepartmentPresenter implements IDataProviderOutput,IDistansPrese
     private Context context;
     private DepartmentAdapter adapter;
     private List<Result> gis2Results = new ArrayList<Result>();
+
+    public void setGis2Results(List<Result> gis2Results) {
+        this.gis2Results = gis2Results;
+    }
+
     private List<Result> gis2ResultsDistanse = new ArrayList<Result>();
     private String what ="отделения_";
     private int page = 1;
@@ -71,14 +76,14 @@ public class TabDepartmentPresenter implements IDataProviderOutput,IDistansPrese
 
     public void ClickItem(List<Result> gis2Results){
         Intent intent = new Intent(context, MapDetailsBankActivity.class);
-        intent.putExtra("gis2Results", (ArrayList<? extends Parcelable>) gis2Results);
+        intent.putParcelableArrayListExtra("gis2Results",(ArrayList<? extends Parcelable>) gis2Results);
         intent.putExtra("bankView",bankView);
         context.startActivity(intent);
     }
 
     public void ClickResultsAll(){
         Intent intent = new Intent(context, MapDetailsBankActivity.class);
-        intent.putExtra("gis2Results", (ArrayList<? extends Parcelable>) gis2Results);
+        intent.putParcelableArrayListExtra("gis2Results", (ArrayList<? extends Parcelable>) adapter.getGis2Results());
         intent.putExtra("bankView",bankView);
         context.startActivity(intent);
     }

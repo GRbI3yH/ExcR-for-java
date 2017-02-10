@@ -45,6 +45,11 @@ public class TabCashMachinesPresenter implements IDataProviderOutput,IDistansPre
     private TabСashMachinesFragment tabСashMachinesFragment;
     private Context context;
     private CashMachinesAdapter adapter;
+
+    public void setGis2Results(List<Result> gis2Results) {
+        this.gis2Results = gis2Results;
+    }
+
     private List<Result> gis2Results = new ArrayList<Result>();
     private List<Result> gis2ResultsDistanse = new ArrayList<Result>();
     private String what ="Банкоматы_";
@@ -79,7 +84,7 @@ public class TabCashMachinesPresenter implements IDataProviderOutput,IDistansPre
 
     public void ClickResultsAll(){
         Intent intent = new Intent(context, MapDetailsBankActivity.class);
-        intent.putExtra("gis2Results", (ArrayList<? extends Parcelable>) gis2Results);
+        intent.putParcelableArrayListExtra("gis2Results", (ArrayList<? extends Parcelable>) adapter.getGis2Results());
         intent.putExtra("bankView",bankView);
         context.startActivity(intent);
     }
@@ -94,7 +99,6 @@ public class TabCashMachinesPresenter implements IDataProviderOutput,IDistansPre
                         page++;
                         DataProvider.getInstance().getGis2Data(what+bankView.getName(),city.getName(),page);
                     }
-
                     gis2 = Operations2GISModel.VerificationDoNotMatchTheName(
                             Operations2GISModel.CheckMismatchRubric(gis2,"Банкоматы"),bankView.getName());
                     if (gis2.getresult() != null){
