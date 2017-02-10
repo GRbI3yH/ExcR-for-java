@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
@@ -50,6 +51,14 @@ public class TabСashMachinesFragment extends Fragment {
         tabCashMachinesPresenter = new TabCashMachinesPresenter(getContext(),this,bankView);
         ListView cashMachineslistView = (ListView)view.findViewById(R.id.cashmachines_listview);
         cashMachineslistView.setAdapter(tabCashMachinesPresenter.getAdapter());
+        TextView TextViewShowAll = (TextView) view.findViewById(R.id.cashmachines_ShowAll);
+
+        TextViewShowAll.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                tabCashMachinesPresenter.ClickResultsAll();
+            }
+        });
         return view;
     }
 

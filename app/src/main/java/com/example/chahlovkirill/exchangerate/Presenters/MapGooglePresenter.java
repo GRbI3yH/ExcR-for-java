@@ -16,7 +16,6 @@ import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
 import com.example.chahlovkirill.exchangerate.Services.Operations2GISModel;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
         if (gis2Model.getresult()!=null){
             for (Result gis2Result : gis2Model.getresult() ) {
                 if(gis2Result != null & gis2Result.getLat() !=  null & gis2Result.getLon() != null){
-                    offsetItem.add(new Position(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon())));
+                    offsetItem.add(new Position(Double.valueOf(gis2Result.getLat()), Double.valueOf(gis2Result.getLon()), gis2Result.getName()));
                 }
             }
         }

@@ -51,7 +51,7 @@ public class TabBankDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_bank_details, container, false);
-        tabBankDetailsPresenter = new TabBankDetailsPresenter(getContext(),this);
+        tabBankDetailsPresenter = new TabBankDetailsPresenter(getContext(),this, bankView);
 
         TextView NameText = (TextView) view.findViewById(R.id.details_bank_name);
         TextView URlText = (TextView) view.findViewById(R.id.details_URL);
@@ -59,15 +59,18 @@ public class TabBankDetailsFragment extends Fragment {
         TextView USDSellText = (TextView) view.findViewById(R.id.details_USDSell);
         TextView EURBuyText = (TextView) view.findViewById(R.id.details_EURBuy);
         TextView EURSellText = (TextView) view.findViewById(R.id.details_EURSell);
+        bankView = tabBankDetailsPresenter.getBank();
 
-        NameText.setText(bankView.getName());
-        URlText.setText(bankView.getUrl());
-        Linkify.addLinks(URlText, Linkify.WEB_URLS);
+        if(bankView != null){
+            NameText.setText(bankView.getName());
+            URlText.setText(bankView.getUrl());
+            Linkify.addLinks(URlText, Linkify.WEB_URLS);
 
-        USDBuyText.setText(String.format("%.2f",bankView.getUSDBuy()));
-        USDSellText.setText(String.format("%.2f",bankView.getUSDSell()));
-        EURBuyText.setText(String.format("%.2f",bankView.getEURBuy()));
-        EURSellText.setText(String.format("%.2f",bankView.getEURSell()));
+            USDBuyText.setText(String.format("%.2f",bankView.getUSDBuy()));
+            USDSellText.setText(String.format("%.2f",bankView.getUSDSell()));
+            EURBuyText.setText(String.format("%.2f",bankView.getEURBuy()));
+            EURSellText.setText(String.format("%.2f",bankView.getEURSell()));
+        }
 
         return view;
     }

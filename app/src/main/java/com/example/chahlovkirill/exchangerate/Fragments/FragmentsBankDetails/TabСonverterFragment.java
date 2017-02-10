@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.EExchangeAction;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabConverterPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -58,7 +59,7 @@ public class TabСonverterFragment extends Fragment {
         USDSellText = (TextView) view.findViewById(R.id.btnrurtousd);
         EURBuyText = (TextView) view.findViewById(R.id.btneurtorur);
         EURSellText = (TextView) view.findViewById(R.id.btnrurtoeur);
-        tabConverterPresenter = new TabConverterPresenter(getContext(),this);
+        tabConverterPresenter = new TabConverterPresenter(getContext(),this, bankView);
 
         editTextValue.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,14 +70,13 @@ public class TabСonverterFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 if(!s.toString().equals("")){
-                    USDBuyText.setText(String.format("%.2f",Double.valueOf(s.toString())   *   bankView.getUSDBuy()));
-                    USDSellText.setText(String.format("%.2f",Double.valueOf(s.toString())  /   bankView.getUSDSell()));
-                    EURBuyText.setText(String.format("%.2f",Double.valueOf(s.toString())   *   bankView.getEURBuy()));
-                    EURSellText.setText(String.format("%.2f",Double.valueOf(s.toString())  /   bankView.getEURSell()));
+                    USDBuyText.setText(tabConverterPresenter.Convert(s.toString(), EExchangeAction.USDBuy));
+                    USDSellText.setText(tabConverterPresenter.Convert(s.toString(), EExchangeAction.USDSell));
+                    EURBuyText.setText(tabConverterPresenter.Convert(s.toString(), EExchangeAction.EURBuy));
+                    EURSellText.setText(tabConverterPresenter.Convert(s.toString(), EExchangeAction.EURSell));
                 }
                 else {
                     USDBuyText.setText("0.00");

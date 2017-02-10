@@ -46,7 +46,11 @@
             android:name=".Activity.BankDetailsActivity"
             android:label="BankDetails"
             android:theme="@style/GreenTheme">
-
+        </activity>
+        <activity
+            android:name=".Activity.MapDetailsBankActivity"
+            android:label="GoogleMap"
+            android:theme="@style/GreenTheme">
         </activity>
     </application>
 

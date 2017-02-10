@@ -11,6 +11,7 @@ import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabDepartmentPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +38,19 @@ public class DepartmentAdapter extends ArrayAdapter<Result> {
         addressText.setText(gis2Result.getCity_name()+", "+gis2Result.getAddress());
         TextView distance = (TextView) convertView.findViewById(R.id.department_distance_text);
         distance.setText(String.format("%.2f",gis2Result.getDistances())+" км");
+
+        convertView.setTag(gis2Result);
+
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Result gis2result = (Result)v.getTag();
+                List<Result> gis2results = new ArrayList<Result>();
+                gis2results.add(gis2result);
+                tabDepartmentPresenter.ClickItem(gis2results);
+            }
+        });
+
         return convertView;
     }
 }

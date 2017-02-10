@@ -1,10 +1,13 @@
 package com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Adapter;
 
+import com.example.chahlovkirill.exchangerate.Activity.MapDetailsBankActivity;
 import com.example.chahlovkirill.exchangerate.Adapters.CashMachinesAdapter;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.DataProvider.IDataProviderOutput;
@@ -40,7 +43,7 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
     private TabСashMachinesFragment tabСashMachinesFragment;
     private Context context;
     private CashMachinesAdapter adapter;
-    private List<Result> gis2Result = new ArrayList<Result>();
+    private List<Result> gis2Results = new ArrayList<Result>();
     //private List<Result> result = new ArrayList<Result>();
     private String what ="Банкоматы_";
     private int page = 1;
@@ -50,24 +53,38 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
         return adapter = new CashMachinesAdapter( context, new ArrayList<Result>(), this);
     }
 
-    private List<Result> SortGis2(List<Result> gis2Result){
+    private List<Result> SortGis2(List<Result> gis2Results){
         Location location = ListenerLocation.getImHere();
         location.getLatitude();
         location.getLongitude();
-        return SortByDistance.Sort(location.getLatitude(),location.getLongitude(),gis2Result);
+        return SortByDistance.Sort(location.getLatitude(),location.getLongitude(),gis2Results);
     }
 
-    private void UpdateAdapter(List<Result> gis2Result){
+    private void UpdateAdapter(List<Result> gis2Results){
         if (adapter != null) {
             adapter.clear();
-            adapter.addAll(gis2Result);
+            adapter.addAll(gis2Results);
             adapter.notifyDataSetChanged();
         }
     }
 
+    public void ClickItem(List<Result> gis2Results){
+        Intent intent = new Intent(context, MapDetailsBankActivity.class);
+        intent.putParcelableArrayListExtra("gis2Results",(ArrayList<? extends Parcelable>) gis2Results);
+        intent.putExtra("bankView",bankView);
+        context.startActivity(intent);
+    }
+
+    public void ClickResultsAll(){
+        Intent intent = new Intent(context, MapDetailsBankActivity.class);
+        intent.putExtra("gis2Results", (ArrayList<? extends Parcelable>) gis2Results);
+        intent.putExtra("bankView",bankView);
+        context.startActivity(intent);
+    }
+
     @Override
     public void didReceiveGis2Data(Gis2Model gis2) {
-        if(!gis2.getResponse_code().equals("400")){
+        if(!gis2.getResponse_code().equals("400") & bankView != null){
             if(gis2.getWhat().equals(what+bankView.getName())){
                 if(gis2.getresult()!= null){
                     int sizeResult = gis2.getresult().size();
@@ -80,11 +97,11 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
                             Operations2GISModel.CheckMismatchRubric(gis2,"Банкоматы"),bankView.getName());
                     if (gis2.getresult() != null){
                         for (Result result:gis2.getresult()) {
-                            gis2Result.add(result);
+                            gis2Results.add(result);
                             Log.e("Оставшийся элемент = ",result.getName());
                         }
                     }
-                    UpdateAdapter(SortGis2(gis2Result));
+                    UpdateAdapter(SortGis2(gis2Results));
                 }
             }
         }
@@ -98,7 +115,9 @@ public class TabCashMachinesPresenter implements IDataProviderOutput {
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
         this.city = city;
-        DataProvider.getInstance().getGis2Data(what+bankView.getName(),city.getName(),page);
+        if(city != null & bankView != null){
+            DataProvider.getInstance().getGis2Data(what+bankView.getName(),city.getName(),page);
+        }
     }
 
     @Override

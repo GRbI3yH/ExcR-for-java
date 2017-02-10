@@ -1,5 +1,8 @@
 package com.example.chahlovkirill.exchangerate.Model.Gis2Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,7 +14,7 @@ import java.util.List;
  * Created by chahlov.kirill on 27/01/17.
  */
 
-public class Result implements Comparable<Result>,Serializable {
+public class Result implements Comparable<Result>,Serializable,Parcelable {
 
     private Double distances;
 
@@ -114,6 +117,43 @@ public class Result implements Comparable<Result>,Serializable {
             Double C1 = o1.getDistances();
             Double C2 = o2.getDistances();
             return C1.compareTo(C2);
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(lon);
+        dest.writeString(lat);
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeStringList(rubrics);
+        dest.writeString(city_name);
+    }
+    protected Result(Parcel in) {
+        id = in.readString();
+        lon = in.readString();
+        lat = in.readString();
+        name = in.readString();
+        address = in.readString();
+        rubrics = in.createStringArrayList();
+        city_name = in.readString();
+    }
+
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
+        @Override
+        public Result createFromParcel(Parcel in) {
+            return new Result(in);
+        }
+
+        @Override
+        public Result[] newArray(int size) {
+            return new Result[size];
         }
     };
 }
