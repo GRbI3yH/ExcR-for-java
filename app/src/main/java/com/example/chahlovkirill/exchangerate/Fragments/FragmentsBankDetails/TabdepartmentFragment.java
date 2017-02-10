@@ -103,10 +103,10 @@ public class TabDepartmentFragment extends Fragment {
                                 default:
                                     break;
                             }
-                            DataProvider.getInstance().onSelectDistance(DistansMode);
+                            DataProvider.getInstance().onSelectDistance(DistansMode , 0);
                             onResume();
                         }
-                    }).show();//40.84.152.35
+                    }).show();
         }
     };
 

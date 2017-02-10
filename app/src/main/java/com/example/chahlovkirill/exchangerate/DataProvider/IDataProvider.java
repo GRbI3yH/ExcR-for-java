@@ -26,5 +26,5 @@ public interface IDataProvider {
 
     public void getGis2Data (String whatBank, String where, int page);
 
-    public void onSelectDistance(EDistans mode);
+    public void onSelectDistance(EDistans mode, int whom);
 }

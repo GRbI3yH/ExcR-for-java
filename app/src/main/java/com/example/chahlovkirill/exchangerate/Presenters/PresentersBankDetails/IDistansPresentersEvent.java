@@ -7,5 +7,5 @@ import com.example.chahlovkirill.exchangerate.Model.EDistans;
  */
 
 public interface IDistansPresentersEvent {
-    public void onSelectDistance(EDistans mode);
+    public void onSelectDistance(EDistans mode, int whom);
 }

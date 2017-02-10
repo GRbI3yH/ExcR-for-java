@@ -131,29 +131,32 @@ public class TabDepartmentPresenter implements IDataProviderOutput,IDistansPrese
     }
 
     @Override
-    public void onSelectDistance(EDistans mode) {
-        for (Result result:gis2Results){
-            switch (mode){
-                case all:
-                        gis2ResultsDistanse.add(result);
-                    break;
-                case km1:
-                    if(result.getDistances() < 1.0){
-                        gis2ResultsDistanse.add(result);
-                    }
-                    break;
-                case km3:
-                    if(result.getDistances() < 3.0){
-                        gis2ResultsDistanse.add(result);
-                    }
-                    break;
-                case km5:
-                    if(result.getDistances() < 5.0){
-                        gis2ResultsDistanse.add(result);
-                    }
-                    break;
+    public void onSelectDistance(EDistans mode, int whom) {
+        gis2ResultsDistanse.clear();
+        if (whom == 0){
+            for (Result result:gis2Results){
+                switch (mode){
+                    case all:
+                            gis2ResultsDistanse.add(result);
+                        break;
+                    case km1:
+                        if(result.getDistances() < 1.0){
+                            gis2ResultsDistanse.add(result);
+                        }
+                        break;
+                    case km3:
+                        if(result.getDistances() < 3.0){
+                            gis2ResultsDistanse.add(result);
+                        }
+                        break;
+                    case km5:
+                        if(result.getDistances() < 5.0){
+                            gis2ResultsDistanse.add(result);
+                        }
+                        break;
+                }
             }
+            UpdateAdapter(gis2ResultsDistanse);
         }
-        UpdateAdapter(gis2ResultsDistanse);
     }
 }

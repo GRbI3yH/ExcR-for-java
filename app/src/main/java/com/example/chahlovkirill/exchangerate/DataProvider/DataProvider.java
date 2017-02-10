@@ -170,9 +170,9 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void onSelectDistance(EDistans mode) {
+    public void onSelectDistance(EDistans mode, int whom) {
         for (IDistansPresentersEvent cl:listenersDistans){
-            cl.onSelectDistance(mode);
+            cl.onSelectDistance(mode, whom);
         }
     }
 }

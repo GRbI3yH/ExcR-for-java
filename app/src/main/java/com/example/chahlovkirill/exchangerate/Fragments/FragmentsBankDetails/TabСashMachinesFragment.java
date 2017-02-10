@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.chahlovkirill.exchangerate.Activity.BankDetailsActivity;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabCashMachinesPresenter;
 import com.example.chahlovkirill.exchangerate.R;
 
@@ -48,7 +49,6 @@ public class TabСashMachinesFragment extends Fragment {
     private TabCashMachinesPresenter tabCashMachinesPresenter;
     private BankViewModel bankView;
     private Button buttonSelectDistance;
-    private int dist = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,26 +82,28 @@ public class TabСashMachinesFragment extends Fragment {
                     .setTitle(R.string.dialog_title)
                     .setItems(distarr, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            EDistans DistansMode = EDistans.all;
                             switch (which) {
                                 case 0:
-                                    dist=0;
+                                    DistansMode = EDistans.all;
                                     buttonSelectDistance.setText(R.string.all);
                                     break;
                                 case 1:
-                                    dist=1;
+                                    DistansMode = EDistans.km1;
                                     buttonSelectDistance.setText(R.string.km1);
                                     break;
                                 case 2:
-                                    dist=3;
+                                    DistansMode = EDistans.km3;
                                     buttonSelectDistance.setText(R.string.km3);
                                     break;
                                 case 3:
-                                    dist=5;
+                                    DistansMode = EDistans.km5;
                                     buttonSelectDistance.setText(R.string.km5);
                                     break;
                                 default:
                                     break;
                             }
+                            DataProvider.getInstance().onSelectDistance(DistansMode , 1);
                             onResume();
                         }
                     }).show();
