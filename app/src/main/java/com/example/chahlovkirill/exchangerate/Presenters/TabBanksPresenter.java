@@ -40,6 +40,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
     private List<BankModel> banks;
     private List<BankViewModel> banksView =new ArrayList<BankViewModel>();
     private BanksAdapter adapter;
+    private CityModel city;
 
     public BanksAdapter getAdapter(){
         return adapter = new BanksAdapter( context , banksView, this);
@@ -68,6 +69,7 @@ public class TabBanksPresenter implements IDataProviderOutput {
     public void ClickBank(BankViewModel bankView){
         Intent intent = new Intent(context, BankDetailsActivity.class);
         intent.putExtra("SelectedBank",bankView);
+        intent.putExtra("SelectedCity",city);
         context.startActivity(intent);
     }
 
@@ -100,10 +102,11 @@ public class TabBanksPresenter implements IDataProviderOutput {
 
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
+        this.city = city;
         Log.i("TabBanksPresenter","didReceiveTheSelectedCity");
         DataProvider.getInstance().getBanks(String.valueOf(city.getId()));
     }
 
     @Override
-    public void didReceiveGis2Data(Gis2Model gis2) {}
+    public void didReceiveGis2Data(Gis2Model gis2, String request) {}
 }

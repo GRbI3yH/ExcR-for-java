@@ -24,7 +24,5 @@ public interface IDataProvider {
     public void getTheSelectedCity();
     public void setTheSelectedCity(CityModel city);
 
-    public void getGis2Data (String whatBank, String where, int page);
-
-    public void onSelectDistance(EDistans mode, int whom);
+    public void getGis2Data (String whatBank, String where, int page,String request);
 }

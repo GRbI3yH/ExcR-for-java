@@ -7,8 +7,8 @@ android {
         applicationId "com.example.chahlovkirill.exchangerate"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 4
-        versionName "1.2"
+        versionCode 5
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "4451ae58e42b4737830aeb0a0f76b93c"]

@@ -21,37 +21,51 @@ public class ListenerLocation implements LocationListener {
 
     private static Location imHere;
 
+    private void checkEnabled(LocationManager locationManager) {
+        locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+
     public static void SetUpLocationListener(Context context) // это нужно запустить в самом начале работы программы
     {
         LocationManager locationManager = (LocationManager)
                 context.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new ListenerLocation();
-            //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            //return TODO;
-            locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000,
-                    10,
-                    locationListener);
-            imHere = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            //lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
+        if (       ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
         }
         else {
+            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    1000,
-                    10,
-                    locationListener);
+                LocationManager.GPS_PROVIDER,
+                1000,
+                10,
+                locationListener);
+            imHere = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+            else if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                1000,
+                10,
+                locationListener);
             imHere = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
         }
     }
+
+//    private void showLocation(Location location) {
+//        if (location == null) return;
+//        if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
+//            imHere = location;
+//        }
+//        else if (location.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
+//            imHere = location;
+//        }
+//    }
 
     @Override
     public void onLocationChanged(Location location) {

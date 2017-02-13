@@ -138,14 +138,14 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void getGis2Data(String whatBank, String where, int page) {
+    public void getGis2Data(String whatBank, String where, int page, final String request) {
         ServicesAPI.getCallGis2ModelSearch(whatBank, where , page, new Callback<Gis2Model>(){
             @Override
             public void onResponse(Call<Gis2Model> call, Response<Gis2Model> response) {
                 Log.i("ServicesAPI","didReceiveGis2Data");
                 if (response.isSuccessful() && response.body() != null){
                     for (IDataProviderOutput cl:listeners){
-                        cl.didReceiveGis2Data(response.body());
+                        cl.didReceiveGis2Data(response.body(),request);
                     }
 
                 }
@@ -156,23 +156,5 @@ public class DataProvider implements IDataProvider {
                 Log.i("ServicesAPI","2Gis are not loaded");
             }
         });
-    }
-
-    private static List<IDistansPresentersEvent> listenersDistans = new ArrayList<IDistansPresentersEvent>();
-    public void  addListenerDistans(IDistansPresentersEvent listener){
-        listenersDistans.add(listener);
-    }
-    public void  removeListenerDistans(IDistansPresentersEvent listener){
-        listenersDistans.remove(listener);
-    }
-    public void  clearListenerDistans(IDistansPresentersEvent listener){
-        listenersDistans.clear();
-    }
-
-    @Override
-    public void onSelectDistance(EDistans mode, int whom) {
-        for (IDistansPresentersEvent cl:listenersDistans){
-            cl.onSelectDistance(mode, whom);
-        }
     }
 }

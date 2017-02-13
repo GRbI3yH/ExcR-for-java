@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.chahlovkirill.exchangerate.Adapters.TabBankDetailsAdapter;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.R;
 import com.example.chahlovkirill.exchangerate.Services.ListenerLocation;
 
@@ -30,9 +31,10 @@ public class BankDetailsActivity extends FragmentActivity {
 
         ListenerLocation.SetUpLocationListener(this);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_BankDetails);
-        BankViewModel bankView = (BankViewModel)getIntent().getSerializableExtra("SelectedBank");
+        BankViewModel bank = (BankViewModel)getIntent().getSerializableExtra("SelectedBank");
+        CityModel city = (CityModel)getIntent().getSerializableExtra("SelectedCity");
         final TabBankDetailsAdapter adapter = new TabBankDetailsAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount(), bankView);
+                (getSupportFragmentManager(), tabLayout.getTabCount(), bank , city);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

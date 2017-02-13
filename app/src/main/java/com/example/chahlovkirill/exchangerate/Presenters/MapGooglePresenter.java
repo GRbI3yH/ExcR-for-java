@@ -28,6 +28,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     private Context context;
     private BankViewModel bankView;
     private int page = 1;
+    private String request = "Банки";
 
     public MapGooglePresenter(Context context, BankViewModel bankView){
         this.context = context;
@@ -48,45 +49,8 @@ public class MapGooglePresenter implements IDataProviderOutput {
         return offsetItem;
     }
 
-//    private void CheckMismatchRubric(){
-//        if(gis2Model.getresult()!= null){
-//            Iterator<Result> iterResult = gis2Model.getresult().iterator();
-//            while(iterResult.hasNext()){
-//                Result result = iterResult.next();
-//                boolean rubricsСheck = true;
-//                if (result.getRubrics() != null){
-//                    for (String rubric: result.getRubrics()) {
-//                        if(rubric.equals("Банки")){
-//                            rubricsСheck = false;
-//                        }
-//                    }
-//                }
-//                if (rubricsСheck){
-//                    iterResult.remove();
-//                    Log.e(result.getName()+" = ","элемент удален за несовподением рубрики");
-//                }
-//            }
-//        }
-//    }
-//
-//    private void VerificationDoNotMatchTheName(){
-//        if(gis2Model.getresult()!= null){
-//            String selectedBankUp = bankView.getName().toUpperCase();
-//            Iterator<Result> iterResult = gis2Model.getresult().iterator();
-//            Log.d("нас = ",String.valueOf(gis2Model.getresult().size()));
-//            while(iterResult.hasNext()){
-//                Result result = iterResult.next();
-//                String nameBank = result.getName().toUpperCase();
-//                if (!nameBank.contains(selectedBankUp)){
-//                    iterResult.remove();
-//                    Log.e(result.getName()+" = ","элемент удален за несовпадением имени");
-//                }
-//            }
-//        }
-//    }
-
     @Override
-    public void didReceiveGis2Data(Gis2Model gis2) {
+    public void didReceiveGis2Data(Gis2Model gis2, String request) {
         Log.i("MapGooglePresenter","didReceiveGis2Data");
         //this.gis2Model = gis2;
         MapGoogleActivity mapGoogleActivity = (MapGoogleActivity) context;
@@ -110,11 +74,7 @@ public class MapGooglePresenter implements IDataProviderOutput {
     @Override
     public void didReceiveTheSelectedCity(CityModel city) {
         Log.i("MapGooglePresenter","didReceiveTheSelectedCity");
-        DataProvider.getInstance().getGis2Data(
-                "отделения_"+bankView.getName(),
-                city.getName(),
-                page
-        );
+        DataProvider.getInstance().getGis2Data("отделения_"+bankView.getName(), city.getName(), page, this.request);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.chahlovkirill.exchangerate.Fragments.FragmentsBankDetails.*;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.CityModel;
 
 
 /**
@@ -15,12 +16,14 @@ import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
 public class TabBankDetailsAdapter extends FragmentPagerAdapter {
 
     private int numOfTabs;
-    private BankViewModel bankView;
+    private BankViewModel bank;
+    private CityModel city;
 
-    public TabBankDetailsAdapter(FragmentManager fm, int numOfTabs, BankViewModel bankView) {
+    public TabBankDetailsAdapter(FragmentManager fm, int numOfTabs, BankViewModel bank, CityModel city) {
         super(fm);
         this.numOfTabs = numOfTabs;
-        this.bankView = bankView;
+        this.bank = bank;
+        this.city = city;
     }
 
     @Override
@@ -28,19 +31,19 @@ public class TabBankDetailsAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 TabBankDetailsFragment tabBankDetailsFragment = new TabBankDetailsFragment();
-                tabBankDetailsFragment.setBank(bankView);
+                tabBankDetailsFragment.setBank(bank);
                 return tabBankDetailsFragment;
             case 1:
-                TabСashMachinesFragment tabСashMachinesFragment = new TabСashMachinesFragment();
-                tabСashMachinesFragment.setBank(bankView);
-                return tabСashMachinesFragment;
+                TabBankDetailsSearchFragment BankDetailsAtmFragment = new TabBankDetailsSearchFragment();
+                BankDetailsAtmFragment.setBankDetailsArgument (bank,city,"Банкоматы","Банкоматы");
+                return BankDetailsAtmFragment;
             case 2:
-                TabDepartmentFragment tabDepartmentFragment = new TabDepartmentFragment();
-                tabDepartmentFragment.setBank(bankView);
-                return tabDepartmentFragment;
+                TabBankDetailsSearchFragment BankDetailsDepartmentFragment = new TabBankDetailsSearchFragment();
+                BankDetailsDepartmentFragment.setBankDetailsArgument (bank,city,"Отделения","Банки");
+                return BankDetailsDepartmentFragment;
             case 3:
                 TabСonverterFragment tabСonverterFragment = new TabСonverterFragment();
-                tabСonverterFragment.setBank(bankView);
+                tabСonverterFragment.setBank(bank);
                 return tabСonverterFragment;
             default:
                 return null;

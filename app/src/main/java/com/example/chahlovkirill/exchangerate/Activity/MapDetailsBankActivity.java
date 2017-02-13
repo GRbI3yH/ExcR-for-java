@@ -25,20 +25,26 @@ import java.util.List;
 public class MapDetailsBankActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private List<Result> gis2Results;
-    private BankViewModel bankView;
+    private BankViewModel bank;
     private GoogleMap map;
     private float mapZoom = 7;
     private TextView textAddressView;
-    private TextView textCurrencyView;
+    private TextView USDBuy;
+    private TextView USDSell;
+    private TextView EURBuy;
+    private TextView EURSell;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_details_bank_activity);
-        bankView = (BankViewModel)getIntent().getSerializableExtra("bankView");
+        bank = (BankViewModel)getIntent().getSerializableExtra("bankView");
         gis2Results = getIntent().getParcelableArrayListExtra("gis2Results");
         textAddressView = (TextView)findViewById(R.id.details_address);
-        textCurrencyView = (TextView)findViewById(R.id.details_currency);
+        USDBuy = (TextView)findViewById(R.id.Details_USDBuy);
+        USDSell = (TextView)findViewById(R.id.Details_USDSell);
+        EURBuy = (TextView)findViewById(R.id.Details_EURBuy);
+        EURSell = (TextView)findViewById(R.id.Details_EURSell);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapdetails);
         mapFragment.getMapAsync(this);
@@ -53,16 +59,17 @@ public class MapDetailsBankActivity extends FragmentActivity implements OnMapRea
         this.map.setOnMarkerClickListener(mClusterManager);
 
         textAddressView.setText(gis2Results.get(0).getCity_name()+", "+gis2Results.get(0).getAddress());
-        textCurrencyView.setText("$ "+
-                String.format("%.2f",bankView.getEURBuy())+" "+
-                String.format("%.2f",bankView.getEURSell()) +"     € "+
-                String.format("%.2f",bankView.getUSDBuy())+" " +
-                String.format("%.2f",bankView.getUSDSell()));
+        USDBuy.setText(String.format("%.2f",bank.getUSDBuy()));
+        USDSell.setText(String.format("%.2f",bank.getUSDSell()));
+        EURBuy.setText(String.format("%.2f",bank.getEURBuy()));
+        EURSell.setText(String.format("%.2f",bank.getEURSell()));
 
         if(gis2Results != null & gis2Results.size() != 0){
             List<Position> positions = new ArrayList<Position>();
             for (Result gis2result:gis2Results){
-                positions.add(new Position(Double.valueOf(gis2result.getLat()),Double.valueOf(gis2result.getLon()), gis2result.getName()));
+                if(gis2result.getLon()!=null & gis2result.getLat()!=null){
+                    positions.add(new Position(Double.valueOf(gis2result.getLat()),Double.valueOf(gis2result.getLon()), gis2result.getName()));
+                }
             }
             LatLng latLng = new LatLng(1,1);
             for (Position position: positions) {

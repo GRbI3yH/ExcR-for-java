@@ -80,5 +80,5 @@ public class TabCitiesPresenter implements IDataProviderOutput {
     public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode) {}
 
     @Override
-    public void didReceiveGis2Data(Gis2Model gis2) {}
+    public void didReceiveGis2Data(Gis2Model gis2, String request) {}
 }

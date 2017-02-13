@@ -21,5 +21,5 @@ public interface IDataProviderOutput{
 
     public void didReceiveSelectedCurrencyForSorting(EExchangeAction mode);
 
-    public void didReceiveGis2Data (Gis2Model gis2);
+    public void didReceiveGis2Data (Gis2Model gis2, String request);
 }

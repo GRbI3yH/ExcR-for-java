@@ -116,7 +116,10 @@ public class Result implements Comparable<Result>,Serializable,Parcelable {
         public int compare(Result o1, Result o2) {
             Double C1 = o1.getDistances();
             Double C2 = o2.getDistances();
-            return C1.compareTo(C2);
+            if (C1 != null & C2 != null){
+                return C1.compareTo(C2);
+            }
+            return 1;
         }
     };
 
