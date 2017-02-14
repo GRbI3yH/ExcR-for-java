@@ -12,61 +12,65 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.chahlovkirill.exchangerate.Activity.BankDetailsActivity;
 import com.example.chahlovkirill.exchangerate.DataProvider.DataProvider;
 import com.example.chahlovkirill.exchangerate.Model.BankViewModel;
+import com.example.chahlovkirill.exchangerate.Model.CityModel;
 import com.example.chahlovkirill.exchangerate.Model.EDistans;
 import com.example.chahlovkirill.exchangerate.Model.Gis2Model.Result;
-import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabCashMachinesPresenter;
+import com.example.chahlovkirill.exchangerate.Presenters.PresentersBankDetails.TabBankDetailsSearchPresenters;
 import com.example.chahlovkirill.exchangerate.R;
+
 
 import java.util.ArrayList;
 
 /**
- * Created by chahlov.kirill on 08/02/17.
+ * Created by chahlov.kirill on 13/02/17.
  */
 
-public class TabСashMachinesFragment extends Fragment {
+public class TabBankDetailsSearchFragment extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public TabСashMachinesFragment() {
+    public TabBankDetailsSearchFragment() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static TabСashMachinesFragment newInstance(int sectionNumber) {
-        TabСashMachinesFragment fragment = new TabСashMachinesFragment();
+    public static TabBankDetailsSearchFragment newInstance(int sectionNumber) {
+        TabBankDetailsSearchFragment fragment = new TabBankDetailsSearchFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
+    private String request;
+    private String filter;
     private View view;
-    private TabCashMachinesPresenter tabCashMachinesPresenter;
+    private TabBankDetailsSearchPresenters tabBankDetailsSearchPresenters;
     private BankViewModel bankView;
+    private CityModel city;
     private Button buttonSelectDistance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_cash_machines, container, false);
-        tabCashMachinesPresenter = new TabCashMachinesPresenter(getContext(),this,bankView);
-        ListView cashMachineslistView = (ListView)view.findViewById(R.id.cashmachines_listview);
-        cashMachineslistView.setAdapter(tabCashMachinesPresenter.getAdapter());
-        TextView TextViewShowAll = (TextView) view.findViewById(R.id.cashmachines_ShowAll);
-        buttonSelectDistance =(Button)view.findViewById(R.id.cashmachines_select_distance);
+        view = inflater.inflate(R.layout.tab_bank_details_search, container, false);
+        tabBankDetailsSearchPresenters = new TabBankDetailsSearchPresenters(getContext(),bankView,city,request,filter);
+        ListView cashMachineslistView = (ListView)view.findViewById(R.id.bankdetailssearch_listview);
+        cashMachineslistView.setAdapter(tabBankDetailsSearchPresenters.getAdapter());
+        TextView TextViewShowAll = (TextView) view.findViewById(R.id.bankdetailssearch_ShowAll);
+        buttonSelectDistance =(Button)view.findViewById(R.id.bankdetailssearch_select_distance);
         buttonSelectDistance.setOnClickListener(setDistClickListener);
         TextViewShowAll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                tabCashMachinesPresenter.ClickResultsAll();
+                tabBankDetailsSearchPresenters.ClickResultsAll();
             }
         });
         return view;
@@ -106,7 +110,7 @@ public class TabСashMachinesFragment extends Fragment {
                                 default:
                                     break;
                             }
-                            DataProvider.getInstance().onSelectDistance(DistansMode , 1);
+                            tabBankDetailsSearchPresenters.onSelectDistance(DistansMode , 1);
                             onResume();
                         }
                     }).show();
@@ -115,24 +119,26 @@ public class TabСashMachinesFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        DataProvider.getInstance().removeListener(tabCashMachinesPresenter);
-        Log.e("onDestroy","TabСashMachinesFragment");
+        DataProvider.getInstance().removeListener(tabBankDetailsSearchPresenters);
+        Log.e("TabBankDetailsSearch","onDestroy");
         super.onDestroy();
     }
     @Override
     public void onResume() {
 
         super.onResume();
-        Log.d("TabСashMachinesFragment", "onResume");
+        Log.d("TabBankDetailsSearch", "onResume");
     }
     @Override
     public void onDestroyView() {
-        DataProvider.getInstance().removeListenerDistans(tabCashMachinesPresenter);
-        tabCashMachinesPresenter.setGis2Results(new ArrayList<Result>());
+        tabBankDetailsSearchPresenters.setGis2Results(new ArrayList<Result>());
         super.onDestroyView();
-        Log.d("TabСashMachinesFragment", "onDestroyView");
+        Log.d("TabBankDetailsSearch", "onDestroyView");
     }
-    public void setBank(BankViewModel bankView){
+    public void setBankDetailsArgument(BankViewModel bankView, CityModel city, String request, String filter){
+        this.filter = filter;
+        this.request = request;
         this.bankView = bankView;
+        this.city = city;
     }
 }

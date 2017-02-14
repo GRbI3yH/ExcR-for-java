@@ -12,7 +12,7 @@
             android:text="Показать на карте"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/cashmachines_ShowAll"
+            android:id="@+id/bankdetailssearch_ShowAll"
             android:layout_weight="1"
             android:gravity="center" />
 
@@ -20,7 +20,7 @@
             android:text="Все"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cashmachines_select_distance"
+            android:id="@+id/bankdetailssearch_select_distance"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -35,6 +35,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/cashmachines_listview"/>
+        android:id="@+id/bankdetailssearch_listview"/>
 
 </LinearLayout>
